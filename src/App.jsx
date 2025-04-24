@@ -53,7 +53,7 @@ const doctors = [
       "Sleep Apnea",
       "Head & Neck Cancers",
     ],
-    image: "https://source.unsplash.com/160x160?ent-doctor",
+    image: "/images/ehsan.jpg",
   },
   {
     key: "sarfaraz",
@@ -66,7 +66,7 @@ const doctors = [
       "Prostate Enlargement",
       "UTIs & STDs",
     ],
-    image: "https://source.unsplash.com/160x160?urology-doctor",
+    image: "/images/sarfaraz.jpg",
   },
   {
     key: "saeeda",
@@ -74,7 +74,7 @@ const doctors = [
     department: "Dermatology",
     qualification: "MBBS, MCPS – Aesthetic Physician (ABAMS)",
     expertise: ["PRP / PRGF", "HydraFacial", "Laser Hair Removal"],
-    image: "https://source.unsplash.com/160x160?dermatologist",
+    image: "/images/saeeda.jpg",
   },
   {
     key: "farah",
@@ -82,7 +82,7 @@ const doctors = [
     department: "Gynecology",
     qualification: "MBBS, FCPS – Consultant Obstetrician",
     expertise: ["High-Risk Pregnancy", "Fibroids", "Laparoscopic Surgery"],
-    image: "https://source.unsplash.com/160x160?gynecologist",
+    image: "/images/farah.jpg",
   },
   {
     key: "shan",
@@ -90,7 +90,7 @@ const doctors = [
     department: "Physiotherapy",
     qualification: "DPT, MS-OMPT – HOD Physiotherapy",
     expertise: ["Sports Injury", "Back Pain", "Stroke Rehab"],
-    image: "https://source.unsplash.com/160x160?physiotherapist",
+    image: "/images/shan.jpg",
   },
   {
     key: "umair",
@@ -98,7 +98,7 @@ const doctors = [
     department: "General Surgery",
     qualification: "MBBS, FCPS – Laparoscopic Surgeon",
     expertise: ["Thyroid", "Hernia", "Gallstones"],
-    image: "https://source.unsplash.com/160x160?surgeon",
+    image: "/images/umair.jpg",
   },
   {
     key: "kainat",
@@ -106,7 +106,7 @@ const doctors = [
     department: "General Medicine",
     qualification: "MBBS, RMP – General Physician",
     expertise: ["Asthma", "Diabetes", "Fever & Flu"],
-    image: "https://source.unsplash.com/160x160?female-doctor",
+    image: "/images/kainat.jpg",
   },
   {
     key: "ali",
@@ -114,7 +114,7 @@ const doctors = [
     department: "General Medicine",
     qualification: "MBBS, RMP – General Physician",
     expertise: ["Hypertension", "UTIs", "Migraines"],
-    image: "https://source.unsplash.com/160x160?male-doctor",
+    image: "/images/ali.jpg",
   },
   {
     key: "alizay",
@@ -122,19 +122,19 @@ const doctors = [
     department: "Dental Care",
     qualification: "BDS, RDS – Gold Medalist",
     expertise: ["Scaling", "Root Canal", "Braces"],
-    image: "https://source.unsplash.com/160x160?dentist",
+    image: "/images/alizay.jpg",
   },
 ];
 
 const services = [
-  { name: "X-Ray", image: "https://source.unsplash.com/400x300?xray" },
-  { name: "Surgery", image: "https://source.unsplash.com/400x300?operating-room" },
-  { name: "Ultrasound", image: "https://source.unsplash.com/400x300?ultrasound" },
-  { name: "Lab Test", image: "https://source.unsplash.com/400x300?laboratory" },
-  { name: "Physiotherapy", image: "https://source.unsplash.com/400x300?rehabilitation" },
-  { name: "Dental Care", image: "https://source.unsplash.com/400x300?dental" },
-  { name: "Cardiology", image: "https://source.unsplash.com/400x300?cardiology" },
-  { name: "Pharmacy", image: "https://source.unsplash.com/400x300?pharmacy" },
+  { name: "X-Ray", image: "/images/x-ray.png" },
+  { name: "Surgery", image: "/images/surgery.png" },
+  { name: "Ultrasound", image: "/images/ultrasound.png" },
+  { name: "Lab Test", image: "/images/labtest.png" },
+  { name: "Physiotherapy", image: "/images/physiotherapy.png" },
+  { name: "Dental Care", image: "/images/dental_care.png" },
+  { name: "Cardiology", image: "/images/cardiology.png" },
+  { name: "Pharmacy", image: "/images/pharmacy.png" },
 ];
 
 const reports = [
