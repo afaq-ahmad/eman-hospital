@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";   // tiny helper, see package.json below
 
-export default function Button({
+export function Button({
   variant = "default",
   size = "md",
   asChild = false,
