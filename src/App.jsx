@@ -53,7 +53,7 @@ const doctors = [
       "Sleep Apnea",
       "Head & Neck Cancers",
     ],
-    image: "/eman-hospital/images/ehsan.jpg",
+    image: "eman-hospital/images/ehsan.jpg",
   },
   {
     key: "sarfaraz",
@@ -66,7 +66,7 @@ const doctors = [
       "Prostate Enlargement",
       "UTIs & STDs",
     ],
-    image: "/eman-hospital/images/sarfaraz.jpg",
+    image: "images/sarfaraz.jpg",
   },
   {
     key: "saeeda",
