@@ -1,10 +1,15 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
-// IMPORTANT: replace below with your repo name
-const repo = "eman-hospital";   // 👈
+const repo = "eman-hospital";            // <-- your repo name
 
 export default defineConfig({
   plugins: [react()],
-  base: `/${repo}/`, // ensures correct asset paths on GitHub Pages
+  base: `/${repo}/`,                      // GitHub Pages base
+  resolve: {                              //  <-- add this block
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
+  },
 });
