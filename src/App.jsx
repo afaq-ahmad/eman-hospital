@@ -110,7 +110,7 @@ const doctors = [
                 "Chest Pain And Angina Diagnosis", 
                 "Heart Failure Management",
                 "Preventive Cardiology"],
-    image: "/eman-hospital/images/male_doctor.jpg",
+    image: "/eman-hospital/images/male_doctor.png",
   },
   {
     key: "umair",
