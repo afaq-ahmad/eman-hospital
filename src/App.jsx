@@ -70,7 +70,7 @@ const doctors = [
       "Prostate Enlargement",
       "UTIs & STDs",
       "Prostatic Tumors",
-      "Bladder Dysfunction"
+      "Bladder Dysfunction",
       "Urinary Incontinence in Adults Infants & Newborns",
     ],
     image: "eman-hospital/images/sarfaraz.jpg",
