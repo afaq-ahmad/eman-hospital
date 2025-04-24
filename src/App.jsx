@@ -398,6 +398,22 @@ function Layout() {
   Pages
 --------------------------------------------------------------------*/
 function Home() {
+  // ① list of background images
+  const heroImages = [
+    "/images/hero/1.jpg",
+    "/images/hero/2.jpg",
+    "/images/hero/3.jpg",
+  ];
+
+  // ② rotate every 5 s
+  const [idx, setIdx] = React.useState(0);
+  React.useEffect(() => {
+    const id = setInterval(() => setIdx((i) => (i + 1) % heroImages.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  const bgImage = `url('${heroImages[idx]}')`;
+
   const featured = doctors.filter((d) =>
     ["ehsan", "sarfaraz", "saeeda", "farah"].includes(d.key)
   );
@@ -406,10 +422,12 @@ function Home() {
     <>
       {/* Hero */}
       <section
-        className="relative flex h-[85vh] items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://source.unsplash.com/1600x900?hospital')" }}
+        className="relative flex h-[85vh] items-center justify-center bg-cover bg-center transition-all duration-700"
+        style={{ backgroundImage: bgImage }}
       >
+        {/* dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70" />
+
         <div className="relative z-10 mx-auto max-w-2xl px-4 text-center text-white">
           <h1 className="mb-6 text-4xl font-extrabold md:text-6xl">
             Your Journey to Wellness Starts Here
@@ -417,6 +435,7 @@ function Home() {
           <p className="mb-8 text-lg md:text-xl">
             Comprehensive healthcare services available 24/7 in Multan.
           </p>
+
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button
               size="lg"
