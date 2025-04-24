@@ -445,15 +445,17 @@ function Home() {
               <Link
                 key={s.name}
                 to="/departments"
+                /* ► tile container — identical style to each doctor card ◄ */
                 className="flex flex-col items-center rounded-2xl bg-white p-6 shadow hover:shadow-lg transition"
-                style={{ aspectRatio: "4 / 3" }}
+                /* style={{ aspectRatio: "4 / 3" }} */
               >
+                {/* service icon / picture */}
                 <img
                   src={s.image}
                   alt={s.name}
-                  className="h-24 w-24 object-contain"
+                  className="h-20 w-20 object-contain mb-3"
                 />
-                <span className="mt-4 text-sm font-semibold text-gray-700 text-center">
+                <span className="text-sm font-semibold text-primary text-center">
                   {s.name}
                 </span>
               </Link>
