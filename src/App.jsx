@@ -372,7 +372,13 @@ function Layout() {
             to="/"
             className="flex items-center gap-2 text-2xl font-bold text-primary"
           >
-            <Stethoscope size={28} /> EMAN HOSPITAL
+            /* <Stethoscope size={28} /> EMAN HOSPITAL */
+            <img
+              src="eman-hospital/images/logo.png"        {/* ◀ public/images/logo.png */}
+              alt="Eman Hospital logo"
+              className="h-8 w-8 object-contain"
+            />
+            EMAN HOSPITAL
           </Link>
 
           {/* Desktop nav */}
