@@ -35,7 +35,7 @@ const departments = [
   "Dental Care",
   "Physiotherapy",
   "General Medicine",
-  "Dermatology and Aesthetics"
+  "Dermatology and Aesthetics",
   "Nutrition",
   "X-Ray / Imaging",
   "Ultrasound",
