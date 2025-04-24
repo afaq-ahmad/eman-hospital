@@ -440,22 +440,23 @@ function Home() {
           <h2 className="mb-8 text-center text-3xl font-bold">
             Our Core Services
           </h2>
+      
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {services.map((s) => (
               <Link
                 key={s.name}
                 to="/departments"
-                /* ► tile container — identical style to each doctor card ◄ */
-                className="flex flex-col items-center rounded-2xl bg-white p-6 shadow hover:shadow-lg transition"
-                /* style={{ aspectRatio: "4 / 3" }} */
+                className="flex flex-col items-center rounded-2xl bg-white p-6 shadow transition hover:shadow-lg"
               >
-                {/* service icon / picture */}
+                {/* icon / picture */}
                 <img
                   src={s.image}
                   alt={s.name}
-                  className="h-20 w-20 object-contain mb-3"
+                  className="h-24 w-24 object-contain"
                 />
-                <span className="text-sm font-semibold text-primary text-center">
+      
+                {/* caption UNDER the picture */}
+                <span className="mt-4 text-sm font-semibold text-primary text-center">
                   {s.name}
                 </span>
               </Link>
