@@ -446,11 +446,12 @@ function Home() {
                 key={s.name}
                 to="/departments"
                 className="group relative overflow-hidden rounded-xl shadow hover:shadow-lg"
+                style={{ aspectRatio: "4 / 3" }}
               >
                 <img
                   src={s.image}
                   alt={s.name}
-                  className="h-32 w-full object-cover transition-transform group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform group-hover:scale-105"
                 />
                 <span className="absolute inset-0 flex items-center justify-center bg-black/40 text-sm font-semibold text-white">
                   {s.name}
