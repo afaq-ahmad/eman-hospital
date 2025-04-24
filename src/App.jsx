@@ -401,9 +401,8 @@ function Home() {
   // ① list of background images
   const heroImages = [
     "eman-hospital/images/hero/1.jpg",
-    "/images/hero/2.jpg",
-    "images/hero/3.jpg",
-    "/eman-hospital/images/hero/4.jpg",
+    "eman-hospital/images/hero/2.jpg",
+    "eman-hospital/images/hero/3.jpg",
   ];
 
   // ② rotate every 5 s
