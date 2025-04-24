@@ -445,15 +445,15 @@ function Home() {
               <Link
                 key={s.name}
                 to="/departments"
-                className="group relative overflow-hidden rounded-xl shadow hover:shadow-lg"
+                className="flex flex-col items-center rounded-2xl bg-white p-6 shadow hover:shadow-lg transition"
                 style={{ aspectRatio: "4 / 3" }}
               >
                 <img
                   src={s.image}
                   alt={s.name}
-                  className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                  className="h-24 w-24 object-contain"
                 />
-                <span className="absolute inset-0 flex items-center justify-center bg-black/40 text-sm font-semibold text-white">
+                <span className="mt-4 text-sm font-semibold text-gray-700 text-center">
                   {s.name}
                 </span>
               </Link>
