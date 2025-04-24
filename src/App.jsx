@@ -66,7 +66,7 @@ const doctors = [
       "Prostate Enlargement",
       "UTIs & STDs",
     ],
-    image: "images/sarfaraz.jpg",
+    image: "eman-hospital/images/sarfaraz.jpg",
   },
   {
     key: "saeeda",
