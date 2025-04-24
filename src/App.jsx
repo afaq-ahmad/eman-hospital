@@ -53,7 +53,7 @@ const doctors = [
       "Sleep Apnea",
       "Head & Neck Cancers",
     ],
-    image: "/images/ehsan.jpg",
+    image: "/eman-hospital/images/ehsan.jpg",
   },
   {
     key: "sarfaraz",
@@ -66,7 +66,7 @@ const doctors = [
       "Prostate Enlargement",
       "UTIs & STDs",
     ],
-    image: "/images/sarfaraz.jpg",
+    image: "/eman-hospital/images/sarfaraz.jpg",
   },
   {
     key: "saeeda",
@@ -74,7 +74,7 @@ const doctors = [
     department: "Dermatology",
     qualification: "MBBS, MCPS – Aesthetic Physician (ABAMS)",
     expertise: ["PRP / PRGF", "HydraFacial", "Laser Hair Removal"],
-    image: "/images/saeeda.jpg",
+    image: "/eman-hospital/images/saeeda.jpg",
   },
   {
     key: "farah",
@@ -82,7 +82,7 @@ const doctors = [
     department: "Gynecology",
     qualification: "MBBS, FCPS – Consultant Obstetrician",
     expertise: ["High-Risk Pregnancy", "Fibroids", "Laparoscopic Surgery"],
-    image: "/images/farah.jpg",
+    image: "/eman-hospital/images/farah.jpg",
   },
   {
     key: "shan",
@@ -90,7 +90,7 @@ const doctors = [
     department: "Physiotherapy",
     qualification: "DPT, MS-OMPT – HOD Physiotherapy",
     expertise: ["Sports Injury", "Back Pain", "Stroke Rehab"],
-    image: "/images/shan.jpg",
+    image: "/eman-hospital/images/shan.jpg",
   },
   {
     key: "umair",
@@ -98,7 +98,7 @@ const doctors = [
     department: "General Surgery",
     qualification: "MBBS, FCPS – Laparoscopic Surgeon",
     expertise: ["Thyroid", "Hernia", "Gallstones"],
-    image: "/images/umair.jpg",
+    image: "/eman-hospital/images/umair.jpg",
   },
   {
     key: "kainat",
@@ -106,7 +106,7 @@ const doctors = [
     department: "General Medicine",
     qualification: "MBBS, RMP – General Physician",
     expertise: ["Asthma", "Diabetes", "Fever & Flu"],
-    image: "/images/kainat.jpg",
+    image: "/eman-hospital/images/kainat.jpg",
   },
   {
     key: "ali",
@@ -114,7 +114,7 @@ const doctors = [
     department: "General Medicine",
     qualification: "MBBS, RMP – General Physician",
     expertise: ["Hypertension", "UTIs", "Migraines"],
-    image: "/images/ali.jpg",
+    image: "/eman-hospital/images/ali.jpg",
   },
   {
     key: "alizay",
@@ -122,19 +122,19 @@ const doctors = [
     department: "Dental Care",
     qualification: "BDS, RDS – Gold Medalist",
     expertise: ["Scaling", "Root Canal", "Braces"],
-    image: "/images/alizay.jpg",
+    image: "/eman-hospital/images/alizay.jpg",
   },
 ];
 
 const services = [
-  { name: "X-Ray", image: "/images/x-ray.png" },
-  { name: "Surgery", image: "/images/surgery.png" },
-  { name: "Ultrasound", image: "/images/ultrasound.png" },
-  { name: "Lab Test", image: "/images/labtest.png" },
-  { name: "Physiotherapy", image: "/images/physiotherapy.png" },
-  { name: "Dental Care", image: "/images/dental_care.png" },
-  { name: "Cardiology", image: "/images/cardiology.png" },
-  { name: "Pharmacy", image: "/images/pharmacy.png" },
+  { name: "X-Ray", image: "/eman-hospital/images/x-ray.png" },
+  { name: "Surgery", image: "/eman-hospital/images/surgery.png" },
+  { name: "Ultrasound", image: "/eman-hospital/images/ultrasound.png" },
+  { name: "Lab Test", image: "/eman-hospital/images/labtest.png" },
+  { name: "Physiotherapy", image: "/eman-hospital/images/physiotherapy.png" },
+  { name: "Dental Care", image: "/eman-hospital/images/dental_care.png" },
+  { name: "Cardiology", image: "/eman-hospital/images/cardiology.png" },
+  { name: "Pharmacy", image: "/eman-hospital/images/pharmacy.png" },
 ];
 
 const reports = [
