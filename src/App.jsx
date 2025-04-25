@@ -402,7 +402,8 @@ function Layout() {
               <Link to="/contact#booking">Appointment</Link>
             </Button>
             <Button 
-              size="sm" 
+              size="sm"
+              variant={undefined}
               asChild 
               className="bg-emerald-600 text-white hover:bg-emerald-700">
               <Link to="/reports">Medical Reports</Link>
