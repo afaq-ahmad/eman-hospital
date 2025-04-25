@@ -525,7 +525,7 @@ function Home() {
     <>
       {/* Hero */}
       <section
-        className="relative flex h-[85vh] items-center justify-center bg-cover bg-center transition-all duration-700"
+        className="relative flex h-[85vh] items-end justify-center bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: bgImage }}
       >
         {/* dark overlay */}
