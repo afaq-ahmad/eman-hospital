@@ -22,6 +22,7 @@ export function Button({
   const variants = {
     default: "bg-primary text-white hover:bg-primary/90",
     outline: "border border-primary text-primary hover:bg-primary/5",
+    success : "bg-emerald-600 text-white hover:bg-emerald-700",
   };
 
   return (
