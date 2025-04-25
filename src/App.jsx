@@ -373,7 +373,7 @@ function Layout() {
             className="flex items-center gap-2 text-2xl font-bold text-primary"
           >
             <img
-              src="/images/logo.png"
+              src="eman-hospital/images/logo.png"
               alt="Eman Hospital logo"
               className="h-8 w-8 object-contain"
             />
