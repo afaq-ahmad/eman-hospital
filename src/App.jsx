@@ -439,7 +439,7 @@ function Layout() {
               <Link to="/contact#booking">Appointment</Link>
             </Button>
             <Button size="sm" variant="outline" asChild onClick={() => setOpen(false)}>
-              <Link to="/reports">Reports</Link>
+              <Link to="/reports">Medical Reports</Link>
             </Button>
           </div>
         )}
