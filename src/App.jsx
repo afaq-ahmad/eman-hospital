@@ -247,7 +247,6 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Departments", href: "/departments" },
   { name: "Doctors", href: "/doctors" },
-  { name: "Reports", href: "/reports" },
   { name: "Contact", href: "/contact#booking" }, // link directly to booking
 ];
 
