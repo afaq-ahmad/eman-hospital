@@ -403,9 +403,8 @@ function Layout() {
             </Button>
             <Button 
               size="sm"
-              variant={undefined}
-              asChild 
-              className="bg-emerald-600 text-white hover:bg-emerald-700">
+              variant="success"
+              asChild>
               <Link to="/reports">Medical Reports</Link>
             </Button>
           </div>
