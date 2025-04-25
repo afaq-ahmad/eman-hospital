@@ -531,31 +531,38 @@ function Home() {
         {/* dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70" />
 
-        <div className="relative z-10 mx-auto max-w-2xl px-4 text-center text-white">
-          <h1 className="mb-6 text-4xl font-extrabold md:text-6xl">
+        <div className="relative z-10 mb-20 max-w-2xl px-4 text-center text-white">
+          <h1 className="mb-4 text-4xl font-extrabold md:text-6xl">
             Your Journey to Wellness Starts Here
           </h1>
-          <p className="mb-8 text-lg md:text-xl">
-            Comprehensive healthcare services available 24/7 in Multan.
-          </p>
-
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Button
-              size="lg"
-              asChild
-              className="text-lg bg-primary text-white hover:bg-primary/90"
-            >
-              <Link to="/contact#booking">Appointment</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild className="text-lg">
-              <Link to="/reports">Medical Reports</Link>
-            </Button>
-          </div>
+        <p className="text-lg md:text-xl">
+          Comprehensive healthcare services available&nbsp;24/7 in Multan.
+        </p>
         </div>
       </section>
 
-      {/* --- removed the inline booking section (moved to Contact page) --- */}
-
+      {/* ───────── Call-to-Action (buttons) ───────── */}
+      <section className="bg-white py-14">
+        <div className="mx-auto flex max-w-xl flex-col items-center gap-6 sm:flex-row sm:justify-center">
+          <Button
+            size="lg"
+            asChild
+            className="px-10 py-6 text-xl bg-primary text-white hover:bg-primary/90 shadow-lg"
+            >
+            <Link to="/contact#booking">Book Appointment</Link>
+          </Button>
+          
+          <Button 
+            size="lg"
+            variant="success"
+            asChild
+            className="px-10 py-6 text-xl shadow-lg"
+          >
+            <Link to="/reports">Medical Reports</Link>
+          </Button>
+        </div>
+      </section>
+      
       {/* Services */}
       <section className="bg-gray-50 py-16">
         <div className="mx-auto max-w-6xl px-6">
