@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
 import * as yup from 'yup';
@@ -8,20 +8,20 @@ import useConsultStore from '@/store/consultationStore';
 import PaymentStep from './booking/PaymentStep';
 import DetailsStep from './booking/DetailsStep';
 import ReviewStep from './booking/ReviewStep';
-
-const schema = yup.object({
-  slip: yup.mixed().required(),
-  name: yup.string().required(),
-  phone: yup.string().required(),
-  email: yup.string().email().required(),
-  slot: yup.date().required(),
-});
+import { bookingSchema } from './booking/validationSchema';
 
 export default function BookingDialog({ doctor, open, onClose }) {
   const { step, next, prev, reset } = useConsultStore();
 
-  const { control, handleSubmit, watch, formState:{isValid} } =
-    useForm({ resolver: yupResolver(schema), mode:'onChange' });
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { isValid, errors },          // ⬅️ you may pass `errors` to children if needed
+  } = useForm({
+    resolver: yupResolver(bookingSchema),
+    mode: 'onChange',
+  });
 
   function submit(data) {
     const fd = new FormData();
