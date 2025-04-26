@@ -61,6 +61,7 @@ const doctors = [
       "Tonsil & Adenoid Problems",
     ],
     image: "eman-hospital/images/ehsan.jpg",
+    online: true,
   },
   {
     key: "sarfaraz",
@@ -77,6 +78,7 @@ const doctors = [
       "Urinary Incontinence in Adults Infants & Newborns",
     ],
     image: "eman-hospital/images/sarfaraz.jpg",
+    online: true,
   },
   {
     key: "saeeda",
@@ -89,6 +91,7 @@ const doctors = [
                 "Caesarean Section And Normal Delivery", 
                 "Menstrual and Hormonal Disorders"],
     image: "/eman-hospital/images/saeeda.jpg",
+    online: true,
   },
   {
     key: "farah",
