@@ -1,72 +1,89 @@
 // ────────────────────────────────────────────────────────────────
 //  DetailsStep.jsx   —   2 of 3 in the multi-step BookingDialog
-//  Collects patient information + preferred slot
+//  Collects patient information + preferred slot (with clash-safety)
 // ────────────────────────────────────────────────────────────────
 import { Fragment, useMemo, useState } from 'react';
-import { Controller, useWatch } from 'react-hook-form';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import useConsultStore from '@/store/consultationStore';
 
 /**
- * Build 30-min intervals from 08 :00 → 22 :00.
- * Output strings like "08:00", "08:30", … "21:30".
+ * Build an array of time strings at a given interval between two hours.
+ * Default → 08 :00 to 22 :00 in 30-minute steps → 28 slots total.
  */
-function buildTimes() {
+function buildTimes({ from = 8, to = 22, step = 30 } = {}) {
   const out = [];
-  for (let h = 8; h < 22; h++) {
-    out.push(`${h.toString().padStart(2, '0')}:00`);
-    out.push(`${h.toString().padStart(2, '0')}:30`);
+  for (let m = from * 60; m < to * 60; m += step) {
+    const h = String(Math.floor(m / 60)).padStart(2, '0');
+    const min = String(m % 60).padStart(2, '0');
+    out.push(`${h}:${min}`);
   }
   return out;
 }
-const ALL_TIMES = buildTimes();
+const ALL_TIMES = buildTimes();                  // ["08:00", … "21:30"]
 
-export default function DetailsStep({ control, doctor }) {
+export default function DetailsStep({ control: ctlProp, doctor }) {
+  // Support both “passed-in control” and context-based access
+  const ctx = useFormContext();
+  const control = ctlProp || ctx.control;
+
   const { next, prev } = useConsultStore();
 
-  /* Watch   ———————————————————————————————— */
+  /* ─────── watched form values ─────────────────────────────── */
   const name      = useWatch({ control, name: 'name'  });
   const phone     = useWatch({ control, name: 'phone' });
   const email     = useWatch({ control, name: 'email' });
-  const slotValue = useWatch({ control, name: 'slot'  });
+  const slotValue = useWatch({ control, name: 'slot'  }); // Date - or undefined
 
-  /* Local state   ————————————————————————— */
-  const [dateStr, setDateStr] = useState('');
+  /* ─────── local state ─────────────────────────────────────── */
+  const [dateStr, setDateStr] = useState('');              // YYYY-MM-DD
 
   /**
-   * Available time-buttons for the chosen date.
-   * If the API returns a list of ISO strings under doctor.slots,
-   * keep only those that belong to the current date.
-   * Fallback → show all 30-min slots.
+   * Compute free slots for the selected date.
+   * Back-end supplies doctor.booked = [ISO strings that are ALREADY taken].
    */
-  const timesForDate = useMemo(() => {
+  const freeSlots = useMemo(() => {
     if (!dateStr) return [];
-    if (!doctor?.slots?.length) return ALL_TIMES;
 
-    const avail = doctor.slots       // ["2025-05-02T15:30:00+05:00", …]
-      .filter(s => s.startsWith(dateStr))
-      .map(s => new Date(s).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }));
-    return avail.length ? avail : [];
-  }, [doctor?.slots, dateStr]);
+    // If the API did not yet deliver the array, assume everything is free
+    if (!doctor?.booked?.length) return ALL_TIMES;
 
-  /* Helpers   ———————————————————————————— */
+    // 1️⃣ booked for that particular date → ["15:30", …]
+    const bookedToday = doctor.booked
+      .filter((iso) => iso.startsWith(dateStr))
+      .map((iso) => new Date(iso).toLocaleTimeString('en-GB', {
+        hour:   '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }));
+
+    // 2️⃣ remainder = free
+    return ALL_TIMES.filter((t) => !bookedToday.includes(t));
+  }, [doctor?.booked, dateStr]);
+
+  /* ─────── helpers ─────────────────────────────────────────── */
+  const selectSlot = (t) => {
+    const iso = `${dateStr}T${t}:00+05:00`;     // Asia/Karachi (UTC+5)
+    const when = new Date(iso);
+
+    if (when < new Date()) return;              // guard against past-date pick
+
+    control.setValue('slot', when, { shouldValidate: true });
+  };
+
   const allValid =
     name?.length > 0 &&
     phone?.length > 0 &&
     email?.length > 0 &&
-    slotValue instanceof Date && !isNaN(slotValue);
+    slotValue instanceof Date &&
+    !isNaN(slotValue) &&
+    slotValue > new Date();                     // must be in the future
 
-  const selectSlot = (t) => {
-    const iso = `${dateStr}T${t}:00+05:00`;           // Asia/Karachi (UTC+5)
-    control.setValue('slot', new Date(iso), { shouldValidate: true });
-  };
-
+  /* ─────── render ──────────────────────────────────────────── */
   return (
     <Fragment>
-      {/* ───── Header / progress indicator (optional) ───── */}
-      <h3 className="mb-6 text-lg font-semibold text-primary">
-        2 / 3  Patient Details
-      </h3>
+      {/* Header / progress indicator (optional) */}
+      <h3 className="mb-6 text-lg font-semibold text-primary">2 / 3  Patient Details</h3>
 
       <div className="grid gap-4 md:grid-cols-2">
         {/* Full Name */}
@@ -77,7 +94,7 @@ export default function DetailsStep({ control, doctor }) {
             <input
               {...field}
               placeholder="Full Name"
-              className="rounded border p-3 text-sm w-full"
+              className="w-full rounded border p-3 text-sm"
             />
           )}
         />
@@ -90,7 +107,7 @@ export default function DetailsStep({ control, doctor }) {
             <input
               {...field}
               placeholder="0300-1234567"
-              className="rounded border p-3 text-sm w-full"
+              className="w-full rounded border p-3 text-sm"
             />
           )}
         />
@@ -104,7 +121,7 @@ export default function DetailsStep({ control, doctor }) {
               {...field}
               type="email"
               placeholder="you@email.com"
-              className="rounded border p-3 text-sm w-full md:col-span-2"
+              className="w-full rounded border p-3 text-sm md:col-span-2"
             />
           )}
         />
@@ -116,9 +133,9 @@ export default function DetailsStep({ control, doctor }) {
           onChange={(e) => {
             setDateStr(e.target.value);
             // reset previously chosen slot when date changes
-            control.setValue('slot', undefined);
+            control.setValue('slot', undefined, { shouldValidate: true });
           }}
-          className="rounded border p-3 text-sm w-full"
+          className="w-full rounded border p-3 text-sm"
         />
 
         {/* Time-slot buttons */}
@@ -126,19 +143,25 @@ export default function DetailsStep({ control, doctor }) {
           <div className="md:col-span-2">
             <p className="mb-2 text-sm font-medium">Choose 30-min slot:</p>
             <div className="flex flex-wrap gap-2">
-              {timesForDate.length === 0 && (
-                <span className="text-xs text-gray-500">No slots for this date</span>
-              )}
-              {timesForDate.map((t) => {
+              {ALL_TIMES.map((t) => {
+                const taken  = !freeSlots.includes(t);
                 const active =
                   slotValue instanceof Date &&
-                  slotValue.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) === t;
+                  slotValue.toLocaleTimeString('en-GB', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                  }) === t;
+
                 return (
                   <button
                     key={t}
-                    onClick={() => selectSlot(t)}
-                    className={`rounded-full border px-3 py-1 text-xs
-                      ${active ? 'bg-primary text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}
+                    disabled={taken}
+                    onClick={() => !taken && selectSlot(t)}
+                    className={`rounded-full border px-3 py-1 text-xs transition
+                      ${active ? 'bg-primary text-white'
+                        : taken ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                               : 'bg-white text-gray-700 hover:bg-gray-100'}
                     `}
                   >
                     {t}
@@ -150,7 +173,7 @@ export default function DetailsStep({ control, doctor }) {
         )}
       </div>
 
-      {/* ───── Navigation Buttons ───── */}
+      {/* Navigation Buttons */}
       <div className="mt-8 flex justify-between">
         <Button variant="outline" onClick={prev}>
           Back
