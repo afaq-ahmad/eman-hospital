@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import DoctorCard from '@/components/DoctorCard';
 import BookingDialog from '@/components/BookingDialog';
 
-export default function OnlineConsultation() {
-  const [docs, setDocs]   = useState([]);
+export default function OnlineConsultation({ doctors }) {
+  // take only doctors that offer virtual visits. add `online:true`
+  const docs = useMemo(
+    () => doctors.filter(d => d.online),
+    [doctors]
+  );
   const [sel,  setSel]    = useState(null);
 
   useEffect(() => {
