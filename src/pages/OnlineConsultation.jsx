@@ -10,12 +10,6 @@ export default function OnlineConsultation({ doctors }) {
   );
   const [sel,  setSel]    = useState(null);
 
-  useEffect(() => {
-    fetch('/api/doctors?online=true')
-      .then(r => r.json())
-      .then(setDocs);
-  }, []);
-
   return (
     <section className="mx-auto max-w-6xl px-6 py-20">
       <h2 className="mb-8 text-center text-3xl font-bold">Online Consultation</h2>
