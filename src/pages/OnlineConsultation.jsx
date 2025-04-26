@@ -30,7 +30,6 @@ export default function OnlineConsultation({ doctors = [] }) {
             <DoctorCard
               key={d.key}
               {...d}
-              fee={2000}
               onBook={() => setSel(d)}
             />
           ))}
