@@ -12,6 +12,7 @@ import {
   Navigate,
   useSearchParams,
 } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import {
   Menu,
   X,
@@ -856,11 +857,13 @@ function Contact() {
 export default function App() {
   return (
     <Router>
+      <Toaster position="top-center" />
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="departments" element={<Departments />} />
           <Route path="doctors" element={<DoctorsPage />} />
+          <Route path="online-consultation" element={<OnlineConsultation />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<Navigate to="/" replace />} />
