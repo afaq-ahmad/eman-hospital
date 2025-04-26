@@ -19,7 +19,7 @@ export default function DoctorCard({
     specialty,
     qualification,
     expertise = [],
-    fee = 2000,                         // default if doctor has no fee key
+    fee,                         // default if doctor has no fee key
     image,
     avatar,
   } = doctor;
