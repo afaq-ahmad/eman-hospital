@@ -1,0 +1,37 @@
+import { useEffect, useState } from 'react';
+import DoctorCard from '@/components/DoctorCard';
+import BookingDialog from '@/components/BookingDialog';
+
+export default function OnlineConsultation() {
+  const [docs, setDocs]   = useState([]);
+  const [sel,  setSel]    = useState(null);
+
+  useEffect(() => {
+    fetch('/api/doctors?online=true')
+      .then(r => r.json())
+      .then(setDocs);
+  }, []);
+
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-20">
+      <h2 className="mb-8 text-center text-3xl font-bold">Online Consultation</h2>
+
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+        {docs.map(d => (
+          <DoctorCard
+            key={d.id}
+            {...d}
+            fee={2000}
+            onBook={() => setSel(d)}
+          />
+        ))}
+      </div>
+
+      <BookingDialog
+        doctor={sel}
+        open={!!sel}
+        onClose={() => setSel(null)}
+      />
+    </section>
+  );
+}
