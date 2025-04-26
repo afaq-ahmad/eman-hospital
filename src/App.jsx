@@ -21,6 +21,8 @@ import {
   FileDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import OnlineConsultation from '@/pages/OnlineConsultation';
+import OnlineConsultButton from '@/components/OnlineConsultButton';
 
 /* -------------------------------------------------------------------
   Static Data
@@ -263,7 +265,8 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Departments", href: "/departments" },
   { name: "Doctors", href: "/doctors" },
-  { name: "Contact", href: "/contact#booking" }, // link directly to booking
+  { name: "Contact", href: "/contact#booking" },
+  { name: 'Online Consultation', href: '/online-consultation' },
 ];
 
 /* -------------------------------------------------------------------
@@ -417,6 +420,9 @@ function Layout() {
             >
               <Link to="/contact#booking">Appointment</Link>
             </Button>
+
+            <OnlineConsultButton />
+            
             <Button 
               size="sm"
               variant="success"
@@ -456,6 +462,12 @@ function Layout() {
             >
               <Link to="/contact#booking">Appointment</Link>
             </Button>
+
+            <OnlineConsultButton 
+              size="sm"
+              onClick={() => setOpen(false)}
+            />
+            
             <Button size="sm" variant="outline" asChild onClick={() => setOpen(false)}>
               <Link to="/reports">Medical Reports</Link>
             </Button>
@@ -567,6 +579,8 @@ function Home() {
             >
             <Link to="/contact#booking">Book Appointment</Link>
           </Button>
+
+          <OnlineConsultButton size="lg" />
           
           <Button 
             size="lg"
