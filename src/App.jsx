@@ -863,7 +863,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="departments" element={<Departments />} />
           <Route path="doctors" element={<DoctorsPage />} />
-          <Route path="online-consultation" element={<OnlineConsultation />} />
+          <Route path="online-consultation" element={<OnlineConsultation  doctors={doctors} />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<Navigate to="/" replace />} />
