@@ -62,6 +62,7 @@ const doctors = [
     ],
     image: "eman-hospital/images/ehsan.jpg",
     online: true,
+    fee: 2000,
   },
   {
     key: "sarfaraz",
@@ -79,6 +80,7 @@ const doctors = [
     ],
     image: "eman-hospital/images/sarfaraz.jpg",
     online: true,
+    fee: 2000,
   },
   {
     key: "saeeda",
@@ -92,6 +94,7 @@ const doctors = [
                 "Menstrual and Hormonal Disorders"],
     image: "/eman-hospital/images/saeeda.jpg",
     online: true,
+    fee: 1500,
   },
   {
     key: "farah",
