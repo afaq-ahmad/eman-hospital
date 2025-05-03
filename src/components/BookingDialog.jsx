@@ -6,6 +6,7 @@ import {
 } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
+import { CheckCircle2, X } from 'lucide-react';
 import useConsultStore from '@/store/consultationStore';
 
 import PaymentStep   from './booking/PaymentStep';
@@ -38,11 +39,37 @@ export default function BookingDialog({ doctor, open, onClose }) {
     Object.entries(data).forEach(([k, v]) => fd.append(k, v));
 
     fetch('/api/appointments', { method: 'POST', body: fd })
-      .then((r) =>
-        r.ok
-          ? toast.success('Request submitted')
-          : toast.error('Something went wrong')
-      )
+      .then(r => {
+        if (!r.ok) {
+          toast.error('Something went wrong — please try again');
+          return;
+        }
+        toast.custom(t => (
+          <div
+            className="pointer-events-auto flex w-full max-w-sm items-start gap-3
+                       rounded-lg border border-green-400 bg-green-50 p-4 shadow-lg"
+          >
+            <CheckCircle2 size={20} className="mt-1 shrink-0 text-green-600" />
+      
+            <div className="grow text-sm leading-5 text-green-800">
+              <p className="font-semibold">Request sent!</p>
+              <p className="mt-0.5">
+                We’ll message you on WhatsApp as soon as&nbsp;
+                {doctor.name.split(' ')[0]} confirms the slot.
+              </p>
+            </div>
+      
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="shrink-0 rounded p-1 hover:bg-green-100"
+              aria-label="Dismiss"
+            >
+              <X size={18} className="text-green-700" />
+            </button>
+          </div>
+        ));
+      
+      })
       .finally(() => {
         resetStep();       // reset Zustand step counter
         methods.reset();   // reset form fields 👍
