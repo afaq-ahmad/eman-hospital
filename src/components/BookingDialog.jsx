@@ -87,20 +87,19 @@ export default function BookingDialog({ doctor, open, onClose }) {
             leaveFrom="translate-y-0 opacity-100"
             leaveTo="translate-y-8 opacity-0"
           >
-            {/* 🟢 all children can now call useFormContext() */}
-            <FormProvider {...methods}>
-              <Dialog.Panel className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+            {/* keep Dialog.Panel first (so it receives the ref)! */}
+            <Dialog.Panel className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+              <FormProvider {...methods}>
                 {step === 1 && <PaymentStep />}
                 {step === 2 && <DetailsStep doctor={doctor} />}
                 {step === 3 && (
-                  <ReviewStep
-                    doctor={doctor}
-                    onSubmit={handleSubmit(submit)}
-                  />
-                )}
+            <ReviewStep
+              doctor={doctor}
+              onSubmit={handleSubmit(submit)}
+              />
+          )}
+              </FormProvider>
               </Dialog.Panel>
-            </FormProvider>
-          </Transition.Child>
         </div>
       </Dialog>
     </Transition.Root>
