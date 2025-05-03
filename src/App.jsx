@@ -863,7 +863,13 @@ function Contact() {
 export default function App() {
   return (
     <Router>
-      <Toaster position="top-center" />
+      <Toaster 
+        position="top-center"  
+        toastOptions={{
+          duration: 7000,            // 7 s auto-dismiss
+          style: { fontSize: '0.9rem' }
+        }}
+        />
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
