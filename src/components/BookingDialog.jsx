@@ -100,6 +100,7 @@ export default function BookingDialog({ doctor, open, onClose }) {
           )}
               </FormProvider>
               </Dialog.Panel>
+            </Transition.Child>
         </div>
       </Dialog>
     </Transition.Root>
