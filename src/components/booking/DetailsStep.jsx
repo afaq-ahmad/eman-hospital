@@ -62,8 +62,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
 
   /* ─────── helpers ─────────────────────────────────────────── */
   const selectSlot = (t) => {
-    const iso = `${dateStr}T${t}:00+05:00`;     // Asia/Karachi (UTC+5)
-    const when = new Date(iso);
+    const when = new Date(`${dateStr}T${t}:00`);    // const iso = `${dateStr}T${t}:00+05:00`; const when = new Date(iso); Asia/Karachi (UTC+5)
 
     if (when < new Date()) return;              // guard against past-date pick
 
@@ -146,11 +145,10 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
                 const taken  = !freeSlots.includes(t);
                 const active =
                   slotValue instanceof Date &&
-                  slotValue.toLocaleTimeString('en-GB', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                  }) === t;
+                  new Intl.DateTimeFormat('en-GB',
+                                          {hour:'2-digit',
+                                           minute:'2-digit',
+                                           hour12:false}).format(slotValue) === t;
 
                 return (
                   <button
