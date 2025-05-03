@@ -34,46 +34,43 @@ export default function BookingDialog({ doctor, open, onClose }) {
      ③ submit handler
   ------------------------------------------------------------ */
   function submit(data) {
+    // build multipart body
     const fd = new FormData();
     fd.append('doctorId', doctor.id);
     Object.entries(data).forEach(([k, v]) => fd.append(k, v));
-
+  
+    /* ① show a spinner immediately and keep its id ------------- */
+    const toastId = toast.loading('Submitting…', { duration: 60000 });
+  
     fetch('/api/appointments', { method: 'POST', body: fd })
       .then(r => {
-        if (!r.ok) {
-          toast.error('Something went wrong — please try again');
-          return;
-        }
-        toast.custom(t => (
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();          // whatever your API sends back
+      })
+      .then(() => {
+        /* ② replace the spinner with a green “Booked!” panel ---- */
+        toast.success(t => (
           <div
-            className="pointer-events-auto flex w-full max-w-sm items-start gap-3
-                       rounded-lg border border-green-400 bg-green-50 p-4 shadow-lg"
+            className="flex items-start gap-3 rounded-lg border border-green-400
+                       bg-green-50 p-4 text-green-800 shadow-lg"
           >
-            <CheckCircle2 size={20} className="mt-1 shrink-0 text-green-600" />
-      
-            <div className="grow text-sm leading-5 text-green-800">
-              <p className="font-semibold">Request sent!</p>
-              <p className="mt-0.5">
-                We’ll message you on WhatsApp as soon as&nbsp;
-                {doctor.name.split(' ')[0]} confirms the slot.
-              </p>
-            </div>
-      
-            <button
-              onClick={() => toast.dismiss(t.id)}
-              className="shrink-0 rounded p-1 hover:bg-green-100"
-              aria-label="Dismiss"
-            >
-              <X size={18} className="text-green-700" />
-            </button>
+            <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-green-600" />
+            <p className="text-sm leading-5">
+              Request sent! We’ll WhatsApp you as soon as&nbsp;
+              {doctor.name.split(' ')[0]} confirms the slot.
+            </p>
           </div>
-        ));
-      
+        ), { id: toastId, duration: 7000 });      // ← same id, so it REPLACES
+      })
+      .catch(err => {
+        /* ③ network / server / validation errors ---------------- */
+        console.error(err);
+        toast.error('Could not submit – please try again', { id: toastId });
       })
       .finally(() => {
-        resetStep();       // reset Zustand step counter
-        methods.reset();   // reset form fields 👍
-        onClose();         // close dialog
+        /* ④ close the dialog AFTER toast swap so it’s visible --- */
+        reset();      // zustand → step back to 1
+        onClose();    // close the modal
       });
   }
 
