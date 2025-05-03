@@ -24,8 +24,7 @@ const ALL_TIMES = buildTimes();                  // ["08:00", … "21:30"]
 
 export default function DetailsStep({ control: ctlProp, doctor }) {
   // Support both “passed-in control” and context-based access
-  const ctx = useFormContext();
-  const control = ctlProp || ctx.control;
+  const { control, setValue } = useFormContext(); 
 
   const { next, prev } = useConsultStore();
 
@@ -68,7 +67,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
 
     if (when < new Date()) return;              // guard against past-date pick
 
-    control.setValue('slot', when, { shouldValidate: true });
+    setValue('slot', when, { shouldValidate: true });
   };
 
   const allValid =
@@ -133,7 +132,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
           onChange={(e) => {
             setDateStr(e.target.value);
             // reset previously chosen slot when date changes
-            control.setValue('slot', undefined, { shouldValidate: true });
+            setValue('slot', undefined, { shouldValidate: true });
           }}
           className="w-full rounded border p-3 text-sm"
         />
