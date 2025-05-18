@@ -62,7 +62,7 @@ const doctors = [
       "Head & Neck Cancers", 
       "Tonsil & Adenoid Problems",
     ],
-    image: "eman-hospital/images/ehsan.jpg",
+    image: "/images/ehsan.jpg",
     online: true,
     fee: 2000,
   },
@@ -80,7 +80,7 @@ const doctors = [
       "Bladder Dysfunction",
       "Urinary Incontinence in Adults Infants & Newborns",
     ],
-    image: "eman-hospital/images/sarfaraz.jpg",
+    image: "/images/sarfaraz.jpg",
     online: true,
     fee: 2000,
   },
@@ -94,7 +94,7 @@ const doctors = [
                 "Infertility And Recurrent Miscarriage",
                 "Caesarean Section And Normal Delivery", 
                 "Menstrual and Hormonal Disorders"],
-    image: "/eman-hospital/images/saeeda.jpg",
+    image: "/images/saeeda.jpg",
     online: true,
     fee: 1500,
   },
@@ -107,7 +107,7 @@ const doctors = [
                 "Fibroids",
                 "Laparoscopic Surgery",
                 "Gynecologic Cancers"],
-    image: "/eman-hospital/images/farah.jpg",
+    image: "/images/farah.jpg",
   },
   {
     key: "tariq",
@@ -121,7 +121,7 @@ const doctors = [
                 "Chest Pain And Angina Diagnosis", 
                 "Heart Failure Management",
                 "Preventive Cardiology"],
-    image: "/eman-hospital/images/male_doctor.png",
+    image: "/images/male_doctor.png",
   },
   {
     key: "shoaib",
@@ -135,7 +135,7 @@ const doctors = [
                 "Child nutrition", 
                 "Vaccines & infections",
                 "Developmental checkups"],
-    image: "/eman-hospital/images/shoaib.jpg",
+    image: "/images/shoaib.jpg",
   },
   {
     key: "hira",
@@ -150,7 +150,7 @@ const doctors = [
                 "Heavy menstrual bleeding control", 
                 "Infertility evaluation & treatment",
                 "Caesarean section & safe delivery"],
-    image: "/eman-hospital/images/hira.jpg",
+    image: "/images/hira.jpg",
   },
   {
     key: "umair",
@@ -158,7 +158,7 @@ const doctors = [
     department: "General Surgery",
     qualification: "MBBS, FCPS – Laparoscopic Surgeon",
     expertise: ["Thyroid", "Hernia", "Gallstones"],
-    image: "/eman-hospital/images/umair.jpg",
+    image: "/images/umair.jpg",
   },
   {
     key: "abubakar",
@@ -172,7 +172,7 @@ const doctors = [
                 "Dialysis Catheter Insertion",
                 "Renal Biopsy",
                 "Hypertension Management"],
-    image: "/eman-hospital/images/abubakar.jpg",
+    image: "/images/abubakar.jpg",
   },
   {
     key: "anees",
@@ -186,7 +186,7 @@ const doctors = [
                 "Obesity Management",
                 "Nutritional Advice",
                 "Thyroid Treatment"],
-    image: "/eman-hospital/images/anees.jpg",
+    image: "/images/anees.jpg",
   },
   {
     key: "kainat",
@@ -194,7 +194,7 @@ const doctors = [
     department: "General Medicine",
     qualification: "MBBS, RMP – General Physician",
     expertise: ["Asthma", "Diabetes", "Fever & Flu"],
-    image: "/eman-hospital/images/kainat.jpg",
+    image: "/images/kainat.jpg",
   },
   {
     key: "ali",
@@ -202,7 +202,7 @@ const doctors = [
     department: "General Medicine",
     qualification: "MBBS, RMP – General Physician",
     expertise: ["Hypertension", "UTIs", "Migraines"],
-    image: "/eman-hospital/images/ali.jpg",
+    image: "/images/ali.jpg",
   },
   {
     key: "alizay",
@@ -216,7 +216,7 @@ const doctors = [
                 "Crowns & bridges",
                 "Scaling & polishing",
                 "Fixed & removable dentures"],
-    image: "/eman-hospital/images/alizay.jpg",
+    image: "/images/alizay.jpg",
   },
   {
     key: "taimoor",
@@ -230,7 +230,7 @@ const doctors = [
                 "Impacted Canines",
                 "Periodontal Disease",
                 "Cleft Lips and Cleft Palate"],
-    image: "/eman-hospital/images/taimoor.jpg",
+    image: "/images/taimoor.jpg",
   },
   {
     key: "aroosa",
@@ -243,7 +243,7 @@ const doctors = [
                 "Periodontal Disease",
                 "Temporomandibular Joint Disorder",
                 "Cleft Lips And Cleft Palate"],
-    image: "/eman-hospital/images/aroosa.jpg",
+    image: "/images/aroosa.jpg",
   },
   {
     key: "asma",
@@ -258,7 +258,7 @@ const doctors = [
                 "Ichthyosis",
                 "Pachyonychia Congenita",
                 "Pemphigus"],
-    image: "/eman-hospital/images/asma.jpg",
+    image: "/images/asma.jpg",
   },
   {
     key: "shan",
@@ -268,7 +268,7 @@ const doctors = [
     expertise: ["Sports Injury", "Back Pain", "Stroke Rehab", 
                 "Sports injury rehabilitation",
                 "Arthritis & osteoarthritis care"],
-    image: "/eman-hospital/images/shan.jpg",
+    image: "/images/shan.jpg",
   },
   {
     key: "sabahat",
@@ -281,11 +281,11 @@ const doctors = [
                 "Neurological physiotherapy (Parkinson’s, multiple sclerosis)",
                 "Post-stroke rehabilitation", 
                 "Osteoporosis and obesity management"],
-    image: "/eman-hospital/images/sabahat.jpg",
+    image: "/images/sabahat.jpg",
   },
   {
     key: "areesha",
-    name: "Dn. Areesha Malik",
+    name: "Dr. Areesha Malik",
     department: "Nutrition",
     qualification: "BSc (Hons) Food and Nutrition – MMDC",
     expertise: ["Diabetes Management",
@@ -295,19 +295,19 @@ const doctors = [
                 "Weight Gain / Weight Loss",
                 "Fatty Liver",
                 "GERD / IBS / Hemorrhoids"],
-    image: "/eman-hospital/images/areesha.jpg",
+    image: "/images/areesha.jpg",
   },
 ];
 
 const services = [
-  { name: "X-Ray", image: "/eman-hospital/images/x-ray.png" },
-  { name: "Surgery", image: "/eman-hospital/images/surgery.png" },
-  { name: "Ultrasound", image: "/eman-hospital/images/ultrasound.png" },
-  { name: "Lab Test", image: "/eman-hospital/images/labtest.png" },
-  { name: "Physiotherapy", image: "/eman-hospital/images/physiotherapy.png" },
-  { name: "Dental Care", image: "/eman-hospital/images/dental_care.png" },
-  { name: "Cardiology", image: "/eman-hospital/images/cardiology.png" },
-  { name: "Pharmacy", image: "/eman-hospital/images/pharmacy.png" },
+  { name: "X-Ray", image: "/images/x-ray.png" },
+  { name: "Surgery", image: "/images/surgery.png" },
+  { name: "Ultrasound", image: "/images/ultrasound.png" },
+  { name: "Lab Test", image: "/images/labtest.png" },
+  { name: "Physiotherapy", image: "/images/physiotherapy.png" },
+  { name: "Dental Care", image: "/images/dental_care.png" },
+  { name: "Cardiology", image: "/images/cardiology.png" },
+  { name: "Pharmacy", image: "/images/pharmacy.png" },
 ];
 
 const reports = [
@@ -450,7 +450,7 @@ function Layout() {
             className="flex items-center gap-2 text-2xl font-bold text-primary"
           >
             <img
-              src="/eman-hospital/images/logo.png"
+              src="/images/logo.png"
               alt="Eman Hospital logo"
               className="h-8 w-8 object-contain"
             />
@@ -590,9 +590,9 @@ function Layout() {
 function Home() {
   // ① list of background images
   const heroImages = [
-    "eman-hospital/images/hero/1.jpg",
-    "eman-hospital/images/hero/2.jpg",
-    "eman-hospital/images/hero/3.jpg",
+    "/images/hero/1.jpg",
+    "/images/hero/2.jpg",
+    "/images/hero/3.jpg",
   ];
 
   // ② rotate every 5 s
