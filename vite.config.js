@@ -6,7 +6,7 @@ const repo = "eman-hospital";            // <-- your repo name
 
 export default defineConfig({
   plugins: [react()],
-  base: `/${repo}/`,                      // GitHub Pages base
+  base: `/`,                      // GitHub Pages base
   resolve: {                              //  <-- add this block
     alias: {
       "@": resolve(__dirname, "src"),
