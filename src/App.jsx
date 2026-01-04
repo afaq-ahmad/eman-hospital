@@ -99,6 +99,18 @@ const doctors = [
     fee: 1500,
   },
   {
+    key: "usmanm",
+    name: "Asst. Prof. Dr. Usman Manzoor",
+    department: "Dental Care",
+    qualification: "BDS, MDS –King Edward Medical University, Lahore",
+    expertise: ["Oral & Maxillofacial Surgeon",
+                "Dentoalveolar & Wisdom Tooth Surgery",
+                "Facial Trauma Management",
+                "Dental Implant Surgery",
+                "Oral Pathology & Lesion Management"],
+    image: "/images/Usman_m.jpeg",
+  },
+  {
     key: "farah",
     name: "Dr. Farah Majid Rao",
     department: "Gynecology",
@@ -605,7 +617,7 @@ function Home() {
   const bgImage = `url('${heroImages[idx]}')`;
 
   const featured = doctors.filter((d) =>
-    ["ehsan", "sarfaraz", "saeeda", "farah"].includes(d.key)
+    ["ehsan", "sarfaraz", "saeeda", "usmanm"].includes(d.key)
   );
 
   return (
@@ -936,3 +948,4 @@ export default function App() {
     </Router>
   );
 }
+
