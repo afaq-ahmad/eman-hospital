@@ -11,6 +11,7 @@ import {
   Outlet,
   Navigate,
   useSearchParams,
+  useParams,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import {
@@ -47,6 +48,217 @@ const departments = [
   "Lab Test",
 ];
 
+const departmentDetails = {
+  ENT: {
+    summary:
+      "Our ENT department evaluates and treats problems of the ear, nose, throat, and related head-neck structures. Care includes clinic-based diagnosis, medical treatment, and procedure guidance for both acute and long-standing symptoms.",
+    issues: [
+      "Frequent sore throat, tonsillitis, and adenoid enlargement",
+      "Sinus blockage, facial pain, and allergic rhinitis",
+      "Ear pain, discharge, and recurrent ear infections",
+      "Hearing reduction, tinnitus, and balance-related concerns",
+      "Snoring, sleep-disordered breathing, and sleep apnea screening",
+      "Voice changes, hoarseness, and swallowing difficulty",
+    ],
+    image: "/images/ehsan.jpg",
+  },
+  Urology: {
+    summary:
+      "Our Urology team manages urinary tract and male reproductive health conditions using modern diagnostic and minimally invasive options when appropriate. Patients are supported from first consultation through treatment and follow-up.",
+    issues: [
+      "Kidney, ureter, and bladder stone disease",
+      "Prostate enlargement and urinary flow problems",
+      "Burning urination, recurrent UTIs, and urgency",
+      "Blood in urine and unexplained urinary symptoms",
+      "Urinary incontinence and bladder control problems",
+      "Male urological and reproductive health concerns",
+    ],
+    image: "/images/sarfaraz.jpg",
+  },
+  Gynecology: {
+    summary:
+      "Our Gynecology department provides comprehensive women’s healthcare from adolescence to post-menopausal years. Services cover preventive checkups, pregnancy-related care, and treatment planning for complex gynecologic conditions.",
+    issues: [
+      "Irregular, painful, or heavy menstrual cycles",
+      "PCOS, hormonal imbalance, and related symptoms",
+      "Infertility assessment and preconception planning",
+      "Antenatal, high-risk pregnancy, and postpartum care",
+      "Fibroids, ovarian cysts, and endometriosis management",
+      "Screening and treatment support for gynecologic cancers",
+    ],
+    image: "/images/saeeda.jpg",
+  },
+  "General Surgery": {
+    summary:
+      "Our General Surgery department handles common elective and emergency surgical conditions with a focus on safe outcomes and faster recovery. Patients receive pre-op counseling, operative care, and structured post-op follow-up.",
+    issues: [
+      "Hernia repair and abdominal wall defects",
+      "Gallbladder disease and gallstone surgery",
+      "Appendix and acute abdominal pain emergencies",
+      "Thyroid swelling and neck lump procedures",
+      "Soft tissue masses, cysts, and abscess treatment",
+      "Minor trauma and wound-related surgical care",
+    ],
+    image: "/images/surgery.png",
+  },
+  Cardiology: {
+    summary:
+      "Our Cardiology department focuses on early detection, risk reduction, and long-term management of heart and circulation disorders. Care plans are personalized for acute symptoms as well as preventive heart health.",
+    issues: [
+      "Chest discomfort, angina, and exertional breathlessness",
+      "High blood pressure and cardiovascular risk control",
+      "Irregular heartbeat, palpitations, and rhythm concerns",
+      "Heart failure assessment and follow-up monitoring",
+      "High cholesterol and preventive heart screening",
+      "Post-cardiac event rehabilitation guidance",
+    ],
+    image: "/images/cardiology.png",
+  },
+  "Endocrinology & Diabetology": {
+    summary:
+      "Our Endocrinology & Diabetology department manages hormone-related disorders and metabolic diseases with evidence-based treatment plans. We emphasize long-term control, complication prevention, and lifestyle support.",
+    issues: [
+      "Type 1 and Type 2 diabetes control and monitoring",
+      "Thyroid disorders including hypo/hyperthyroidism",
+      "Insulin resistance, obesity, and metabolic syndrome",
+      "Diabetes-related kidney, nerve, and eye risk reduction",
+      "Hormonal causes of fatigue, weight, and mood changes",
+      "Endocrine guidance for PCOS and reproductive health",
+    ],
+    image: "/images/anees.jpg",
+  },
+  Pediatrics: {
+    summary:
+      "Our Pediatrics department offers compassionate care for infants, children, and adolescents, with attention to growth, nutrition, and developmental milestones. Families are guided on prevention, vaccination, and timely treatment.",
+    issues: [
+      "Fever, cough, flu, and seasonal childhood infections",
+      "Vaccination counseling and routine immunization visits",
+      "Growth, feeding, and nutrition-related concerns",
+      "Asthma, allergy, and recurrent breathing problems",
+      "Neonatal and infant wellness checkups",
+      "Developmental, behavioral, and school-age health concerns",
+    ],
+    image: "/images/shoaib.jpg",
+  },
+  Nephrology: {
+    summary:
+      "Our Nephrology services focus on kidney disease prevention, diagnosis, and long-term treatment. Patients with chronic kidney disease receive ongoing monitoring and renal replacement planning where required.",
+    issues: [
+      "Chronic kidney disease and declining renal function",
+      "Protein leakage, swelling, and abnormal urine findings",
+      "Difficult-to-control blood pressure linked to kidneys",
+      "Kidney stone recurrence and preventive nephrology care",
+      "Dialysis counseling, access planning, and follow-up",
+      "Electrolyte imbalance and fluid management",
+    ],
+    image: "/images/abubakar.jpg",
+  },
+  "Dental Care": {
+    summary:
+      "Our Dental Care department provides preventive, restorative, and cosmetic oral treatments for all age groups. We focus on pain relief, oral hygiene improvement, and functional rehabilitation.",
+    issues: [
+      "Toothache, dental caries, and sensitivity",
+      "Root canal therapy and restorative fillings",
+      "Gum infection, bleeding gums, and periodontal care",
+      "Wisdom tooth and minor oral surgical procedures",
+      "Crowns, bridges, dentures, and missing tooth replacement",
+      "Orthodontic alignment and smile enhancement",
+    ],
+    image: "/images/dental_care.png",
+  },
+  Physiotherapy: {
+    summary:
+      "Our Physiotherapy department supports recovery from injury, surgery, and chronic pain using structured rehabilitation programs. Therapy plans are tailored to improve mobility, strength, and day-to-day function.",
+    issues: [
+      "Back, neck, and posture-related pain syndromes",
+      "Sports injuries and soft tissue strain rehabilitation",
+      "Post-operative strengthening and movement restoration",
+      "Joint stiffness, arthritis, and flexibility training",
+      "Balance training and fall-prevention exercises",
+      "Neuromuscular re-education and gait correction",
+    ],
+    image: "/images/physiotherapy.png",
+  },
+  "General Medicine": {
+    summary:
+      "Our General Medicine department provides first-contact adult medical care and coordinates further specialist referral when needed. Focus areas include early diagnosis, chronic disease control, and preventive health maintenance.",
+    issues: [
+      "Fever, infections, and unexplained weakness",
+      "Diabetes and blood pressure routine management",
+      "Asthma, allergies, and respiratory complaints",
+      "Digestive symptoms such as acidity and abdominal discomfort",
+      "Headache, fatigue, and lifestyle-related health concerns",
+      "Annual checkups and preventive health screening",
+    ],
+    image: "/images/male_doctor.png",
+  },
+  "Dermatology and Aesthetics": {
+    summary:
+      "Our Dermatology and Aesthetics services treat medical skin, hair, and nail disorders while also addressing cosmetic concerns safely. Treatment plans are personalized based on skin type, severity, and long-term goals.",
+    issues: [
+      "Acne, acne scars, and post-inflammatory pigmentation",
+      "Eczema, dermatitis, and chronic skin irritation",
+      "Hair fall, dandruff, and scalp disorders",
+      "Fungal infections and recurrent skin rashes",
+      "Anti-aging skin care and texture improvement",
+      "Mole, wart, and minor lesion evaluation",
+    ],
+    image: "/images/asma.jpg",
+  },
+  Nutrition: {
+    summary:
+      "Our Nutrition department provides individualized diet plans for disease prevention, treatment support, and healthy weight goals. Counseling is aligned with medical conditions, lifestyle, and cultural food preferences.",
+    issues: [
+      "Weight loss and healthy weight gain programs",
+      "Diet planning for diabetes and hypertension",
+      "Pregnancy and lactation nutrition counseling",
+      "Pediatric and adolescent nutrition optimization",
+      "Therapeutic diets for kidney and heart disease",
+      "Deficiency-focused plans for anemia and low vitamins",
+    ],
+    image: "/images/rimsha.jpg",
+  },
+  "X-Ray / Imaging": {
+    summary:
+      "Our X-Ray / Imaging department supports timely diagnosis through quality radiographic services and clinician-coordinated reporting. Imaging is used for emergency, outpatient, and follow-up care pathways.",
+    issues: [
+      "Bone fracture and joint injury assessment",
+      "Chest imaging for infection and respiratory symptoms",
+      "Spine and limb imaging for trauma and pain",
+      "Follow-up imaging to monitor treatment response",
+      "Pre-operative and routine diagnostic radiology support",
+      "Physician-guided imaging for faster clinical decisions",
+    ],
+    image: "/images/x-ray.png",
+  },
+  Ultrasound: {
+    summary:
+      "Our Ultrasound services provide non-invasive real-time imaging for abdominal, obstetric, pelvic, and soft tissue evaluations. The department supports both screening and problem-focused diagnostic pathways.",
+    issues: [
+      "Pregnancy viability, growth, and anomaly scans",
+      "Abdominal pain, liver, and gallbladder assessment",
+      "Kidney, bladder, and urinary tract ultrasound",
+      "Pelvic ultrasound for gynecologic evaluation",
+      "Thyroid, neck, and superficial soft tissue scans",
+      "Doppler-based vascular flow assessment",
+    ],
+    image: "/images/ultrasound.png",
+  },
+  "Lab Test": {
+    summary:
+      "Our Lab Test department delivers essential pathology services for diagnosis, screening, and treatment monitoring. Timely and accurate reporting helps clinicians make faster, evidence-based medical decisions.",
+    issues: [
+      "Complete blood count and infection marker profiles",
+      "Blood sugar, HbA1c, and metabolic monitoring tests",
+      "Liver and kidney function panels",
+      "Lipid profile and cardiovascular risk screening",
+      "Hormonal, thyroid, and vitamin deficiency testing",
+      "Urine analysis and culture-based investigations",
+    ],
+    image: "/images/labtest.png",
+  },
+};
+
 const doctors = [
   {
     key: "ehsan",
@@ -59,7 +271,7 @@ const doctors = [
       "Sinus Infections",
       "Cochlear Implants And Ear Surgeries",
       "Sleep Apnea And Snoring Treatment",
-      "Head & Neck Cancers", 
+      "Head & Neck Cancers",
       "Tonsil & Adenoid Problems",
     ],
     image: "/images/ehsan.jpg",
@@ -89,10 +301,10 @@ const doctors = [
     name: "Dr. Saeeda Ehsan",
     department: "Gynecology",
     qualification: "MBBS, MCPS Gynecologist",
-    expertise: ["Uterine Conditions", 
+    expertise: ["Uterine Conditions",
                 "High-Risk Pregnancy Care",
                 "Infertility And Recurrent Miscarriage",
-                "Caesarean Section And Normal Delivery", 
+                "Caesarean Section And Normal Delivery",
                 "Menstrual and Hormonal Disorders"],
     image: "/images/saeeda.jpg",
     online: true,
@@ -126,11 +338,11 @@ const doctors = [
     name: "Dr. Tariq Anwar",
     department: "Cardiology",
     qualification: "MBBS (PB, DIP, CARD) UHS MRCP, UK | POST GRADUATION IN ENDOCRINOLOGY  (Diabetes), UK",
-    expertise: ["Expert In Heart Diseases", 
+    expertise: ["Expert In Heart Diseases",
                 "High Blood Pressure Management",
                 "Diabetes And Hormonal Disorders",
                 "Cardiovascular Risk Prevention",
-                "Chest Pain And Angina Diagnosis", 
+                "Chest Pain And Angina Diagnosis",
                 "Heart Failure Management",
                 "Preventive Cardiology"],
     image: "/images/male_doctor.png",
@@ -144,7 +356,7 @@ const doctors = [
                 "Pediatric cardiac imaging",
                 "Child heart-failure care",
                 "Neonatal intensive care",
-                "Child nutrition", 
+                "Child nutrition",
                 "Vaccines & infections",
                 "Developmental checkups"],
     image: "/images/shoaib.jpg",
@@ -154,12 +366,12 @@ const doctors = [
     name: "Dr. Hira Aezaz",
     department: "Gynecology",
     qualification: "MBBS, FCPS – Consultant Gynaecologist",
-    expertise: ["Cervical cancer management", 
+    expertise: ["Cervical cancer management",
                 "Ovarian cancer treatment",
                 "Laparoscopic Surgery",
                 "Endometriosis & fibroid surgery",
                 "Polycystic Ovary Syndrome (PCOS) care",
-                "Heavy menstrual bleeding control", 
+                "Heavy menstrual bleeding control",
                 "Infertility evaluation & treatment",
                 "Caesarean section & safe delivery"],
     image: "/images/hira.jpg",
@@ -221,8 +433,8 @@ const doctors = [
     name: "Dr. Alizay Khan",
     department: "Dental Care",
     qualification: "BDS, RDS – Gold Medalist",
-    expertise: ["Root canal treatment", 
-                "Dental implants", 
+    expertise: ["Root canal treatment",
+                "Dental implants",
                 "Orthodontic braces",
                 "Teeth whitening",
                 "Crowns & bridges",
@@ -235,7 +447,7 @@ const doctors = [
     name: "Dr. M. Taimoor",
     department: "Dental Care",
     qualification: "B.D.S  Rashid Latif Dental College, Lahore",
-    expertise: ["Wisdom Teeth", 
+    expertise: ["Wisdom Teeth",
                 "Bone Loss",
                 "Facial Trauma",
                 "TMJ Disorder",
@@ -277,7 +489,7 @@ const doctors = [
     name: "Dr. Shan Ali",
     department: "Physiotherapy",
     qualification: "DPT, MS-OMPT – HOD Physiotherapy",
-    expertise: ["Sports Injury", "Back Pain", "Stroke Rehab", 
+    expertise: ["Sports Injury", "Back Pain", "Stroke Rehab",
                 "Sports injury rehabilitation",
                 "Arthritis & osteoarthritis care"],
     image: "/images/shan.jpg",
@@ -291,7 +503,7 @@ const doctors = [
                 "Sports injury rehabilitation",
                 "Arthritis & osteoarthritis care",
                 "Neurological physiotherapy (Parkinson’s, multiple sclerosis)",
-                "Post-stroke rehabilitation", 
+                "Post-stroke rehabilitation",
                 "Osteoporosis and obesity management"],
     image: "/images/sabahat.jpg",
   },
@@ -496,8 +708,8 @@ function Layout() {
             </Button>
 
             <OnlineConsultButton />
-            
-            <Button 
+
+            <Button
               size="sm"
               variant="success"
               asChild>
@@ -537,11 +749,11 @@ function Layout() {
               <Link to="/contact#booking">Appointment</Link>
             </Button>
 
-            <OnlineConsultButton 
+            <OnlineConsultButton
               size="sm"
               onClick={() => setOpen(false)}
             />
-            
+
             <Button size="sm" variant="outline" asChild onClick={() => setOpen(false)}>
               <Link to="/reports">Medical Reports</Link>
             </Button>
@@ -675,8 +887,8 @@ function Home() {
             size="lg"
             className="h-14 w-full rounded-xl text-base font-semibold md:text-lg"
           />
-          
-          <Button 
+
+          <Button
             size="lg"
             variant="success"
             asChild
@@ -686,14 +898,14 @@ function Home() {
           </Button>
         </div>
       </section>
-      
+
       {/* Services */}
       <section className="bg-gray-50 py-16">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="mb-8 text-center text-3xl font-bold">
             Our Core Services
           </h2>
-      
+
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {services.map((s) => (
               <Link
@@ -707,7 +919,7 @@ function Home() {
                   alt={s.name}
                   className="h-24 w-24 object-contain"
                 />
-      
+
                 {/* caption UNDER the picture */}
                 <span className="mt-4 text-sm font-semibold text-primary text-center">
                   {s.name}
@@ -748,12 +960,67 @@ function Departments() {
           {departments.map((d) => (
             <Link
               key={d}
-              to={`/doctors?dept=${encodeURIComponent(d)}`}
+              to={`/departments/${encodeURIComponent(d)}`}
               className="rounded-xl bg-white p-6 text-sm font-medium shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
             >
               {d}
             </Link>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DepartmentDetailPage() {
+  const { deptName = "" } = useParams();
+  const normalizedDept = (() => {
+    try {
+      return decodeURIComponent(deptName);
+    } catch {
+      return deptName;
+    }
+  })();
+
+  const details = departmentDetails[normalizedDept];
+  const consultantCount = doctors.filter((doctor) => doctor.department === normalizedDept).length;
+
+  if (!details) {
+    return <Navigate to="/departments" replace />;
+  }
+
+  return (
+    <section className="bg-gray-50 py-20">
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-2 md:items-center">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">Department</p>
+          <h1 className="mt-2 text-3xl font-bold md:text-4xl">{normalizedDept}</h1>
+          <p className="mt-5 text-gray-700">{details.summary}</p>
+
+          <h2 className="mt-8 text-lg font-semibold">Commonly managed issues</h2>
+          <ul className="mt-4 space-y-2 text-gray-700">
+            {details.issues.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <span className="mt-2 h-2 w-2 rounded-full bg-primary" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button asChild>
+              <Link to={`/doctors?dept=${encodeURIComponent(normalizedDept)}`}>
+                View {consultantCount > 0 ? `${consultantCount} ` : ""}Doctors in {normalizedDept}
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/departments">Back to all departments</Link>
+            </Button>
+          </div>
+        </div>
+
+        <div className="overflow-hidden rounded-2xl shadow-lg">
+          <img src={details.image} alt={`${normalizedDept} department`} className="h-full min-h-[320px] w-full object-cover" />
         </div>
       </div>
     </section>
@@ -950,8 +1217,8 @@ function Contact() {
 export default function App() {
   return (
     <Router>
-      <Toaster 
-        position="top-center"  
+      <Toaster
+        position="top-center"
         toastOptions={{
           duration: 7000,            // 7 s auto-dismiss
           style: { fontSize: '0.9rem' }
@@ -961,6 +1228,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="departments" element={<Departments />} />
+          <Route path="departments/:deptName" element={<DepartmentDetailPage />} />
           <Route path="doctors" element={<DoctorsPage />} />
           <Route path="online-consultation" element={<OnlineConsultation  doctors={doctors} />} />
           <Route path="reports" element={<ReportsPage />} />
