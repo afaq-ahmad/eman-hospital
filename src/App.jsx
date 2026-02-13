@@ -641,7 +641,7 @@ const seoConfig = {
   "/contact": {
     title: "Contact Eman Hospital Multan | Appointment, Emergency & Location",
     description:
-      "Contact Eman Hospital at Zakriya Town, Bosan Road, Multan. Call for appointments, emergency support and specialist consultations.",
+      "Contact Eman Hospital near Street No. 10, Zakriya Town, Multan 60000, Pakistan. Call for appointments, emergency support and specialist consultations.",
     keywords:
       "Eman Hospital contact, hospital phone number Multan, hospital location Multan, appointment booking hospital Multan",
   },
@@ -864,7 +864,7 @@ function Layout() {
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="text-lg font-semibold text-white">EMAN HOSPITAL</h3>
-            <p className="mt-4 text-sm">Zakriya Town, Bosan Road, Multan</p>
+            <p className="mt-4 text-sm">Near Street No. 10, Zakriya Town, Multan 60000, Pakistan</p>
             <p className="mt-2 text-sm">061-6218623 | 0325-7105960</p>
           </div>
 
@@ -986,7 +986,7 @@ function SeoManager() {
           ],
           address: {
             "@type": "PostalAddress",
-            streetAddress: "Zakriya Town, Bosan Road",
+            streetAddress: "Near Street No. 10, Zakriya Town",
             addressLocality: "Multan",
             addressRegion: "Punjab",
             postalCode: "60000",
@@ -1454,7 +1454,7 @@ function Contact() {
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="font-semibold text-primary">Address</h3>
             <p className="mt-2 text-sm text-gray-700">
-              Zakriya Town, Bosan Road, Multan
+              Near Street No. 10, Zakriya Town, Multan 60000, Pakistan
             </p>
           </div>
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
@@ -1476,7 +1476,7 @@ function Contact() {
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="text-xl font-semibold text-primary">Hospital Hours & Emergency Support</h3>
             <ul className="mt-4 space-y-2 text-sm text-gray-700">
-              <li><strong>Outpatient (OPD):</strong> Monday to Saturday, 9:00 AM – 8:00 PM</li>
+              <li><strong>Outpatient (OPD):</strong> 24 Hours / 7 Days (24/7)</li>
               <li><strong>Online Consultation:</strong> Daily slots as per doctor schedule</li>
               <li><strong>Emergency Assistance:</strong> Call anytime for urgent guidance</li>
               <li><strong>Location Served:</strong> Multan and nearby South Punjab areas</li>
@@ -1490,14 +1490,14 @@ function Contact() {
           <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
             <iframe
               title="Eman Hospital location map"
-              src="https://www.google.com/maps?q=Zakriya+Town+Bosan+Road+Multan&output=embed"
+              src="https://www.google.com/maps?q=Eman+Hospital,+Near+Street+No.+10,+Zakriya+Town,+60000,+Pakistan&output=embed"
               className="h-72 w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
             <div className="p-4">
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Zakriya+Town+Bosan+Road+Multan"
+                href="https://www.google.com/maps/place/Eman+Hospital/@30.2266723,71.4849201,1408m/data=!3m1!1e3!4m6!3m5!1s0x393b359b1a564e21:0xe104250028398951!8m2!3d30.2288246!4d71.4835642!16s%2Fg%2F11v0bc5mlp?entry=ttu&g_ep=EgoyMDI2MDIxMC4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 rel="noreferrer"
                 className="text-sm font-medium text-primary hover:underline"
