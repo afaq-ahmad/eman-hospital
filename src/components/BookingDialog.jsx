@@ -181,8 +181,8 @@ export default function BookingDialog({ doctor, open, onClose }) {
             {/* keep Dialog.Panel first (so it receives the ref)! */}
             <Dialog.Panel className="w-full max-w-lg sm:max-h-[90vh] overflow-hidden rounded-2xl bg-white p-6 shadow-xl">
               <FormProvider {...methods}>
-                {step === 1 && <PaymentStep doctor={doctor} />}
-                {step === 2 && <DetailsStep doctor={doctor} />}
+                {step === 1 && <DetailsStep doctor={doctor} />}
+                {step === 2 && <PaymentStep doctor={doctor} />}
                 {step === 3 && (
             <ReviewStep
               doctor={doctor}
