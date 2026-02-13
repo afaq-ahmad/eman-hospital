@@ -2,29 +2,20 @@
 import { Button } from '@/components/ui/button';
 import useConsultStore from '@/store/consultationStore';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import { formatPakistanDateTime } from '@/utils/pakistanTime';
 
 export default function ReviewStep({ doctor, onSubmit }) {
   const prev = useConsultStore(s => s.prev);
   const { control, formState: { isSubmitting } } = useFormContext();
   const { slip, name, phone, email, slot } = useWatch({ control });
 
-  /* prettify the appointment slot */
-  const [slotStr, setSlotStr] = useState('');
-  useEffect(() => {
-    if (slot instanceof Date && !isNaN(slot)) {
-      setSlotStr(
-        slot.toLocaleString('en-GB', {
-          weekday : 'short',
-          day     : 'numeric',
-          month   : 'short',
-          hour    : '2-digit',
-          minute  : '2-digit',
-          hour12  : false,
-          timeZone: 'Asia/Karachi',
-        })
-      );
-    }
+  /* Always show slot in Pakistan time and keep it consistent with selected value */
+  const slotStr = useMemo(() => {
+    if (!slot) return '';
+    const slotDate = slot instanceof Date ? slot : new Date(slot);
+    if (isNaN(slotDate)) return '';
+    return `${formatPakistanDateTime(slotDate)} PKT`;
   }, [slot]);
 
   return (
