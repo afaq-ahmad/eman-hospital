@@ -41,6 +41,7 @@ const departments = [
   "Dental Care",
   "Physiotherapy",
   "General Medicine",
+  "Pulmonology",
   "Dermatology and Aesthetics",
   "Nutrition",
   "X-Ray / Imaging",
@@ -202,6 +203,20 @@ const departmentDetails = {
     ],
     image: "/images/male_doctor.png",
     departmentImage: "/images/dep_general_medicine_department.jpg",
+  },
+  Pulmonology: {
+    summary:
+      "Our Pulmonology department provides specialized care for breathing and lung-related conditions, from common airway illnesses to chronic respiratory disease. We focus on accurate diagnosis, symptom control, and long-term improvement in respiratory health.",
+    issues: [
+      "Asthma diagnosis, control plans, and inhaler optimization",
+      "COPD evaluation and long-term breathing management",
+      "Chronic cough and persistent chest symptom assessment",
+      "Chest infections including bronchitis and pneumonia care",
+      "Tuberculosis (TB) diagnosis, treatment, and follow-up",
+      "Sleep apnea and snoring-related breathing disorder screening",
+    ],
+    image: "/images/umair_saeed.jpg",
+    departmentImage: "/images/dep_pulmonology_department.jpg",
   },
   "Dermatology and Aesthetics": {
     summary:
@@ -403,7 +418,7 @@ const doctors = [
   {
     key: "umair_saeed",
     name: "Dr. Umair Saeed",
-    department: "General Medicine",
+    department: "Pulmonology",
     qualification: "MBBS, FCPS – Pulmonology (General Physician / Chest Specialist)",
     expertise: ["Asthma Care",
                 "COPD Management",
