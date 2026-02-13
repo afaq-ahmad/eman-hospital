@@ -19,7 +19,6 @@ import {
   Menu,
   X,
   Stethoscope,
-  CalendarCheck2,
   FileText,
   FileDown,
 } from "lucide-react";
@@ -595,8 +594,7 @@ const navLinks = [
   { name: "Departments", href: "/departments" },
   { name: "Doctors", href: "/doctors" },
   { name: "Health Library", href: "/health-library" },
-  { name: "Contact", href: "/contact#booking" },
-  { name: 'Online Consultation', href: '/online-consultation' },
+  { name: "Contact", href: "/contact" },
 ];
 
 const SITE_URL = "https://emanhospital.com";
@@ -922,78 +920,6 @@ function DoctorsGrid({ list }) {
   );
 }
 
-function BookingForm() {
-  const [f, setF] = useState({
-    name: "",
-    phone: "",
-    dept: departments[0],
-    date: "",
-    time: "",
-  });
-  const h = (e) => setF({ ...f, [e.target.name]: e.target.value });
-  const submit = (e) => {
-    e.preventDefault();
-    alert(`Appointment booked for ${f.name}`);
-    setF({ name: "", phone: "", dept: departments[0], date: "", time: "" });
-  };
-  return (
-    <form
-      onSubmit={submit}
-      className="mx-auto grid max-w-3xl gap-4 md:grid-cols-2"
-    >
-      <input
-        name="name"
-        required
-        placeholder="Full Name"
-        value={f.name}
-        onChange={h}
-        className="rounded border p-3 text-sm"
-      />
-      <input
-        name="phone"
-        required
-        placeholder="Phone"
-        value={f.phone}
-        onChange={h}
-        className="rounded border p-3 text-sm"
-      />
-      <select
-        name="dept"
-        value={f.dept}
-        onChange={h}
-        className="col-span-full rounded border p-3 text-sm md:col-span-1"
-      >
-        {departments.map((d) => (
-          <option key={d}>{d}</option>
-        ))}
-      </select>
-      <input
-        type="date"
-        name="date"
-        required
-        value={f.date}
-        onChange={h}
-        className="rounded border p-3 text-sm"
-      />
-      <input
-        type="time"
-        name="time"
-        required
-        value={f.time}
-        onChange={h}
-        className="rounded border p-3 text-sm"
-      />
-      <Button
-        type="submit"
-        size="sm"
-        className="col-span-full flex items-center justify-center gap-2"
-      >
-        <CalendarCheck2 size={18} /> Submit
-      </Button>
-    </form>
-  );
-}
-
 /* -------------------------------------------------------------------
   Layout (Navbar + Footer)
 --------------------------------------------------------------------*/
@@ -1033,14 +959,6 @@ function Layout() {
 
           {/* Desktop actions */}
           <div className="hidden gap-3 md:flex">
-            <Button
-              size="sm"
-              asChild
-              className="bg-primary text-white hover:bg-primary/90"
-            >
-              <Link to="/contact#booking">Appointment</Link>
-            </Button>
-
             <OnlineConsultButton />
 
             <Button
@@ -1074,15 +992,6 @@ function Layout() {
                 {l.name}
               </Link>
             ))}
-            <Button
-              size="sm"
-              asChild
-              onClick={() => setOpen(false)}
-              className="bg-primary text-white hover:bg-primary/90"
-            >
-              <Link to="/contact#booking">Appointment</Link>
-            </Button>
-
             <OnlineConsultButton
               size="sm"
               onClick={() => setOpen(false)}
@@ -1098,6 +1007,15 @@ function Layout() {
       <div className="pt-[72px]">
         <Outlet />
       </div>
+
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center rounded-full bg-green-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-green-600"
+      >
+        WhatsApp Us
+      </a>
 
       <footer className="bg-gray-900 py-12 text-gray-300">
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-4">
@@ -1479,15 +1397,7 @@ function Home() {
 
       {/* ───────── Call-to-Action (buttons) ───────── */}
       <section className="bg-white py-14">
-        <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-4 px-4 sm:grid-cols-3 sm:px-6">
-          <Button
-            size="lg"
-            asChild
-            className="h-14 w-full rounded-xl text-base font-semibold shadow-lg md:text-lg"
-            >
-            <Link to="/contact#booking">Book Appointment</Link>
-          </Button>
-
+        <div className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-6">
           <OnlineConsultButton
             size="lg"
             className="h-14 w-full rounded-xl text-base font-semibold md:text-lg"
@@ -1757,37 +1667,6 @@ function ReportsPage() {
 function Contact() {
   return (
     <>
-      {/* Hero / banner */}
-      <section
-        id="appointment"
-        className="relative flex flex-col items-center justify-center bg-primary py-20 text-white"
-      >
-        <h2 className="text-3xl font-bold md:text-4xl">Book an Appointment</h2>
-        <p className="mt-4 max-w-xl text-center text-white/90">
-          Call or request online 24/7.
-        </p>
-        <Button
-          size="lg"
-          className="mt-8 bg-white text-primary hover:bg-gray-100"
-          asChild
-        >
-          <Link to="#booking">Request Now</Link>
-        </Button>
-      </section>
-
-      {/* --- Booking form moved here --- */}
-      <section
-        id="booking"
-        className="-mt-16 pb-12 px-6"
-      >
-        <div className="mx-auto max-w-5xl rounded-xl bg-white p-8 shadow-lg">
-          <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-primary">
-            <CalendarCheck2 /> Request an Appointment
-          </h2>
-          <BookingForm />
-        </div>
-      </section>
-
       {/* Contact info */}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-3xl font-bold md:text-4xl">Contact Us</h2>
@@ -1879,7 +1758,7 @@ function ServiceLocationPage({
 
       <div className="mt-10 flex flex-wrap gap-3">
         <Button asChild>
-          <Link to={ctaHref}>Book Appointment</Link>
+          <Link to={ctaHref}>Contact Us</Link>
         </Button>
         <Button asChild variant="outline">
           <Link to="/online-consultation">Online Consultation</Link>
@@ -1902,7 +1781,7 @@ function GynecologyMultanPage() {
         "Screening support for cervical and gynecologic health concerns",
         "Patient-centered care for adolescents, reproductive age, and post-menopausal women",
       ]}
-      ctaHref="/contact#booking"
+      ctaHref="/contact"
     />
   );
 }
@@ -1920,7 +1799,7 @@ function CardiologyMultanPage() {
         "Lifestyle counseling for cholesterol, weight, and cardiac wellness",
         "Follow-up care pathways for chronic cardiac conditions",
       ]}
-      ctaHref="/contact#booking"
+      ctaHref="/contact"
     />
   );
 }
@@ -1938,7 +1817,7 @@ function EntEmergencyMultanPage() {
         "Consultant-led referral coordination for imaging, lab work, and procedural intervention",
         "Clear discharge advice with warning signs and follow-up instructions",
       ]}
-      ctaHref="/contact#booking"
+      ctaHref="/contact"
     />
   );
 }
@@ -1956,7 +1835,7 @@ function SameDayUltrasoundMultanPage() {
         "Faster clinical communication to the treating consultant",
         "Action-oriented guidance for next steps after report completion",
       ]}
-      ctaHref="/contact#booking"
+      ctaHref="/contact"
     />
   );
 }
@@ -1974,7 +1853,7 @@ function PediatricCareMultanPage() {
         "Development and school-health concern screening",
         "Parent education for home warning signs and timely follow-up",
       ]}
-      ctaHref="/contact#booking"
+      ctaHref="/contact"
     />
   );
 }
@@ -1992,7 +1871,7 @@ function DiabetesCareMultanPage() {
         "Thyroid and hormone disorder co-management when needed",
         "Education for hypoglycemia safety and self-monitoring practices",
       ]}
-      ctaHref="/contact#booking"
+      ctaHref="/contact"
     />
   );
 }
@@ -2010,7 +1889,7 @@ function PhysiotherapyMultanPage() {
         "Home-exercise prescriptions with progression milestones",
         "Fall prevention and mobility safety guidance for seniors",
       ]}
-      ctaHref="/contact#booking"
+      ctaHref="/contact"
     />
   );
 }
