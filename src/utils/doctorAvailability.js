@@ -1,17 +1,8 @@
 import availabilityConfig from '@/data/doctorAvailability.json';
+import { getPakistanDateString, getPakistanDayName } from '@/utils/pakistanTime';
 
 export const BOOKING_WINDOW_DAYS = availabilityConfig.bookingWindowDays ?? 14;
 const SLOT_MINUTES = availabilityConfig.slotMinutes ?? 30;
-
-const WEEK_DAYS = [
-  'sunday',
-  'monday',
-  'tuesday',
-  'wednesday',
-  'thursday',
-  'friday',
-  'saturday',
-];
 
 function toMinutes(hhmm) {
   const [h, m] = hhmm.split(':').map(Number);
@@ -40,25 +31,17 @@ function buildSlotsFromRanges(ranges) {
 }
 
 export function getTodayDateString() {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, '0');
-  const d = String(now.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
+  return getPakistanDateString();
 }
 
 export function getMaxDateString() {
   const d = new Date();
-  d.setDate(d.getDate() + BOOKING_WINDOW_DAYS - 1);
-
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+  d.setUTCDate(d.getUTCDate() + BOOKING_WINDOW_DAYS - 1);
+  return getPakistanDateString(d);
 }
 
 export function getSlotsForDoctorDate(doctorKey, dateStr) {
-  const dayName = WEEK_DAYS[new Date(`${dateStr}T00:00:00`).getDay()];
+  const dayName = getPakistanDayName(dateStr);
 
   const doctorSchedule = availabilityConfig.doctors?.[doctorKey]?.weeklySchedule;
   const fallbackSchedule = availabilityConfig.defaultWeeklySchedule ?? {};
