@@ -61,6 +61,7 @@ const departmentDetails = {
       "Voice changes, hoarseness, and swallowing difficulty",
     ],
     image: "/images/ehsan.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?ent,doctor",
   },
   Urology: {
     summary:
@@ -74,6 +75,7 @@ const departmentDetails = {
       "Male urological and reproductive health concerns",
     ],
     image: "/images/sarfaraz.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?urology,hospital",
   },
   Gynecology: {
     summary:
@@ -87,6 +89,7 @@ const departmentDetails = {
       "Screening and treatment support for gynecologic cancers",
     ],
     image: "/images/saeeda.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?gynecology,women-health",
   },
   "General Surgery": {
     summary:
@@ -100,6 +103,7 @@ const departmentDetails = {
       "Minor trauma and wound-related surgical care",
     ],
     image: "/images/surgery.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?surgery,operation-room",
   },
   Cardiology: {
     summary:
@@ -113,6 +117,7 @@ const departmentDetails = {
       "Post-cardiac event rehabilitation guidance",
     ],
     image: "/images/cardiology.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?cardiology,heart,doctor",
   },
   "Endocrinology & Diabetology": {
     summary:
@@ -126,6 +131,7 @@ const departmentDetails = {
       "Endocrine guidance for PCOS and reproductive health",
     ],
     image: "/images/anees.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?diabetes,endocrinology",
   },
   Pediatrics: {
     summary:
@@ -139,6 +145,7 @@ const departmentDetails = {
       "Developmental, behavioral, and school-age health concerns",
     ],
     image: "/images/shoaib.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?pediatrics,child-hospital",
   },
   Nephrology: {
     summary:
@@ -152,6 +159,7 @@ const departmentDetails = {
       "Electrolyte imbalance and fluid management",
     ],
     image: "/images/abubakar.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?nephrology,kidney,doctor",
   },
   "Dental Care": {
     summary:
@@ -165,6 +173,7 @@ const departmentDetails = {
       "Orthodontic alignment and smile enhancement",
     ],
     image: "/images/dental_care.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?dentist,dental-clinic",
   },
   Physiotherapy: {
     summary:
@@ -178,6 +187,7 @@ const departmentDetails = {
       "Neuromuscular re-education and gait correction",
     ],
     image: "/images/physiotherapy.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?physiotherapy,rehabilitation",
   },
   "General Medicine": {
     summary:
@@ -191,6 +201,7 @@ const departmentDetails = {
       "Annual checkups and preventive health screening",
     ],
     image: "/images/male_doctor.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?internal-medicine,doctor",
   },
   "Dermatology and Aesthetics": {
     summary:
@@ -204,6 +215,7 @@ const departmentDetails = {
       "Mole, wart, and minor lesion evaluation",
     ],
     image: "/images/asma.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?dermatology,skin-care",
   },
   Nutrition: {
     summary:
@@ -217,6 +229,7 @@ const departmentDetails = {
       "Deficiency-focused plans for anemia and low vitamins",
     ],
     image: "/images/rimsha.jpg",
+    departmentImage: "https://source.unsplash.com/1200x900/?nutrition,dietitian",
   },
   "X-Ray / Imaging": {
     summary:
@@ -230,6 +243,7 @@ const departmentDetails = {
       "Physician-guided imaging for faster clinical decisions",
     ],
     image: "/images/x-ray.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?xray,radiology",
   },
   Ultrasound: {
     summary:
@@ -243,6 +257,7 @@ const departmentDetails = {
       "Doppler-based vascular flow assessment",
     ],
     image: "/images/ultrasound.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?ultrasound,sonography",
   },
   "Lab Test": {
     summary:
@@ -256,6 +271,7 @@ const departmentDetails = {
       "Urine analysis and culture-based investigations",
     ],
     image: "/images/labtest.png",
+    departmentImage: "https://source.unsplash.com/1200x900/?medical-laboratory,blood-test",
   },
 };
 
@@ -1020,7 +1036,7 @@ function DepartmentDetailPage() {
         </div>
 
         <div className="overflow-hidden rounded-2xl shadow-lg">
-          <img src={details.image} alt={`${normalizedDept} department`} className="h-full min-h-[320px] w-full object-cover" />
+          <img src={details.departmentImage || details.image} alt={`${normalizedDept} department`} className="h-full min-h-[320px] w-full object-cover" />
         </div>
       </div>
     </section>
