@@ -662,22 +662,25 @@ function Home() {
 
       {/* ───────── Call-to-Action (buttons) ───────── */}
       <section className="bg-white py-14">
-        <div className="mx-auto flex max-w-xl flex-col items-center gap-6 sm:flex-row sm:justify-center">
+        <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-4 px-4 sm:grid-cols-3 sm:px-6">
           <Button
             size="lg"
             asChild
-            className="px-10 py-6 text-xl bg-primary text-white hover:bg-primary/90 shadow-lg"
+            className="h-14 w-full rounded-xl text-base font-semibold shadow-lg md:text-lg"
             >
             <Link to="/contact#booking">Book Appointment</Link>
           </Button>
 
-          <OnlineConsultButton size="lg" />
+          <OnlineConsultButton
+            size="lg"
+            className="h-14 w-full rounded-xl text-base font-semibold md:text-lg"
+          />
           
           <Button 
             size="lg"
             variant="success"
             asChild
-            className="px-10 py-6 text-xl shadow-lg"
+            className="h-14 w-full rounded-xl text-base font-semibold shadow-lg md:text-lg"
           >
             <Link to="/reports">Medical Reports</Link>
           </Button>
