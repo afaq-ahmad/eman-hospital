@@ -307,7 +307,7 @@ const doctors = [
     ],
     image: "/images/ehsan.jpg",
     online: true,
-    fee: 2000,
+    fee: 2500,
   },
   {
     key: "sarfaraz",
