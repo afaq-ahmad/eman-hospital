@@ -48,7 +48,7 @@ export default function BookingDialog({ doctor, open, onClose }) {
 
       const payload = {
         token: webhookToken,
-        doctorId: doctor.id,
+        doctorId: doctor.id || doctor.key || doctor.name,
         doctorName: doctor.name,
         patientName: data.name,
         phone: data.phone,
@@ -67,13 +67,20 @@ export default function BookingDialog({ doctor, open, onClose }) {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+      const raw = await response.text();
+      let result = null;
+      try {
+        result = raw ? JSON.parse(raw) : null;
+      } catch {
+        result = null;
       }
 
-      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.error || raw || `HTTP ${response.status}`);
+      }
+
       if (!result?.ok) {
-        throw new Error(result?.error || 'Webhook error');
+        throw new Error(result?.error || result?.message || raw || 'Webhook error');
       }
 
       /* ② replace the spinner with a green “Booked!” panel ---- */
@@ -96,8 +103,9 @@ export default function BookingDialog({ doctor, open, onClose }) {
       onClose();
     } catch (err) {
       /* ③ network / server / validation errors ---------------- */
-      console.error(err);
-      toast.error('Could not submit – please try again', { id: toastId });
+      console.error('Booking submission failed', err);
+      const message = err instanceof Error ? err.message : 'Could not submit – please try again';
+      toast.error(`Could not submit: ${message}`, { id: toastId });
     }
   }
 
