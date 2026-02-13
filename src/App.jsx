@@ -600,6 +600,11 @@ const navLinks = [
 
 const SITE_URL = "https://emanhospital.com";
 
+const SOCIAL_PROFILES = [
+  "https://www.facebook.com/EmanHospitalMultan",
+  "https://www.instagram.com/emanhospital/",
+];
+
 const seoConfig = {
   "/": {
     title:
@@ -644,6 +649,54 @@ const seoConfig = {
       "Contact Eman Hospital near Street No. 10, Zakriya Town, Multan 60000, Pakistan. Call for appointments, emergency support and specialist consultations.",
     keywords:
       "Eman Hospital contact, hospital phone number Multan, hospital location Multan, appointment booking hospital Multan",
+  },
+  "/gynecology-multan": {
+    title: "Best Gynecology Hospital in Multan | Eman Hospital Women's Care",
+    description:
+      "Eman Hospital Multan offers gynecology and obstetric care including antenatal checkups, high-risk pregnancy support, infertility counseling, menstrual disorder treatment, and laparoscopic gyne procedures.",
+    keywords:
+      "gynecology hospital Multan, best gynecologist in Multan, pregnancy care Multan, normal delivery hospital Multan, C section Multan, PCOS treatment Multan, infertility specialist Multan",
+    faqs: [
+      {
+        question: "Do you provide high-risk pregnancy and delivery care in Multan?",
+        answer:
+          "Yes. Our gynecology team provides antenatal monitoring, high-risk pregnancy assessment, delivery planning, and postnatal follow-up based on clinical need.",
+      },
+      {
+        question: "Can I book an online consultation for gynecology?",
+        answer:
+          "Yes. You can use our online consultation flow to request a virtual appointment and receive slot confirmation from the hospital team.",
+      },
+      {
+        question: "Do you treat PCOS and irregular periods?",
+        answer:
+          "Yes. We evaluate hormonal and menstrual issues such as PCOS, painful periods, heavy bleeding, and cycle irregularity with individualized treatment plans.",
+      },
+    ],
+  },
+  "/cardiology-multan": {
+    title: "Cardiology Hospital in Multan | Heart Specialist Care at Eman Hospital",
+    description:
+      "Consult experienced cardiology doctors in Multan at Eman Hospital for chest pain assessment, blood pressure control, preventive cardiology, heart risk screening, and long-term follow-up care.",
+    keywords:
+      "cardiologist in Multan, heart specialist Multan, cardiology hospital Multan, chest pain doctor Multan, blood pressure treatment Multan, preventive cardiology Multan, cholesterol management Multan",
+    faqs: [
+      {
+        question: "When should I see a cardiologist?",
+        answer:
+          "You should seek cardiology consultation for chest discomfort, shortness of breath, palpitations, uncontrolled blood pressure, or a strong family history of heart disease.",
+      },
+      {
+        question: "Do you offer preventive heart health checkups?",
+        answer:
+          "Yes. We provide risk assessment for hypertension, cholesterol, diabetes-related cardiac risk, and lifestyle-focused prevention planning.",
+      },
+      {
+        question: "Can I get follow-up consultation online for heart care?",
+        answer:
+          "Yes. Stable follow-up consultations can be requested online, while urgent symptoms should be assessed physically or in emergency care.",
+      },
+    ],
   },
 };
 
@@ -889,17 +942,36 @@ function Layout() {
           <div>
             <h4 className="text-lg font-semibold text-white">Follow Us</h4>
             <div className="mt-4 flex gap-4 text-sm">
-              {["instagram", "facebook", "youtube"].map((s) => (
-                <a key={s} href="#" className="capitalize hover:text-white">
-                  {s}
-                </a>
-              ))}
+              {SOCIAL_PROFILES.map((url) => {
+                const label = url.includes("facebook") ? "facebook" : "instagram";
+                return (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="capitalize hover:text-white"
+                  >
+                    {label}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
 
         <div className="mt-8 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} Eman Hospital. All rights reserved.
+        </div>
+        <div className="mt-4 text-center text-xs text-gray-500">
+          <span className="mr-2">Local Service Pages:</span>
+          <Link to="/gynecology-multan" className="hover:text-white underline-offset-2 hover:underline">
+            Gynecology in Multan
+          </Link>
+          <span className="mx-2">•</span>
+          <Link to="/cardiology-multan" className="hover:text-white underline-offset-2 hover:underline">
+            Cardiology in Multan
+          </Link>
         </div>
       </footer>
 
@@ -959,6 +1031,7 @@ function SeoManager() {
     setMeta("og:description", meta.description, "property");
     setMeta("og:type", meta.type || "website", "property");
     setMeta("og:url", canonicalUrl, "property");
+    setMeta("og:site_name", "Eman Hospital", "property");
     setMeta("twitter:title", meta.title);
     setMeta("twitter:description", meta.description);
     setLink("canonical", canonicalUrl);
@@ -1006,6 +1079,7 @@ function SeoManager() {
             },
           ],
           areaServed: ["Multan", "South Punjab"],
+          sameAs: SOCIAL_PROFILES,
         },
         {
           "@type": "WebPage",
@@ -1021,6 +1095,20 @@ function SeoManager() {
         },
       ],
     };
+
+    if (meta.faqs?.length) {
+      schema["@graph"].push({
+        "@type": "FAQPage",
+        mainEntity: meta.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      });
+    }
 
     let schemaTag = document.getElementById("schema-org-route");
     if (!schemaTag) {
@@ -1512,6 +1600,73 @@ function Contact() {
   );
 }
 
+function ServiceLocationPage({
+  title,
+  subtitle,
+  highlights,
+  ctaHref,
+}) {
+  return (
+    <section className="mx-auto max-w-5xl px-6 py-20">
+      <h1 className="text-3xl font-bold text-primary md:text-4xl">{title}</h1>
+      <p className="mt-4 text-gray-700">{subtitle}</p>
+
+      <div className="mt-8 grid gap-4 md:grid-cols-2">
+        {highlights.map((item) => (
+          <div key={item} className="rounded-xl border bg-white p-5 shadow-sm">
+            <p className="text-sm text-gray-700">{item}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10 flex flex-wrap gap-3">
+        <Button asChild>
+          <Link to={ctaHref}>Book Appointment</Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link to="/online-consultation">Online Consultation</Link>
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+function GynecologyMultanPage() {
+  return (
+    <ServiceLocationPage
+      title="Gynecology Care in Multan"
+      subtitle="Eman Hospital offers comprehensive women’s healthcare in Multan including routine gynecology care, pregnancy support, infertility evaluation, and minimally invasive gynecologic procedures."
+      highlights={[
+        "Antenatal and postnatal care with maternal safety-focused monitoring",
+        "Evaluation and treatment for PCOS, irregular periods, heavy bleeding, and hormonal disorders",
+        "High-risk pregnancy consultation and delivery planning",
+        "Infertility counseling and stepwise reproductive health assessment",
+        "Screening support for cervical and gynecologic health concerns",
+        "Patient-centered care for adolescents, reproductive age, and post-menopausal women",
+      ]}
+      ctaHref="/contact#booking"
+    />
+  );
+}
+
+function CardiologyMultanPage() {
+  return (
+    <ServiceLocationPage
+      title="Cardiology Services in Multan"
+      subtitle="At Eman Hospital Multan, our cardiology services focus on early heart disease detection, blood pressure and cholesterol control, symptom evaluation, and long-term heart health management."
+      highlights={[
+        "Chest pain and breathlessness evaluation with timely clinical triage",
+        "Hypertension and cardiovascular risk factor optimization",
+        "Palpitation and rhythm-related symptom consultation",
+        "Preventive heart health planning for diabetes and family-history risk",
+        "Lifestyle counseling for cholesterol, weight, and cardiac wellness",
+        "Follow-up care pathways for chronic cardiac conditions",
+      ]}
+      ctaHref="/contact#booking"
+    />
+  );
+}
+
 /* -------------------------------------------------------------------
   Root App
 --------------------------------------------------------------------*/
@@ -1534,6 +1689,8 @@ export default function App() {
           <Route path="doctors" element={<DoctorsPage />} />
           <Route path="online-consultation" element={<OnlineConsultation  doctors={doctors} />} />
           <Route path="reports" element={<ReportsPage />} />
+          <Route path="gynecology-multan" element={<GynecologyMultanPage />} />
+          <Route path="cardiology-multan" element={<CardiologyMultanPage />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
