@@ -1,8 +1,14 @@
 // src/components/booking/validationSchema.js
 import * as yup from 'yup';
+import { BOOKING_WINDOW_DAYS } from '@/utils/doctorAvailability';
 
 const MAX_SIZE = 5 * 1024 * 1024;                // 5 MB
 const FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
+
+const minSlotDate = new Date();
+const maxSlotDate = new Date();
+maxSlotDate.setDate(maxSlotDate.getDate() + BOOKING_WINDOW_DAYS - 1);
+maxSlotDate.setHours(23, 59, 59, 999);
 
 export const bookingSchema = yup.object({
   /* step-1  payment-slip ---------------------------------------- */
@@ -24,5 +30,7 @@ export const bookingSchema = yup.object({
   slot: yup
     .date()
     .typeError('Pick a slot')
+    .min(minSlotDate, 'Slot cannot be in the past')
+    .max(maxSlotDate, `Please select a date within the next ${BOOKING_WINDOW_DAYS} days`)
     .required(),
 });
