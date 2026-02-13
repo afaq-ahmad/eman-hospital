@@ -429,12 +429,12 @@ const doctors = [
     image: "/images/anees.jpg",
   },
   {
-    key: "kainat",
-    name: "Dr. Kainat Asad Hiraj",
+    key: "faheem_abbas",
+    name: "Dr. Faheem Abbas",
     department: "General Medicine",
-    qualification: "MBBS, RMP – General Physician",
-    expertise: ["Asthma", "Diabetes", "Fever & Flu"],
-    image: "/images/kainat.jpg",
+    qualification: "MD, South America",
+    expertise: ["Asthma", "Diabetes Management", "Heart & Cholesterol Care", "Family Health & Elderly Care"],
+    image: "/images/faheem_abbas.jpg",
   },
   {
     key: "ali",
