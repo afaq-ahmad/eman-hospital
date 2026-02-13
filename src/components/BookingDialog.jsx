@@ -6,8 +6,9 @@ import {
 } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import toast from 'react-hot-toast';
-import { CheckCircle2, X } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import useConsultStore from '@/store/consultationStore';
+import { fileToBase64 } from '@/utils/fileToBase64';
 
 import PaymentStep   from './booking/PaymentStep';
 import DetailsStep   from './booking/DetailsStep';
@@ -23,7 +24,7 @@ export default function BookingDialog({ doctor, open, onClose }) {
     resolver: yupResolver(bookingSchema),
     mode: 'onChange',
   });
-  const { handleSubmit, watch } = methods;
+  const { handleSubmit } = methods;
 
   /* ------------------------------------------------------------
      ② wizard step handling (unchanged)
@@ -33,45 +34,71 @@ export default function BookingDialog({ doctor, open, onClose }) {
   /* ------------------------------------------------------------
      ③ submit handler
   ------------------------------------------------------------ */
-  function submit(data) {
-    // build multipart body
-    const fd = new FormData();
-    fd.append('doctorId', doctor.id);
-    Object.entries(data).forEach(([k, v]) => fd.append(k, v));
-  
+  async function submit(data) {
     /* ① show a spinner immediately and keep its id ------------- */
     const toastId = toast.loading('Submitting…', { duration: 60000 });
-  
-    fetch('/api/appointments', { method: 'POST', body: fd })
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();          // whatever your API sends back
-      })
-      .then(() => {
-        /* ② replace the spinner with a green “Booked!” panel ---- */
-        toast.success(t => (
-          <div
-            className="flex items-start gap-3 rounded-lg border border-green-400
-                       bg-green-50 p-4 text-green-800 shadow-lg"
-          >
-            <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-green-600" />
-            <p className="text-sm leading-5">
-              Request sent! We’ll WhatsApp you as soon as&nbsp;
-              {doctor.name.split(' ')[0]} confirms the slot.
-            </p>
-          </div>
-        ), { id: toastId, duration: 7000 });      // ← same id, so it REPLACES
-      })
-      .catch(err => {
-        /* ③ network / server / validation errors ---------------- */
-        console.error(err);
-        toast.error('Could not submit – please try again', { id: toastId });
-      })
-      .finally(() => {
-        /* ④ close the dialog AFTER toast swap so it’s visible --- */
-        reset();      // zustand → step back to 1
-        onClose();    // close the modal
+
+    try {
+      const webhookUrl = import.meta.env.VITE_BOOKING_WEBHOOK_URL;
+      const webhookToken = import.meta.env.VITE_BOOKING_WEBHOOK_TOKEN;
+
+      if (!webhookUrl || !webhookToken) {
+        throw new Error('Missing booking webhook configuration');
+      }
+
+      const payload = {
+        token: webhookToken,
+        doctorId: doctor.id,
+        doctorName: doctor.name,
+        patientName: data.name,
+        phone: data.phone,
+        email: data.email,
+        slot: data.slot instanceof Date ? data.slot.toISOString() : String(data.slot),
+        fileName: data.slip?.name,
+        fileType: data.slip?.type,
+        fileBase64: await fileToBase64(data.slip),
+      };
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(payload),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const result = await response.json();
+      if (!result?.ok) {
+        throw new Error(result?.error || 'Webhook error');
+      }
+
+      /* ② replace the spinner with a green “Booked!” panel ---- */
+      toast.success(() => (
+        <div
+          className="flex items-start gap-3 rounded-lg border border-green-400
+                     bg-green-50 p-4 text-green-800 shadow-lg"
+        >
+          <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-green-600" />
+          <p className="text-sm leading-5">
+            Request sent! We’ll WhatsApp you as soon as&nbsp;
+            {doctor.name.split(' ')[0]} confirms the slot.
+          </p>
+        </div>
+      ), { id: toastId, duration: 7000 });
+
+      /* ④ close the dialog AFTER toast swap so it’s visible --- */
+      resetStep();
+      methods.reset();
+      onClose();
+    } catch (err) {
+      /* ③ network / server / validation errors ---------------- */
+      console.error(err);
+      toast.error('Could not submit – please try again', { id: toastId });
+    }
   }
 
   /* ------------------------------------------------------------
