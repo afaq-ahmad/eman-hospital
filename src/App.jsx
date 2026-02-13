@@ -453,6 +453,9 @@ function BookingForm() {
 --------------------------------------------------------------------*/
 function Layout() {
   const [open, setOpen] = useState(false);
+  const whatsappUrl =
+    "https://wa.me/923257105960?text=Assalam-o-Alaikum%20Eman%20Hospital%2C%20I%20need%20assistance.";
+
   return (
     <>
       <header className="fixed top-0 z-30 w-full bg-white/80 backdrop-blur-md shadow-sm">
@@ -592,6 +595,23 @@ function Layout() {
           © {new Date().getFullYear()} Eman Hospital. All rights reserved.
         </div>
       </footer>
+
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Eman Hospital on WhatsApp"
+        className="fixed bottom-4 right-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#1ebe5d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366] sm:bottom-5 sm:right-5 sm:h-14 sm:w-14 md:h-16 md:w-16"
+      >
+        <svg
+          viewBox="0 0 32 32"
+          aria-hidden="true"
+          className="h-6 w-6 fill-current sm:h-7 sm:w-7 md:h-8 md:w-8"
+        >
+          <path d="M19.11 17.22c-.27-.14-1.58-.78-1.83-.87-.24-.09-.41-.14-.58.14s-.67.87-.82 1.05c-.15.18-.3.2-.57.07-.27-.14-1.13-.42-2.15-1.34-.79-.71-1.33-1.59-1.48-1.86-.15-.27-.02-.42.11-.56.12-.12.27-.31.41-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.58-1.4-.8-1.91-.21-.5-.42-.43-.58-.44-.15-.01-.33-.01-.5-.01-.18 0-.47.07-.72.34-.24.27-.93.9-.93 2.2s.95 2.55 1.08 2.73c.14.18 1.87 2.86 4.53 4.01.63.27 1.13.44 1.51.56.64.2 1.22.17 1.68.1.51-.08 1.58-.65 1.8-1.28.22-.63.22-1.17.15-1.28-.06-.11-.24-.17-.5-.3z" />
+          <path d="M16 3C8.82 3 3 8.82 3 16c0 2.53.72 4.98 2.08 7.09L3 29l6.08-2.01A12.9 12.9 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16 3zm0 23.6c-2.14 0-4.23-.58-6.06-1.68l-.43-.26-3.61 1.19 1.2-3.52-.28-.45A10.55 10.55 0 0 1 5.4 16C5.4 10.15 10.15 5.4 16 5.4S26.6 10.15 26.6 16 21.85 26.6 16 26.6z" />
+        </svg>
+      </a>
     </>
   );
 }
