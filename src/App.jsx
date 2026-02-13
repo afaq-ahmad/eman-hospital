@@ -833,12 +833,12 @@ function Layout() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden gap-8 md:flex">
+          <nav className="hidden items-center gap-2 md:flex">
             {navLinks.map((l) => (
               <Link
                 key={l.href}
                 to={l.href}
-                className="text-sm font-medium hover:text-primary"
+                className="inline-flex items-center whitespace-nowrap rounded px-3 py-1 text-sm font-medium hover:text-primary"
               >
                 {l.name}
               </Link>
