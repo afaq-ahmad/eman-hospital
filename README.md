@@ -41,7 +41,11 @@ The frontend sends:
 - `patientName`
 - `phone`
 - `email`
-- `slot` (ISO date string)
+- `slot` (UTC ISO date string)
+- `slotPakistan` (ISO-like PKT timestamp, e.g. `2026-02-13T14:30:00+05:00`)
+- `slotDisplayPakistan` (human-readable PKT date/time)
+- `submittedAt` (UTC ISO date string)
+- `submittedAtPakistan` (ISO-like PKT timestamp)
 - `fileName`
 - `fileType`
 - `fileBase64`

@@ -11,6 +11,12 @@ import {
   getSlotsForDoctorDate,
   getTodayDateString,
 } from '@/utils/doctorAvailability';
+import {
+  getPakistanDateString,
+  getPakistanTimeString,
+  pakistanDateTimeToUtcDate,
+  PAKISTAN_TIMEZONE,
+} from '@/utils/pakistanTime';
 
 export default function DetailsStep({ control: ctlProp, doctor }) {
   // Support both “passed-in control” and context-based access
@@ -48,26 +54,20 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
 
     // booked for that particular date → ["15:30", …]
     const bookedToday = doctor.booked
-      .filter((iso) => iso.startsWith(dateStr))
-      .map((iso) =>
-        new Date(iso).toLocaleTimeString('en-GB', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        })
-      );
+      .filter((iso) => getPakistanDateString(new Date(iso)) === dateStr)
+      .map((iso) => getPakistanTimeString(new Date(iso)));
 
     return scheduleSlots.filter((t) => !bookedToday.includes(t));
   }, [doctor?.booked, dateStr, scheduleSlots]);
 
   /* ─────── helpers ─────────────────────────────────────────── */
   const isPastSlot = (t) => {
-    const when = new Date(`${dateStr}T${t}:00`);
+    const when = pakistanDateTimeToUtcDate(dateStr, t);
     return when < new Date();
   };
 
   const selectSlot = (t) => {
-    const when = new Date(`${dateStr}T${t}:00`);
+    const when = pakistanDateTimeToUtcDate(dateStr, t);
 
     if (when < new Date()) return; // guard against past-date pick
 
@@ -177,6 +177,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
                       hour: '2-digit',
                       minute: '2-digit',
                       hour12: false,
+                      timeZone: PAKISTAN_TIMEZONE,
                     }).format(slotValue) === t;
 
                   return (

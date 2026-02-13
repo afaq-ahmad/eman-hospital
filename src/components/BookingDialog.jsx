@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { CheckCircle2 } from 'lucide-react';
 import useConsultStore from '@/store/consultationStore';
 import { fileToBase64 } from '@/utils/fileToBase64';
+import { formatPakistanDateTime, toPakistanIsoString } from '@/utils/pakistanTime';
 
 import PaymentStep   from './booking/PaymentStep';
 import DetailsStep   from './booking/DetailsStep';
@@ -42,13 +43,20 @@ export default function BookingDialog({ doctor, open, onClose }) {
       const webhookUrl = import.meta.env.VITE_BOOKING_WEBHOOK_URL;
       const webhookToken = import.meta.env.VITE_BOOKING_WEBHOOK_TOKEN;
 
+      const slotDate = data.slot instanceof Date ? data.slot : new Date(data.slot);
+      const submittedAt = new Date();
+
       const payload = {
         doctorId: doctor.id || doctor.key || doctor.name,
         doctorName: doctor.name,
         patientName: data.name,
         phone: data.phone,
         email: data.email,
-        slot: data.slot instanceof Date ? data.slot.toISOString() : String(data.slot),
+        slot: slotDate.toISOString(),
+        slotPakistan: toPakistanIsoString(slotDate),
+        slotDisplayPakistan: formatPakistanDateTime(slotDate),
+        submittedAt: submittedAt.toISOString(),
+        submittedAtPakistan: toPakistanIsoString(submittedAt),
         fileName: data.slip?.name,
         fileType: data.slip?.type,
         fileBase64: await fileToBase64(data.slip),
