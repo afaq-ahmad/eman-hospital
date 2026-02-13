@@ -14,7 +14,12 @@ import {
 
 export default function DetailsStep({ control: ctlProp, doctor }) {
   // Support both “passed-in control” and context-based access
-  const { control, setValue } = useFormContext();
+  const {
+    control,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useFormContext();
 
   const { next, prev } = useConsultStore();
 
@@ -77,6 +82,11 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
     !isNaN(slotValue) &&
     slotValue > new Date();
 
+  const onContinue = async () => {
+    const valid = await trigger(['name', 'phone', 'email', 'slot']);
+    if (valid) next();
+  };
+
   /* ─────── render ──────────────────────────────────────────── */
   return (
     <Fragment>
@@ -87,11 +97,16 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
           name="name"
           control={control}
           render={({ field }) => (
-            <input
-              {...field}
-              placeholder="Full Name"
-              className="w-full rounded border p-3 text-sm"
-            />
+            <div>
+              <input
+                {...field}
+                placeholder="Full Name"
+                className="w-full rounded border p-3 text-sm"
+              />
+              {errors.name && (
+                <p className="mt-1 text-xs text-red-600">{errors.name.message}</p>
+              )}
+            </div>
           )}
         />
 
@@ -99,11 +114,16 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
           name="phone"
           control={control}
           render={({ field }) => (
-            <input
-              {...field}
-              placeholder="0300-1234567"
-              className="w-full rounded border p-3 text-sm"
-            />
+            <div>
+              <input
+                {...field}
+                placeholder="0300-1234567"
+                className="w-full rounded border p-3 text-sm"
+              />
+              {errors.phone && (
+                <p className="mt-1 text-xs text-red-600">{errors.phone.message}</p>
+              )}
+            </div>
           )}
         />
 
@@ -111,12 +131,17 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
           name="email"
           control={control}
           render={({ field }) => (
-            <input
-              {...field}
-              type="email"
-              placeholder="you@email.com"
-              className="w-full rounded border p-3 text-sm md:col-span-2"
-            />
+            <div className="md:col-span-2">
+              <input
+                {...field}
+                type="email"
+                placeholder="you@email.com"
+                className="w-full rounded border p-3 text-sm"
+              />
+              {errors.email && (
+                <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>
+              )}
+            </div>
           )}
         />
 
@@ -156,6 +181,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
 
                   return (
                     <button
+                      type="button"
                       key={t}
                       disabled={disabled}
                       onClick={() => !disabled && selectSlot(t)}
@@ -183,7 +209,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
         <Button variant="outline" onClick={prev}>
           Back
         </Button>
-        <Button disabled={!allValid} onClick={next}>
+        <Button type="button" disabled={!allValid} onClick={onContinue}>
           Continue
         </Button>
       </div>
