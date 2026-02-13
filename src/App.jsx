@@ -594,6 +594,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Departments", href: "/departments" },
   { name: "Doctors", href: "/doctors" },
+  { name: "Health Library", href: "/health-library" },
   { name: "Contact", href: "/contact#booking" },
   { name: 'Online Consultation', href: '/online-consultation' },
 ];
@@ -603,6 +604,149 @@ const SITE_URL = "https://emanhospital.com";
 const SOCIAL_PROFILES = [
   "https://www.facebook.com/EmanHospitalMultan",
   "https://www.instagram.com/emanhospital/",
+];
+
+const topConsultants = [
+  {
+    name: "Prof. Dr. Ehsan Ul Haq",
+    specialty: "Otolaryngology",
+    profilePath: "/doctors#ehsan",
+  },
+  {
+    name: "Asst. Prof. Dr. Sarfaraz Hassan Sial",
+    specialty: "Urology",
+    profilePath: "/doctors#sarfaraz",
+  },
+  {
+    name: "Dr. Saeeda Ehsan",
+    specialty: "Gynecology",
+    profilePath: "/doctors#saeeda",
+  },
+  {
+    name: "Dr. Tariq Anwar",
+    specialty: "Cardiology",
+    profilePath: "/doctors#tariq",
+  },
+];
+
+const localServicePages = [
+  { slug: "gynecology-multan", label: "Gynecology in Multan" },
+  { slug: "cardiology-multan", label: "Cardiology in Multan" },
+  { slug: "ent-emergency-multan", label: "ENT Emergency in Multan" },
+  { slug: "same-day-ultrasound-multan", label: "Same-Day Ultrasound in Multan" },
+  { slug: "pediatric-care-multan", label: "Pediatric Care in Multan" },
+  { slug: "diabetes-care-multan", label: "Diabetes Care in Multan" },
+  { slug: "physiotherapy-multan", label: "Physiotherapy in Multan" },
+];
+
+const healthArticles = [
+  {
+    slug: "dengue-fever-warning-signs-prevention",
+    title: "Dengue Fever in Multan: Warning Signs, Prevention, and When to Seek Urgent Care",
+    excerpt:
+      "A practical family guide to recognizing dehydration, bleeding risk, and the right time to escalate to emergency care.",
+    department: "General Medicine",
+    author: "Dr. Faheem Abbas",
+    readMinutes: 7,
+    reviewedDate: "2026-02-01",
+    tags: ["dengue", "fever", "emergency", "prevention"],
+    sections: [
+      {
+        heading: "Early symptoms families should not ignore",
+        points: [
+          "High-grade fever with severe body aches and headache can be early dengue indicators.",
+          "Persistent vomiting, poor oral intake, and reduced urine output suggest dehydration risk.",
+          "A sudden drop in fever with weakness, restlessness, or abdominal pain may indicate a critical phase.",
+        ],
+      },
+      {
+        heading: "Home care and hydration checklist",
+        points: [
+          "Use oral rehydration fluids, soups, and water at frequent intervals rather than large infrequent volumes.",
+          "Avoid self-medication with ibuprofen or aspirin unless a clinician confirms safety.",
+          "Track fluid intake, urine frequency, and activity level every 4 to 6 hours.",
+        ],
+      },
+      {
+        heading: "Urgent red flags",
+        points: [
+          "Bleeding gums, black stools, repeated vomiting, or confusion need immediate emergency evaluation.",
+          "Children, pregnant women, and older adults require lower thresholds for hospital review.",
+          "If platelet trends are falling with worsening symptoms, urgent reassessment is essential.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "heart-attack-vs-acidity-chest-pain-guide",
+    title: "Chest Pain in Adults: How to Differentiate Heart Risk from Acidity",
+    excerpt:
+      "Learn which chest pain patterns may be digestive and which require immediate cardiology or emergency review.",
+    department: "Cardiology",
+    author: "Dr. Tariq Anwar",
+    readMinutes: 6,
+    reviewedDate: "2026-02-03",
+    tags: ["heart", "chest pain", "cardiology", "emergency"],
+    sections: [
+      {
+        heading: "Features that increase heart-related concern",
+        points: [
+          "Pressure-like pain radiating to jaw, left arm, or back especially with sweating or nausea.",
+          "Breathlessness, dizziness, or sudden fatigue with minor activity.",
+          "Pain in patients with diabetes, hypertension, or strong family history needs faster triage.",
+        ],
+      },
+      {
+        heading: "Possible acidity-like symptoms",
+        points: [
+          "Burning after meals, relief with antacid, and discomfort linked to lying down can suggest reflux.",
+          "Even if acidity is likely, recurring or atypical chest symptoms should be medically evaluated.",
+        ],
+      },
+      {
+        heading: "Immediate action plan",
+        points: [
+          "Do not delay if pain lasts more than 15 minutes or comes with alarming symptoms.",
+          "Call hospital emergency support and avoid driving yourself when symptoms are severe.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "pcos-menstrual-irregularity-care-plan",
+    title: "PCOS and Irregular Periods: A Stepwise Women’s Health Care Plan",
+    excerpt:
+      "Evidence-informed guidance on cycle tracking, fertility planning, nutrition, and long-term hormonal risk control.",
+    department: "Gynecology",
+    author: "Dr. Saeeda Ehsan",
+    readMinutes: 8,
+    reviewedDate: "2026-02-05",
+    tags: ["pcos", "gynecology", "hormones", "fertility"],
+    sections: [
+      {
+        heading: "Assessment essentials",
+        points: [
+          "Cycle length patterns, acne, excess facial hair, and weight trends help define risk and severity.",
+          "Thyroid and metabolic screening can identify overlapping causes of irregular periods.",
+        ],
+      },
+      {
+        heading: "Treatment pillars",
+        points: [
+          "Weight optimization, sleep correction, and structured activity improve hormonal stability.",
+          "Medication choices depend on whether the current goal is symptom control or pregnancy planning.",
+          "Long-term follow-up is important to reduce diabetes and cardiovascular risk.",
+        ],
+      },
+      {
+        heading: "When to seek faster review",
+        points: [
+          "Heavy bleeding, severe pain, or prolonged missed cycles need early gynecology consultation.",
+          "Couples planning pregnancy should start preconception review early instead of waiting many months.",
+        ],
+      },
+    ],
+  },
 ];
 
 const seoConfig = {
@@ -697,6 +841,48 @@ const seoConfig = {
           "Yes. Stable follow-up consultations can be requested online, while urgent symptoms should be assessed physically or in emergency care.",
       },
     ],
+  },
+  "/ent-emergency-multan": {
+    title: "ENT Emergency in Multan | Urgent Ear, Nose & Throat Care",
+    description:
+      "Get rapid ENT emergency assessment in Multan for severe ear pain, sudden hearing changes, nose bleeding, throat infection complications, and breathing-related ENT concerns.",
+    keywords:
+      "ENT emergency Multan, ear pain doctor Multan, nose bleeding treatment Multan, throat emergency Multan, sudden hearing loss Multan",
+  },
+  "/same-day-ultrasound-multan": {
+    title: "Same-Day Ultrasound in Multan | Eman Hospital Imaging",
+    description:
+      "Book same-day ultrasound services in Multan for abdominal, pelvic, obstetric, and urinary tract assessment with physician-coordinated reporting.",
+    keywords:
+      "same day ultrasound Multan, urgent ultrasound Multan, pregnancy ultrasound Multan, abdominal ultrasound Multan",
+  },
+  "/pediatric-care-multan": {
+    title: "Pediatric Care in Multan | Child Specialist Services at Eman Hospital",
+    description:
+      "Comprehensive pediatric care in Multan including fever management, growth monitoring, nutrition counseling, developmental follow-up, and vaccination guidance.",
+    keywords:
+      "pediatrician Multan, child specialist Multan, kids fever doctor Multan, child vaccination Multan",
+  },
+  "/diabetes-care-multan": {
+    title: "Diabetes Care in Multan | Endocrinology & Diabetology Support",
+    description:
+      "Structured diabetes care in Multan with blood sugar optimization, lifestyle planning, complication prevention, and endocrine follow-up for long-term health.",
+    keywords:
+      "diabetes doctor Multan, endocrinologist Multan, sugar control Multan, HbA1c monitoring Multan",
+  },
+  "/physiotherapy-multan": {
+    title: "Physiotherapy in Multan | Pain, Mobility & Rehabilitation Care",
+    description:
+      "Expert physiotherapy in Multan for back pain, post-injury rehab, post-operative recovery, sports rehabilitation, and mobility improvement.",
+    keywords:
+      "physiotherapy Multan, back pain physiotherapy Multan, rehab center Multan, sports injury physiotherapy Multan",
+  },
+  "/health-library": {
+    title: "Health Library | Eman Hospital Multan",
+    description:
+      "Read medically reviewed patient education articles from Eman Hospital doctors on prevention, early warning signs, and practical family health guidance.",
+    keywords:
+      "health articles Multan, medical advice hospital Multan, prevention guides Pakistan",
   },
 };
 
@@ -963,15 +1149,19 @@ function Layout() {
         <div className="mt-8 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} Eman Hospital. All rights reserved.
         </div>
-        <div className="mt-4 text-center text-xs text-gray-500">
+        <div className="mt-4 text-center text-[11px] text-gray-500">
           <span className="mr-2">Local Service Pages:</span>
-          <Link to="/gynecology-multan" className="hover:text-white underline-offset-2 hover:underline">
-            Gynecology in Multan
-          </Link>
-          <span className="mx-2">•</span>
-          <Link to="/cardiology-multan" className="hover:text-white underline-offset-2 hover:underline">
-            Cardiology in Multan
-          </Link>
+          {localServicePages.map((page, index) => (
+            <React.Fragment key={page.slug}>
+              {index > 0 && <span className="mx-2">•</span>}
+              <Link
+                to={`/${page.slug}`}
+                className="hover:text-white underline-offset-2 hover:underline"
+              >
+                {page.label}
+              </Link>
+            </React.Fragment>
+          ))}
         </div>
       </footer>
 
@@ -998,8 +1188,21 @@ function Layout() {
 function SeoManager() {
   const location = useLocation();
   const routePath = location.pathname;
-  const pathKey = routePath.startsWith("/departments/") ? "/departments" : routePath;
-  const meta = seoConfig[pathKey] || seoConfig["/"];
+  const pathKey = routePath.startsWith("/departments/")
+    ? "/departments"
+    : routePath.startsWith("/health-library/")
+      ? "/health-library"
+      : routePath;
+  const articleMeta = routePath.startsWith("/health-library/")
+    ? healthArticles.find((entry) => routePath === `/health-library/${entry.slug}`)
+    : null;
+  const meta = articleMeta
+    ? {
+      title: `${articleMeta.title} | Eman Hospital Multan`,
+      description: articleMeta.excerpt,
+      keywords: articleMeta.tags.join(", "),
+    }
+    : (seoConfig[pathKey] || seoConfig["/"]);
   const canonicalUrl = `${SITE_URL}${routePath}`;
 
   React.useEffect(() => {
@@ -1073,12 +1276,14 @@ function SeoManager() {
           openingHoursSpecification: [
             {
               "@type": "OpeningHoursSpecification",
-              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-              opens: "09:00",
-              closes: "20:00",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              opens: "00:00",
+              closes: "23:59",
             },
           ],
+          hasMap: "https://www.google.com/maps?q=Eman+Hospital,+Near+Street+No.+10,+Zakriya+Town,+60000,+Pakistan",
           areaServed: ["Multan", "South Punjab"],
+          priceRange: "₨₨",
           sameAs: SOCIAL_PROFILES,
         },
         {
@@ -1109,6 +1314,59 @@ function SeoManager() {
         })),
       });
     }
+
+
+    if (routePath === "/health-library") {
+      schema["@graph"].push({
+        "@type": "Blog",
+        name: "Eman Hospital Health Library",
+        url: canonicalUrl,
+        inLanguage: "en-PK",
+        publisher: {
+          "@type": "Organization",
+          name: "Eman Hospital",
+          url: SITE_URL,
+        },
+      });
+    }
+
+    const article = healthArticles.find((entry) => routePath === `/health-library/${entry.slug}`);
+    if (article) {
+      schema["@graph"].push({
+        "@type": "MedicalWebPage",
+        about: article.tags,
+      });
+      schema["@graph"].push({
+        "@type": "BlogPosting",
+        headline: article.title,
+        description: article.excerpt,
+        datePublished: article.reviewedDate,
+        dateModified: article.reviewedDate,
+        author: {
+          "@type": "Physician",
+          name: article.author,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Eman Hospital",
+          url: SITE_URL,
+        },
+        mainEntityOfPage: canonicalUrl,
+      });
+    }
+
+    topConsultants.forEach((doctor) => {
+      schema["@graph"].push({
+        "@type": "Physician",
+        name: doctor.name,
+        medicalSpecialty: doctor.specialty,
+        worksFor: {
+          "@type": "Hospital",
+          name: "Eman Hospital",
+        },
+        url: `${SITE_URL}${doctor.profilePath}`,
+      });
+    });
 
     let schemaTag = document.getElementById("schema-org-route");
     if (!schemaTag) {
@@ -1667,6 +1925,162 @@ function CardiologyMultanPage() {
   );
 }
 
+function EntEmergencyMultanPage() {
+  return (
+    <ServiceLocationPage
+      title="ENT Emergency Care in Multan"
+      subtitle="Our ENT emergency pathway supports rapid assessment for severe ear pain, uncontrolled nose bleeding, sudden voice or swallowing difficulty, and airway-related ENT concerns."
+      highlights={[
+        "Rapid triage for persistent nose bleeding and traumatic ENT injuries",
+        "Urgent evaluation for sudden hearing reduction, severe vertigo, and ear discharge",
+        "Throat infection complications including dehydration, high fever, and painful swallowing",
+        "Snoring and sleep-breathing escalation screening when acute respiratory symptoms are present",
+        "Consultant-led referral coordination for imaging, lab work, and procedural intervention",
+        "Clear discharge advice with warning signs and follow-up instructions",
+      ]}
+      ctaHref="/contact#booking"
+    />
+  );
+}
+
+function SameDayUltrasoundMultanPage() {
+  return (
+    <ServiceLocationPage
+      title="Same-Day Ultrasound in Multan"
+      subtitle="Eman Hospital provides same-day ultrasound support for abdominal pain, obstetric review, urinary concerns, and physician-directed follow-up imaging when clinical urgency is high."
+      highlights={[
+        "Same-day slot allocation for clinically urgent scans when available",
+        "Abdominal, pelvic, thyroid, renal, and soft-tissue ultrasound pathways",
+        "Pregnancy viability, growth, and routine obstetric scan coordination",
+        "Doppler-based vascular assessment in selected cases",
+        "Faster clinical communication to the treating consultant",
+        "Action-oriented guidance for next steps after report completion",
+      ]}
+      ctaHref="/contact#booking"
+    />
+  );
+}
+
+function PediatricCareMultanPage() {
+  return (
+    <ServiceLocationPage
+      title="Pediatric Care in Multan"
+      subtitle="Our pediatric team supports newborn, infant, child, and adolescent health with focused care for fever, nutrition, growth, vaccination planning, and developmental wellbeing."
+      highlights={[
+        "Age-specific fever and respiratory infection care plans",
+        "Growth monitoring with nutrition and feeding guidance",
+        "Childhood asthma, allergy, and recurrent infection review",
+        "Vaccination counseling and catch-up immunization support",
+        "Development and school-health concern screening",
+        "Parent education for home warning signs and timely follow-up",
+      ]}
+      ctaHref="/contact#booking"
+    />
+  );
+}
+
+function DiabetesCareMultanPage() {
+  return (
+    <ServiceLocationPage
+      title="Diabetes Care in Multan"
+      subtitle="Our Endocrinology and Diabetology services focus on practical blood sugar control, complication prevention, and long-term metabolic health for adults and high-risk patients."
+      highlights={[
+        "Structured diabetes diagnosis and individualized medication optimization",
+        "HbA1c-based follow-up plans with realistic milestone targets",
+        "Diet, sleep, and physical activity plans for sustainable control",
+        "Kidney, nerve, eye, and heart risk reduction counseling",
+        "Thyroid and hormone disorder co-management when needed",
+        "Education for hypoglycemia safety and self-monitoring practices",
+      ]}
+      ctaHref="/contact#booking"
+    />
+  );
+}
+
+function PhysiotherapyMultanPage() {
+  return (
+    <ServiceLocationPage
+      title="Physiotherapy & Rehabilitation in Multan"
+      subtitle="Our physiotherapy programs are designed for pain relief, mobility restoration, post-operative strengthening, and long-term musculoskeletal wellness."
+      highlights={[
+        "Personalized plans for back, neck, and joint pain syndromes",
+        "Post-injury and post-operative rehabilitation protocols",
+        "Sports recovery, flexibility, and return-to-activity support",
+        "Neuromuscular re-education and gait training",
+        "Home-exercise prescriptions with progression milestones",
+        "Fall prevention and mobility safety guidance for seniors",
+      ]}
+      ctaHref="/contact#booking"
+    />
+  );
+}
+
+function HealthLibraryPage() {
+  return (
+    <section className="mx-auto max-w-6xl px-6 py-20">
+      <h1 className="text-3xl font-bold text-primary md:text-4xl">Health Library</h1>
+      <p className="mt-4 max-w-3xl text-gray-700">
+        Medically reviewed patient education articles by Eman Hospital consultants. This content is
+        for awareness and prevention, and does not replace emergency or in-person medical care.
+      </p>
+
+      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {healthArticles.map((article) => (
+          <article key={article.slug} className="rounded-2xl border bg-white p-6 shadow-sm">
+            <p className="text-xs font-medium uppercase tracking-wide text-primary/80">
+              {article.department} • Reviewed by {article.author}
+            </p>
+            <h2 className="mt-3 text-lg font-semibold text-gray-900">{article.title}</h2>
+            <p className="mt-3 text-sm text-gray-700">{article.excerpt}</p>
+            <p className="mt-3 text-xs text-gray-500">Approx. {article.readMinutes} min read</p>
+            <Button asChild size="sm" className="mt-4">
+              <Link to={`/health-library/${article.slug}`}>Read article</Link>
+            </Button>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HealthArticlePage() {
+  const { slug } = useParams();
+  const article = healthArticles.find((entry) => entry.slug === slug);
+
+  if (!article) {
+    return <Navigate to="/health-library" replace />;
+  }
+
+  return (
+    <article className="mx-auto max-w-4xl px-6 py-20">
+      <p className="text-xs font-semibold uppercase tracking-wide text-primary/80">
+        {article.department} • Reviewed by {article.author} • {article.reviewedDate}
+      </p>
+      <h1 className="mt-3 text-3xl font-bold text-primary md:text-4xl">{article.title}</h1>
+      <p className="mt-4 text-gray-700">{article.excerpt}</p>
+
+      <div className="mt-8 space-y-8">
+        {article.sections.map((section) => (
+          <section key={section.heading}>
+            <h2 className="text-xl font-semibold text-gray-900">{section.heading}</h2>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-gray-700">
+              {section.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <div className="mt-10 rounded-xl border bg-gray-50 p-5 text-sm text-gray-700">
+        <strong>Medical disclaimer:</strong> This article is educational and is not a substitute for
+        diagnosis, emergency care, or individualized treatment. If symptoms are severe, worsening, or
+        prolonged, contact emergency services or visit the hospital promptly.
+      </div>
+    </article>
+  );
+}
+
 /* -------------------------------------------------------------------
   Root App
 --------------------------------------------------------------------*/
@@ -1689,8 +2103,15 @@ export default function App() {
           <Route path="doctors" element={<DoctorsPage />} />
           <Route path="online-consultation" element={<OnlineConsultation  doctors={doctors} />} />
           <Route path="reports" element={<ReportsPage />} />
+          <Route path="health-library" element={<HealthLibraryPage />} />
+          <Route path="health-library/:slug" element={<HealthArticlePage />} />
           <Route path="gynecology-multan" element={<GynecologyMultanPage />} />
           <Route path="cardiology-multan" element={<CardiologyMultanPage />} />
+          <Route path="ent-emergency-multan" element={<EntEmergencyMultanPage />} />
+          <Route path="same-day-ultrasound-multan" element={<SameDayUltrasoundMultanPage />} />
+          <Route path="pediatric-care-multan" element={<PediatricCareMultanPage />} />
+          <Route path="diabetes-care-multan" element={<DiabetesCareMultanPage />} />
+          <Route path="physiotherapy-multan" element={<PhysiotherapyMultanPage />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
