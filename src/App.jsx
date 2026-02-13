@@ -554,13 +554,13 @@ const doctors = [
 ];
 
 const services = [
-  { name: "X-Ray", image: "/images/x-ray.png" },
-  { name: "Surgery", image: "/images/surgery.png" },
-  { name: "Ultrasound", image: "/images/ultrasound.png" },
-  { name: "Lab Test", image: "/images/labtest.png" },
-  { name: "Physiotherapy", image: "/images/physiotherapy.png" },
-  { name: "Dental Care", image: "/images/dental_care.png" },
-  { name: "Cardiology", image: "/images/cardiology.png" },
+  { name: "X-Ray", image: "/images/x-ray.png", department: "X-Ray / Imaging" },
+  { name: "Surgery", image: "/images/surgery.png", department: "General Surgery" },
+  { name: "Ultrasound", image: "/images/ultrasound.png", department: "Ultrasound" },
+  { name: "Lab Test", image: "/images/labtest.png", department: "Lab Test" },
+  { name: "Physiotherapy", image: "/images/physiotherapy.png", department: "Physiotherapy" },
+  { name: "Dental Care", image: "/images/dental_care.png", department: "Dental Care" },
+  { name: "Cardiology", image: "/images/cardiology.png", department: "Cardiology" },
   { name: "Pharmacy", image: "/images/pharmacy.png" },
 ];
 
@@ -992,7 +992,7 @@ function Home() {
             {services.map((s) => (
               <Link
                 key={s.name}
-                to="/departments"
+                to={s.department ? `/departments/${encodeURIComponent(s.department)}` : "/departments"}
                 className="flex flex-col items-center rounded-2xl bg-white p-6 shadow transition hover:shadow-lg"
               >
                 {/* icon / picture */}
