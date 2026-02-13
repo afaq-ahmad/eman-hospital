@@ -1008,15 +1008,6 @@ function Layout() {
         <Outlet />
       </div>
 
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noreferrer"
-        className="fixed bottom-6 right-6 z-40 inline-flex items-center rounded-full bg-green-500 px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-green-600"
-      >
-        WhatsApp Us
-      </a>
-
       <footer className="bg-gray-900 py-12 text-gray-300">
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-4">
           <div>
