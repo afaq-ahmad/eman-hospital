@@ -1019,12 +1019,12 @@ function Layout() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden gap-8 md:flex">
+          <nav className="hidden items-center gap-6 md:flex lg:gap-8">
             {navLinks.map((l) => (
               <Link
                 key={l.href}
                 to={l.href}
-                className="text-sm font-medium hover:text-primary"
+                className="whitespace-nowrap text-sm font-medium hover:text-primary"
               >
                 {l.name}
               </Link>
