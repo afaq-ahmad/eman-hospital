@@ -13,6 +13,24 @@ VITE_BOOKING_WEBHOOK_URL="https://script.google.com/macros/s/REPLACE_ME/exec"
 VITE_BOOKING_WEBHOOK_TOKEN="REPLACE_WITH_APP_TOKEN"
 ```
 
+### Cloudflare Pages (recommended)
+
+Set these in **Pages project → Settings → Environment variables** for your production environment:
+
+```bash
+BOOKING_WEBHOOK_URL="https://script.google.com/macros/s/REPLACE_ME/exec"
+BOOKING_WEBHOOK_TOKEN="REPLACE_WITH_APP_TOKEN"
+```
+
+The frontend now posts to `/api/booking` (a Pages Function) and the function forwards to Apps Script with token server-side.
+
+For local development fallback (without Pages Functions), you can still use:
+
+```bash
+VITE_BOOKING_WEBHOOK_URL="https://script.google.com/macros/s/REPLACE_ME/exec"
+VITE_BOOKING_WEBHOOK_TOKEN="REPLACE_WITH_APP_TOKEN"
+```
+
 ### Expected Apps Script payload keys
 
 The frontend sends:

@@ -42,12 +42,7 @@ export default function BookingDialog({ doctor, open, onClose }) {
       const webhookUrl = import.meta.env.VITE_BOOKING_WEBHOOK_URL;
       const webhookToken = import.meta.env.VITE_BOOKING_WEBHOOK_TOKEN;
 
-      if (!webhookUrl || !webhookToken) {
-        throw new Error('Missing booking webhook configuration');
-      }
-
       const payload = {
-        token: webhookToken,
         doctorId: doctor.id || doctor.key || doctor.name,
         doctorName: doctor.name,
         patientName: data.name,
@@ -59,15 +54,31 @@ export default function BookingDialog({ doctor, open, onClose }) {
         fileBase64: await fileToBase64(data.slip),
       };
 
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-      });
+      const requestViaProxy = async () =>
+        fetch('/api/booking', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
 
-      const raw = await response.text();
+      const requestDirect = async () => {
+        if (!webhookUrl || !webhookToken) {
+          throw new Error('Missing booking webhook configuration');
+        }
+
+        return fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify({ ...payload, token: webhookToken }),
+        });
+      };
+
+      let response = await requestViaProxy();
+      let raw = await response.text();
       let result = null;
       try {
         result = raw ? JSON.parse(raw) : null;
@@ -75,12 +86,25 @@ export default function BookingDialog({ doctor, open, onClose }) {
         result = null;
       }
 
+      // local/dev fallback when Cloudflare Pages Functions are unavailable
+      if (!response.ok && (response.status === 404 || result?.error === 'missing_server_config')) {
+        response = await requestDirect();
+        raw = await response.text();
+        try {
+          result = raw ? JSON.parse(raw) : null;
+        } catch {
+          result = null;
+        }
+      }
+
       if (!response.ok) {
-        throw new Error(result?.error || raw || `HTTP ${response.status}`);
+        const missing = result?.missing?.length ? `: ${result.missing.join(', ')}` : '';
+        throw new Error(`${result?.error || raw || `HTTP ${response.status}`}${missing}`);
       }
 
       if (!result?.ok) {
-        throw new Error(result?.error || result?.message || raw || 'Webhook error');
+        const missing = result?.missing?.length ? `: ${result.missing.join(', ')}` : '';
+        throw new Error(`${result?.error || result?.message || raw || 'Webhook error'}${missing}`);
       }
 
       /* ② replace the spinner with a green “Booked!” panel ---- */
