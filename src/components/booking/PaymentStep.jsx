@@ -11,15 +11,17 @@ import toast from 'react-hot-toast';
 import useConsultStore from '@/store/consultationStore';
 import { Button } from '@/components/ui/button';
 
-const MAX_SIZE = 5 * 1024 * 1024;                 // 5 MB
-const ACCEPTED   = '.jpg,.jpeg,.png,.pdf';
+const MAX_SIZE = 5 * 1024 * 1024;                 // 5 MB
+const ACCEPTED = '.jpg,.jpeg,.png,.pdf';
 
-export default function PaymentStep() {
+export default function PaymentStep({ doctor }) {
   /* grab RHF helpers from context */
   const { control, watch, formState: { errors }, setError, clearErrors } = useFormContext();
-  const next  = useConsultStore(s => s.next);
+  const next = useConsultStore(s => s.next);
 
-  const slip  = watch('slip');                     // watch the file input
+  const slip = watch('slip');                      // watch the file input
+  const consultationFee = Number(doctor?.fee) || 0;
+  const formattedFee = consultationFee.toLocaleString('en-PK');
 
   /* ── auto‑advance when a valid slip exists ───────────────────────────*/
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function PaymentStep() {
 
   /* helper to copy a field and show a toast */
   const copy = txt => navigator.clipboard.writeText(txt)
-      .then(() => toast.success('Copied to clipboard'));
+    .then(() => toast.success('Copied to clipboard'));
 
   return (
     <div className="space-y-6">
@@ -36,14 +38,14 @@ export default function PaymentStep() {
       <div className="relative rounded-xl bg-gray-50 p-6">
         {/* copy-icons */}
         <button
-          onClick={() => copy('0123-0123456789')}
+          onClick={() => copy('000248546742')}
           className="absolute top-3 right-14 p-1 hover:text-primary"
           aria-label="Copy account number"
         >
           <ClipboardCopy size={18} />
         </button>
         <button
-          onClick={() => copy('PK24 MEZN 0000 1234 5678 9012')}
+          onClick={() => copy('PK84UNIL0109000248546742')}
           className="absolute top-3 right-3 p-1 hover:text-primary"
           aria-label="Copy IBAN"
         >
@@ -51,13 +53,12 @@ export default function PaymentStep() {
         </button>
 
         <pre className="whitespace-pre-wrap text-sm leading-6 text-gray-700">
-{`Pay PKR 2 000 **before** booking
+{`Pay PKR ${formattedFee} **before** booking
 
-Bank Name:       Meezan Bank
-Account Title:   Eman Hospital
-A/C #:           0123‑0123456789
-IBAN:            PK24 MEZN 0000 1234 5678 9012
-Branch Code:     0123
+Bank Name:       United Bank Limited
+Account Title:   Nasir Abbas
+A/C #:           000248546742
+IBAN:            PK84UNIL0109000248546742
 
 Upload a clear screenshot/photo of your transfer receipt.`}
         </pre>
@@ -84,8 +85,8 @@ Upload a clear screenshot/photo of your transfer receipt.`}
 
                 /* size guard ------------------------------------------------*/
                 if (file.size > MAX_SIZE) {
-                  toast.error('Max file size is 5 MB');
-                  setError('slip', { type: 'manual', message: 'File exceeds 5 MB' });
+                  toast.error('Max file size is 5 MB');
+                  setError('slip', { type: 'manual', message: 'File exceeds 5 MB' });
                   e.target.value = '';
                   return;
                 }
