@@ -848,6 +848,23 @@ function Layout() {
   Pages
 --------------------------------------------------------------------*/
 function Home() {
+  const promoImages = [
+    "/images/Asthetic_hiring.jpg",
+    "/images/gyne_offer_feb.jpg",
+  ];
+  const [isPromoOpen, setIsPromoOpen] = useState(true);
+  const [promoIndex, setPromoIndex] = useState(0);
+
+  React.useEffect(() => {
+    if (!isPromoOpen || promoImages.length < 2) return undefined;
+
+    const id = setInterval(() => {
+      setPromoIndex((current) => (current + 1) % promoImages.length);
+    }, 4000);
+
+    return () => clearInterval(id);
+  }, [isPromoOpen, promoImages.length]);
+
   // ① list of background images
   const heroImages = [
     "/images/hero/1.jpg",
@@ -870,6 +887,41 @@ function Home() {
 
   return (
     <>
+      {isPromoOpen && (
+        <div className="fixed inset-x-0 top-4 z-[70] flex justify-center px-3 sm:px-4">
+          <div className="relative w-[96vw] max-w-[720px] overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/10 sm:w-[92vw]">
+            <button
+              type="button"
+              onClick={() => setIsPromoOpen(false)}
+              aria-label="Close promotional popup"
+              className="absolute right-2 top-2 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white transition hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <img
+              src={promoImages[promoIndex]}
+              alt="Eman Hospital promotional offer"
+              className="h-auto max-h-[75vh] w-full object-contain sm:max-h-[80vh]"
+            />
+
+            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-black/35 px-2 py-1">
+              {promoImages.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setPromoIndex(index)}
+                  aria-label={`Show promotion ${index + 1}`}
+                  className={`h-2.5 w-2.5 rounded-full transition ${
+                    promoIndex === index ? "bg-white" : "bg-white/50"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero */}
       <section
         className="relative flex h-[85vh] items-end justify-center bg-cover bg-center transition-all duration-700"
@@ -1255,4 +1307,3 @@ export default function App() {
     </Router>
   );
 }
-
