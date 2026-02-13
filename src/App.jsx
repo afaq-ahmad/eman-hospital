@@ -61,7 +61,7 @@ const departmentDetails = {
       "Voice changes, hoarseness, and swallowing difficulty",
     ],
     image: "/images/ehsan.jpg",
-    departmentImage: "/images/departments/dep_ent_department.jpg",
+    departmentImage: "/images/dep_ent_department.jpg",
   },
   Urology: {
     summary:
@@ -75,7 +75,7 @@ const departmentDetails = {
       "Male urological and reproductive health concerns",
     ],
     image: "/images/sarfaraz.jpg",
-    departmentImage: "/images/departments/dep_urology_department.jpg",
+    departmentImage: "/images/dep_urology_department.jpg",
   },
   Gynecology: {
     summary:
@@ -89,7 +89,7 @@ const departmentDetails = {
       "Screening and treatment support for gynecologic cancers",
     ],
     image: "/images/saeeda.jpg",
-    departmentImage: "/images/departments/dep_gynecology_department.jpg",
+    departmentImage: "/images/dep_gynecology_department.jpg",
   },
   "General Surgery": {
     summary:
@@ -103,7 +103,7 @@ const departmentDetails = {
       "Minor trauma and wound-related surgical care",
     ],
     image: "/images/surgery.png",
-    departmentImage: "/images/departments/dep_general_surgery_department.jpg",
+    departmentImage: "/images/dep_general_surgery_department.jpg",
   },
   Cardiology: {
     summary:
@@ -117,7 +117,7 @@ const departmentDetails = {
       "Post-cardiac event rehabilitation guidance",
     ],
     image: "/images/cardiology.png",
-    departmentImage: "/images/departments/dep_cardiology_department.jpg",
+    departmentImage: "/images/dep_cardiology_department.jpg",
   },
   "Endocrinology & Diabetology": {
     summary:
@@ -131,7 +131,7 @@ const departmentDetails = {
       "Endocrine guidance for PCOS and reproductive health",
     ],
     image: "/images/anees.jpg",
-    departmentImage: "/images/departments/dep_endocrinology_diabetology_department.jpg",
+    departmentImage: "/images/dep_endocrinology_diabetology_department.jpg",
   },
   Pediatrics: {
     summary:
@@ -145,7 +145,7 @@ const departmentDetails = {
       "Developmental, behavioral, and school-age health concerns",
     ],
     image: "/images/shoaib.jpg",
-    departmentImage: "/images/departments/dep_pediatrics_department.jpg",
+    departmentImage: "/images/dep_pediatrics_department.jpg",
   },
   Nephrology: {
     summary:
@@ -159,7 +159,7 @@ const departmentDetails = {
       "Electrolyte imbalance and fluid management",
     ],
     image: "/images/abubakar.jpg",
-    departmentImage: "/images/departments/dep_nephrology_department.jpg",
+    departmentImage: "/images/dep_nephrology_department.jpg",
   },
   "Dental Care": {
     summary:
@@ -173,7 +173,7 @@ const departmentDetails = {
       "Orthodontic alignment and smile enhancement",
     ],
     image: "/images/dental_care.png",
-    departmentImage: "/images/departments/dep_dental_care_department.jpg",
+    departmentImage: "/images/dep_dental_care_department.jpg",
   },
   Physiotherapy: {
     summary:
@@ -187,7 +187,7 @@ const departmentDetails = {
       "Neuromuscular re-education and gait correction",
     ],
     image: "/images/physiotherapy.png",
-    departmentImage: "/images/departments/dep_physiotherapy_department.jpg",
+    departmentImage: "/images/dep_physiotherapy_department.jpg",
   },
   "General Medicine": {
     summary:
@@ -201,7 +201,7 @@ const departmentDetails = {
       "Annual checkups and preventive health screening",
     ],
     image: "/images/male_doctor.png",
-    departmentImage: "/images/departments/dep_general_medicine_department.jpg",
+    departmentImage: "/images/dep_general_medicine_department.jpg",
   },
   "Dermatology and Aesthetics": {
     summary:
@@ -215,7 +215,7 @@ const departmentDetails = {
       "Mole, wart, and minor lesion evaluation",
     ],
     image: "/images/asma.jpg",
-    departmentImage: "/images/departments/dep_dermatology_aesthetics_department.jpg",
+    departmentImage: "/images/dep_dermatology_aesthetics_department.jpg",
   },
   Nutrition: {
     summary:
@@ -229,7 +229,7 @@ const departmentDetails = {
       "Deficiency-focused plans for anemia and low vitamins",
     ],
     image: "/images/rimsha.jpg",
-    departmentImage: "/images/departments/dep_nutrition_department.jpg",
+    departmentImage: "/images/dep_nutrition_department.jpg",
   },
   "X-Ray / Imaging": {
     summary:
@@ -243,7 +243,7 @@ const departmentDetails = {
       "Physician-guided imaging for faster clinical decisions",
     ],
     image: "/images/x-ray.png",
-    departmentImage: "/images/departments/dep_xray_imaging_department.jpg",
+    departmentImage: "/images/dep_xray_imaging_department.jpg",
   },
   Ultrasound: {
     summary:
@@ -257,7 +257,7 @@ const departmentDetails = {
       "Doppler-based vascular flow assessment",
     ],
     image: "/images/ultrasound.png",
-    departmentImage: "/images/departments/dep_ultrasound_department.jpg",
+    departmentImage: "/images/dep_ultrasound_department.jpg",
   },
   "Lab Test": {
     summary:
@@ -271,7 +271,7 @@ const departmentDetails = {
       "Urine analysis and culture-based investigations",
     ],
     image: "/images/labtest.png",
-    departmentImage: "/images/departments/dep_lab_test_department.jpg",
+    departmentImage: "/images/dep_lab_test_department.jpg",
   },
 };
 
