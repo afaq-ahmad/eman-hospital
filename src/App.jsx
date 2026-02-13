@@ -11,6 +11,7 @@ import {
   Outlet,
   Navigate,
   useSearchParams,
+  useParams,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import {
@@ -46,6 +47,121 @@ const departments = [
   "Ultrasound",
   "Lab Test",
 ];
+
+const departmentDetails = {
+  ENT: {
+    summary:
+      "Ear, nose, and throat care focused on breathing, hearing, voice, and recurrent infections.",
+    issues: ["Sinusitis and allergies", "Ear infections and hearing concerns", "Tonsil/adenoid problems", "Snoring and sleep apnea"],
+    image:
+      "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=80",
+  },
+  Urology: {
+    summary:
+      "Specialized treatment for urinary tract and male reproductive system disorders.",
+    issues: ["Kidney and ureteric stones", "Prostate enlargement", "Urinary tract infections", "Urinary incontinence"],
+    image:
+      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=900&q=80",
+  },
+  Gynecology: {
+    summary:
+      "Comprehensive women’s health support from adolescence to pregnancy and menopause.",
+    issues: ["Menstrual and hormonal imbalance", "Pregnancy and antenatal care", "Infertility evaluation", "PCOS and fibroids"],
+    image:
+      "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=900&q=80",
+  },
+  "General Surgery": {
+    summary:
+      "Operative care for common abdominal and soft tissue conditions with modern surgical approaches.",
+    issues: ["Hernia repair", "Gallbladder surgery", "Appendix and abdominal emergencies", "Thyroid and minor lump surgeries"],
+    image:
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=900&q=80",
+  },
+  Cardiology: {
+    summary:
+      "Heart and blood vessel care focused on prevention, diagnosis, and long-term management.",
+    issues: ["Chest pain and angina", "High blood pressure", "Heart rhythm disorders", "Heart failure follow-up"],
+    image:
+      "https://images.unsplash.com/photo-1628348070889-cb656235b4eb?auto=format&fit=crop&w=900&q=80",
+  },
+  "Endocrinology & Diabetology": {
+    summary:
+      "Hormonal and metabolic care including diabetes, thyroid, and obesity-related concerns.",
+    issues: ["Type 1 and Type 2 diabetes", "Thyroid disorders", "PCOS-related endocrine care", "Weight and metabolic syndrome"],
+    image:
+      "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=900&q=80",
+  },
+  Pediatrics: {
+    summary:
+      "Child-focused healthcare from newborn wellness to adolescent growth and development.",
+    issues: ["Fever and infections", "Vaccination counseling", "Growth and nutrition concerns", "Respiratory and allergy issues"],
+    image:
+      "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=80",
+  },
+  Nephrology: {
+    summary:
+      "Kidney care for chronic and acute conditions, blood pressure control, and dialysis planning.",
+    issues: ["Chronic kidney disease", "Protein in urine", "Resistant hypertension", "Dialysis and renal follow-up"],
+    image:
+      "https://images.unsplash.com/photo-1666214280218-4d6f7d7a6ec0?auto=format&fit=crop&w=900&q=80",
+  },
+  "Dental Care": {
+    summary:
+      "Preventive and restorative oral healthcare for healthy teeth, gums, and jaw function.",
+    issues: ["Toothache and cavities", "Root canal and fillings", "Gum disease", "Orthodontic and cosmetic treatments"],
+    image:
+      "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=80",
+  },
+  Physiotherapy: {
+    summary:
+      "Rehabilitation services to restore movement, reduce pain, and improve physical function.",
+    issues: ["Back and neck pain", "Sports injuries", "Post-surgery rehabilitation", "Joint stiffness and arthritis"],
+    image:
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80",
+  },
+  "General Medicine": {
+    summary:
+      "Primary medical care for adult health concerns, screening, and chronic disease management.",
+    issues: ["Fever and infections", "Hypertension control", "Respiratory complaints", "Routine health checkups"],
+    image:
+      "https://images.unsplash.com/photo-1612277795421-9bc7706a4a41?auto=format&fit=crop&w=900&q=80",
+  },
+  "Dermatology and Aesthetics": {
+    summary:
+      "Skin, hair, and nail care with medical and aesthetic treatment options.",
+    issues: ["Acne and pigmentation", "Eczema and dermatitis", "Hair loss concerns", "Scar and anti-aging treatments"],
+    image:
+      "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80",
+  },
+  Nutrition: {
+    summary:
+      "Diet and lifestyle planning tailored for weight goals, metabolic health, and recovery.",
+    issues: ["Weight management", "Diabetic meal planning", "Child and maternal nutrition", "Therapeutic diets for chronic illness"],
+    image:
+      "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=900&q=80",
+  },
+  "X-Ray / Imaging": {
+    summary:
+      "Diagnostic imaging support for fast and accurate evaluation of bones, chest, and soft tissue.",
+    issues: ["Fracture assessment", "Chest X-ray screening", "Injury evaluation", "Follow-up imaging"],
+    image:
+      "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?auto=format&fit=crop&w=900&q=80",
+  },
+  Ultrasound: {
+    summary:
+      "Non-invasive imaging service for abdominal, obstetric, vascular, and soft tissue assessment.",
+    issues: ["Pregnancy scans", "Abdominal pain workup", "Liver and kidney monitoring", "Thyroid and soft tissue scans"],
+    image:
+      "https://images.unsplash.com/photo-1516549655169-f0e8f16a6d99?auto=format&fit=crop&w=900&q=80",
+  },
+  "Lab Test": {
+    summary:
+      "Laboratory diagnostics for screening, diagnosis, and treatment monitoring.",
+    issues: ["CBC and infection markers", "Blood sugar and HbA1c", "Liver/kidney function tests", "Hormone and vitamin profiles"],
+    image:
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80",
+  },
+};
 
 const doctors = [
   {
@@ -748,12 +864,67 @@ function Departments() {
           {departments.map((d) => (
             <Link
               key={d}
-              to={`/doctors?dept=${encodeURIComponent(d)}`}
+              to={`/departments/${encodeURIComponent(d)}`}
               className="rounded-xl bg-white p-6 text-sm font-medium shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
             >
               {d}
             </Link>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DepartmentDetailPage() {
+  const { deptName = "" } = useParams();
+  const normalizedDept = (() => {
+    try {
+      return decodeURIComponent(deptName);
+    } catch {
+      return deptName;
+    }
+  })();
+
+  const details = departmentDetails[normalizedDept];
+  const consultantCount = doctors.filter((doctor) => doctor.department === normalizedDept).length;
+
+  if (!details) {
+    return <Navigate to="/departments" replace />;
+  }
+
+  return (
+    <section className="bg-gray-50 py-20">
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-2 md:items-center">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">Department</p>
+          <h1 className="mt-2 text-3xl font-bold md:text-4xl">{normalizedDept}</h1>
+          <p className="mt-5 text-gray-700">{details.summary}</p>
+
+          <h2 className="mt-8 text-lg font-semibold">Commonly managed issues</h2>
+          <ul className="mt-4 space-y-2 text-gray-700">
+            {details.issues.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <span className="mt-2 h-2 w-2 rounded-full bg-primary" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button asChild>
+              <Link to={`/doctors?dept=${encodeURIComponent(normalizedDept)}`}>
+                View {consultantCount > 0 ? `${consultantCount} ` : ""}Doctors in {normalizedDept}
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/departments">Back to all departments</Link>
+            </Button>
+          </div>
+        </div>
+
+        <div className="overflow-hidden rounded-2xl shadow-lg">
+          <img src={details.image} alt={`${normalizedDept} department`} className="h-full min-h-[320px] w-full object-cover" />
         </div>
       </div>
     </section>
@@ -961,6 +1132,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="departments" element={<Departments />} />
+          <Route path="departments/:deptName" element={<DepartmentDetailPage />} />
           <Route path="doctors" element={<DoctorsPage />} />
           <Route path="online-consultation" element={<OnlineConsultation  doctors={doctors} />} />
           <Route path="reports" element={<ReportsPage />} />
