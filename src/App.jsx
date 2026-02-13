@@ -10,6 +10,7 @@ import {
   Link,
   Outlet,
   Navigate,
+  useLocation,
   useSearchParams,
   useParams,
 } from "react-router-dom";
@@ -597,6 +598,55 @@ const navLinks = [
   { name: 'Online Consultation', href: '/online-consultation' },
 ];
 
+const SITE_URL = "https://emanhospital.com";
+
+const seoConfig = {
+  "/": {
+    title:
+      "Eman Hospital Multan | Best Hospital in Multan for Specialists, Surgery & Emergency Care",
+    description:
+      "Eman Hospital Multan provides specialist consultants, emergency support, surgery, diagnostics, lab tests, ultrasound, X-ray and online consultations for families across Multan and South Punjab.",
+    keywords:
+      "Eman Hospital Multan, best hospital in Multan, private hospital in Multan, specialist doctors in Multan, emergency care Multan, surgery Multan, lab test Multan, ultrasound Multan, X-ray Multan",
+    type: "website",
+  },
+  "/departments": {
+    title: "Hospital Departments in Multan | Eman Hospital",
+    description:
+      "Explore Eman Hospital departments including ENT, Urology, Gynecology, Cardiology, Pediatrics, Nephrology, Dental Care, Physiotherapy, Lab Test and Imaging services in Multan.",
+    keywords:
+      "hospital departments Multan, ENT hospital Multan, gynecology hospital Multan, cardiology Multan, pediatrics Multan, nephrology Multan, diagnostics Multan",
+  },
+  "/doctors": {
+    title: "Specialist Doctors in Multan | Eman Hospital Consultants",
+    description:
+      "Find experienced consultants at Eman Hospital Multan across ENT, Urology, Gynecology, Cardiology, Pediatrics, General Medicine, Pulmonology and more.",
+    keywords:
+      "specialist doctors in Multan, consultants in Multan, gynecologist in Multan, ENT specialist Multan, urologist in Multan, pediatrician in Multan",
+  },
+  "/online-consultation": {
+    title: "Online Doctor Consultation in Multan | Eman Hospital",
+    description:
+      "Book online consultation with Eman Hospital doctors. Select a convenient slot, upload payment receipt and receive WhatsApp confirmation for tele-consultation.",
+    keywords:
+      "online consultation Pakistan, online doctor Multan, telemedicine Multan, virtual doctor appointment Multan",
+  },
+  "/reports": {
+    title: "Download Medical Reports | Eman Hospital Multan",
+    description:
+      "Access your Eman Hospital medical report details securely using your patient name and report ID.",
+    keywords:
+      "medical report Multan, lab reports online Multan, hospital reports Multan",
+  },
+  "/contact": {
+    title: "Contact Eman Hospital Multan | Appointment, Emergency & Location",
+    description:
+      "Contact Eman Hospital near Street No. 10, Zakriya Town, Multan 60000, Pakistan. Call for appointments, emergency support and specialist consultations.",
+    keywords:
+      "Eman Hospital contact, hospital phone number Multan, hospital location Multan, appointment booking hospital Multan",
+  },
+};
+
 /* -------------------------------------------------------------------
   Helper Components
 --------------------------------------------------------------------*/
@@ -814,7 +864,7 @@ function Layout() {
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="text-lg font-semibold text-white">EMAN HOSPITAL</h3>
-            <p className="mt-4 text-sm">Zakriya Town, Bosan Road, Multan</p>
+            <p className="mt-4 text-sm">Near Street No. 10, Zakriya Town, Multan 60000, Pakistan</p>
             <p className="mt-2 text-sm">061-6218623 | 0325-7105960</p>
           </div>
 
@@ -871,6 +921,118 @@ function Layout() {
       </a>
     </>
   );
+}
+
+function SeoManager() {
+  const location = useLocation();
+  const routePath = location.pathname;
+  const pathKey = routePath.startsWith("/departments/") ? "/departments" : routePath;
+  const meta = seoConfig[pathKey] || seoConfig["/"];
+  const canonicalUrl = `${SITE_URL}${routePath}`;
+
+  React.useEffect(() => {
+    document.title = meta.title;
+
+    const setMeta = (name, content, attr = "name") => {
+      let tag = document.querySelector(`meta[${attr}='${name}']`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute(attr, name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+
+    const setLink = (rel, href) => {
+      let link = document.querySelector(`link[rel='${rel}']`);
+      if (!link) {
+        link = document.createElement("link");
+        link.setAttribute("rel", rel);
+        document.head.appendChild(link);
+      }
+      link.setAttribute("href", href);
+    };
+
+    setMeta("description", meta.description);
+    setMeta("keywords", meta.keywords || seoConfig["/"].keywords);
+    setMeta("og:title", meta.title, "property");
+    setMeta("og:description", meta.description, "property");
+    setMeta("og:type", meta.type || "website", "property");
+    setMeta("og:url", canonicalUrl, "property");
+    setMeta("twitter:title", meta.title);
+    setMeta("twitter:description", meta.description);
+    setLink("canonical", canonicalUrl);
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "MedicalClinic",
+          name: "Eman Hospital",
+          url: SITE_URL,
+          telephone: "+92-61-6218623",
+          image: `${SITE_URL}/images/logo.png`,
+          medicalSpecialty: [
+            "Otolaryngologic",
+            "Urologic",
+            "Gynecologic",
+            "Cardiologic",
+            "Pediatric",
+            "GeneralSurgery",
+            "Nephrologic",
+            "Pulmonary",
+            "Dermatologic",
+            "Dentistry",
+          ],
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Near Street No. 10, Zakriya Town",
+            addressLocality: "Multan",
+            addressRegion: "Punjab",
+            postalCode: "60000",
+            addressCountry: "PK",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 30.1575,
+            longitude: 71.5249,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              opens: "09:00",
+              closes: "20:00",
+            },
+          ],
+          areaServed: ["Multan", "South Punjab"],
+        },
+        {
+          "@type": "WebPage",
+          name: meta.title,
+          description: meta.description,
+          url: canonicalUrl,
+          inLanguage: "en-PK",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "Eman Hospital",
+            url: SITE_URL,
+          },
+        },
+      ],
+    };
+
+    let schemaTag = document.getElementById("schema-org-route");
+    if (!schemaTag) {
+      schemaTag = document.createElement("script");
+      schemaTag.id = "schema-org-route";
+      schemaTag.type = "application/ld+json";
+      document.head.appendChild(schemaTag);
+    }
+    schemaTag.textContent = JSON.stringify(schema);
+  }, [canonicalUrl, meta]);
+
+  return null;
 }
 
 /* -------------------------------------------------------------------
@@ -1283,24 +1445,66 @@ function Contact() {
       {/* Contact info */}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-3xl font-bold md:text-4xl">Contact Us</h2>
+        <p className="mt-4 max-w-3xl text-gray-600">
+          Eman Hospital is a trusted private healthcare center in Multan, offering specialist
+          consultations, diagnostics, emergency support, surgical care, and patient-first service for
+          families across Multan and South Punjab.
+        </p>
         <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="font-semibold text-primary">Address</h3>
             <p className="mt-2 text-sm text-gray-700">
-              Zakriya Town, Bosan Road, Multan
+              Near Street No. 10, Zakriya Town, Multan 60000, Pakistan
             </p>
           </div>
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="font-semibold text-primary">Phone</h3>
             <p className="mt-2 text-sm text-gray-700">
-              061-6218623 / 0325-7105960
+              <a href="tel:+92616218623" className="hover:text-primary">061-6218623</a> /{" "}
+              <a href="tel:+923257105960" className="hover:text-primary">0325-7105960</a>
             </p>
           </div>
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="font-semibold text-primary">Email</h3>
             <p className="mt-2 text-sm text-gray-700">
-              info@emanhospital.com
+              <a href="mailto:info@emanhospital.com" className="hover:text-primary">info@emanhospital.com</a>
             </p>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+          <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
+            <h3 className="text-xl font-semibold text-primary">Hospital Hours & Emergency Support</h3>
+            <ul className="mt-4 space-y-2 text-sm text-gray-700">
+              <li><strong>Outpatient (OPD):</strong> 24 Hours / 7 Days (24/7)</li>
+              <li><strong>Online Consultation:</strong> Daily slots as per doctor schedule</li>
+              <li><strong>Emergency Assistance:</strong> Call anytime for urgent guidance</li>
+              <li><strong>Location Served:</strong> Multan and nearby South Punjab areas</li>
+            </ul>
+            <p className="mt-4 text-sm text-gray-700">
+              For urgent concerns, please call our reception immediately so our team can direct you to
+              the appropriate department without delay.
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
+            <iframe
+              title="Eman Hospital location map"
+              src="https://www.google.com/maps?q=Eman+Hospital,+Near+Street+No.+10,+Zakriya+Town,+60000,+Pakistan&output=embed"
+              className="h-72 w-full"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <div className="p-4">
+              <a
+                href="https://www.google.com/maps/place/Eman+Hospital/@30.2266723,71.4849201,1408m/data=!3m1!1e3!4m6!3m5!1s0x393b359b1a564e21:0xe104250028398951!8m2!3d30.2288246!4d71.4835642!16s%2Fg%2F11v0bc5mlp?entry=ttu&g_ep=EgoyMDI2MDIxMC4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm font-medium text-primary hover:underline"
+              >
+                Open directions in Google Maps
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -1314,6 +1518,7 @@ function Contact() {
 export default function App() {
   return (
     <Router>
+      <SeoManager />
       <Toaster
         position="top-center"
         toastOptions={{
