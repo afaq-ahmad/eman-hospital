@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 export default function ReviewStep({ doctor, onSubmit }) {
   const prev = useConsultStore(s => s.prev);
-  const { control, formState:{ isValid } } = useFormContext();
+  const { control, formState: { isSubmitting } } = useFormContext();
   const { slip, name, phone, email, slot } = useWatch({ control });
 
   /* prettify the appointment slot */
@@ -71,10 +71,10 @@ export default function ReviewStep({ doctor, onSubmit }) {
 
         <Button
           type="submit"
-          disabled={!isValid}
+          disabled={isSubmitting}
           className="bg-[#00bfa6] text-white hover:bg-[#00bfa6]/90 disabled:opacity-40"
         >
-          Submit
+          {isSubmitting ? 'Submitting…' : 'Submit'}
         </Button>
       </div>
     </form>
