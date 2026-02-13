@@ -1,5 +1,5 @@
 // ────────────────────────────────────────────────────────────────
-//  DetailsStep.jsx   —   2 of 3 in the multi-step BookingDialog
+//  DetailsStep.jsx   —   1 of 3 in the multi-step BookingDialog
 //  Collects patient information + preferred slot (with clash-safety)
 // ────────────────────────────────────────────────────────────────
 import { Fragment, useMemo, useState } from 'react';
@@ -90,7 +90,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
   /* ─────── render ──────────────────────────────────────────── */
   return (
     <Fragment>
-      <h3 className="mb-6 text-lg font-semibold text-primary">2 / 3  Patient Details</h3>
+      <h3 className="mb-6 text-lg font-semibold text-primary">1 / 3  Patient Details</h3>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Controller
@@ -207,7 +207,7 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
       </div>
 
       <div className="mt-8 flex justify-between">
-        <Button variant="outline" onClick={prev}>
+        <Button variant="outline" onClick={prev} disabled>
           Back
         </Button>
         <Button type="button" disabled={!allValid} onClick={onContinue}>

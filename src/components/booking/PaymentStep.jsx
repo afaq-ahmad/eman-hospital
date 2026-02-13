@@ -1,5 +1,5 @@
 /* PaymentStep.jsx ---------------------------------------------------------
-   Handles Step‑1 of the Online‑Consultation wizard
+   Handles Step‑2 of the Online‑Consultation wizard
    ‑ Collects payment slip
    ‑ Auto‑advances to the next step once a valid file is present
 ------------------------------------------------------------------------ */
@@ -17,7 +17,7 @@ const ACCEPTED = '.jpg,.jpeg,.png,.pdf';
 export default function PaymentStep({ doctor }) {
   /* grab RHF helpers from context */
   const { control, watch, formState: { errors }, setError, clearErrors } = useFormContext();
-  const next = useConsultStore(s => s.next);
+  const { next, prev } = useConsultStore(s => ({ next: s.next, prev: s.prev }));
 
   const slip = watch('slip');                      // watch the file input
   const consultationFee = Number(doctor?.fee) || 0;
@@ -34,6 +34,7 @@ export default function PaymentStep({ doctor }) {
 
   return (
     <div className="space-y-6">
+      <h3 className="text-lg font-semibold text-primary">2 / 3  Payment & Challan Upload</h3>
       {/* ⓵  Static payment instructions */}
       <div className="relative rounded-xl bg-gray-50 p-6">
         {/* copy-icons */}
@@ -103,7 +104,10 @@ Upload a clear screenshot/photo of your transfer receipt.`}
       />
 
       {/* ⓷  Manual “Next” fallback (disabled until valid) */}
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <Button type="button" variant="outline" onClick={prev}>
+          Back
+        </Button>
         <Button type="button" onClick={next} disabled={!slip || !!errors.slip}
           className="disabled:opacity-40">
           Next

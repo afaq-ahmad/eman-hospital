@@ -11,14 +11,14 @@ maxSlotDate.setDate(maxSlotDate.getDate() + BOOKING_WINDOW_DAYS - 1);
 maxSlotDate.setHours(23, 59, 59, 999);
 
 export const bookingSchema = yup.object({
-  /* step-1  payment-slip ---------------------------------------- */
+  /* step-2  payment-slip ---------------------------------------- */
   slip: yup
     .mixed()
     .required('Payment slip is required')
     .test('fileSize', 'File must be ≤ 5 MB', v => !v || v.size <= MAX_SIZE)
     .test('fileType', 'Only JPG / PNG / PDF allowed', v => !v || FILE_TYPES.includes(v.type)),
 
-  /* step-2  patient details ------------------------------------- */
+  /* step-1  patient details ------------------------------------- */
   name:  yup.string().min(3).required('Enter full name'),
   phone: yup
     .string()
