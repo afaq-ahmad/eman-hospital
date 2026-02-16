@@ -35,6 +35,8 @@ export default function DoctorCard({
       <img
         src={avatar || image}
         alt={name}
+        loading="lazy"
+        decoding="async"
         className="h-24 w-24 mx-auto rounded-full object-cover"
       />
 
