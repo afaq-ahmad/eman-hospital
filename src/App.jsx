@@ -26,6 +26,7 @@ import OnlineConsultation from '@/pages/OnlineConsultation';
 import OnlineConsultButton from '@/components/OnlineConsultButton';
 import { trackEvent } from '@/utils/analytics';
 import { healthArticles, localServicePages } from './data/siteContent';
+import { doctorProfileDescriptions } from './data/doctorProfileDescriptions';
 
 /* -------------------------------------------------------------------
   Static Data
@@ -785,7 +786,10 @@ const seoConfig = {
   Helper Components
 --------------------------------------------------------------------*/
 function getDoctorProfileIntro(doctor) {
-  return `${doctor.name} is a ${doctor.department.toLowerCase()} consultant at Eman Hospital Multan. With qualifications including ${doctor.qualification}, the doctor focuses on practical diagnosis, personalized treatment, and safe follow-up care for each patient.`;
+  return (
+    doctorProfileDescriptions[doctor.key] ||
+    `${doctor.name} is a ${doctor.department.toLowerCase()} consultant at Eman Hospital Multan. With qualifications including ${doctor.qualification}, the doctor focuses on practical diagnosis, personalized treatment, and safe follow-up care for each patient.`
+  );
 }
 
 function getDoctorCoveredAreas(doctor) {
@@ -1038,7 +1042,9 @@ function SeoManager() {
     : doctorMeta
       ? {
         title: `${doctorMeta.name} | ${doctorMeta.department} Consultant in Multan | Eman Hospital`,
-        description: `${doctorMeta.name} offers ${doctorMeta.department.toLowerCase()} consultation at Eman Hospital Multan with care focus on ${doctorMeta.expertise.slice(0, 3).join(", ")}.`,
+        description:
+          doctorProfileDescriptions[doctorMeta.key] ||
+          `${doctorMeta.name} offers ${doctorMeta.department.toLowerCase()} consultation at Eman Hospital Multan with care focus on ${doctorMeta.expertise.slice(0, 3).join(", ")}.`,
         keywords: `${doctorMeta.name}, ${doctorMeta.department} doctor in Multan, Eman Hospital consultant, ${doctorMeta.expertise.slice(0, 4).join(", ")}`,
       }
       : (seoConfig[pathKey] || seoConfig["/"]);
