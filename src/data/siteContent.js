@@ -10,6 +10,78 @@ export const localServicePages = [
 
 export const healthArticles = [
   {
+    slug: "advanced-aesthetic-treatments-multan",
+    title:
+      "Advanced Aesthetic Treatments at Eman Hospital: Modern Skin and Hair Solutions in Multan",
+    excerpt:
+      "A consultation-first guide to non-surgical and minimally invasive aesthetic options including HIFU, PRP/PRGF, HydraFacial, microneedling, subcision, peels, and laser hair removal.",
+    department: "Dermatology and Aesthetics",
+    author: "admin afaq",
+    readMinutes: 12,
+    reviewedDate: "2026-02-16",
+    tags: ["aesthetics", "hifu", "prp", "hydrafacial", "laser hair removal", "multan"],
+    sections: [
+      {
+        heading: "Why patients choose Eman Hospital for aesthetic care",
+        points: [
+          "Treatment plans start with skin and scalp analysis instead of one-size-fits-all packages.",
+          "Evidence-based techniques and combination protocols are selected according to concern severity and skin type.",
+          "The focus remains on safe methods, sterile practice, and natural-looking outcomes without an overdone appearance.",
+        ],
+      },
+      {
+        heading: "Common concerns addressed",
+        points: [
+          "Fine lines, wrinkles, sagging skin, jawline heaviness, and double chin fullness.",
+          "Acne scars, enlarged pores, rough texture, dullness, pigmentation, and uneven skin tone.",
+          "Hair thinning, hair fall, and early pattern reduction in hair density.",
+        ],
+      },
+      {
+        heading: "Core treatment options available",
+        points: [
+          "Non-surgical facelift planning and HIFU skin tightening to improve firmness and contour.",
+          "PRP and PRGF protocols for facial rejuvenation and supportive hair regrowth plans.",
+          "HydraFacial with glowing mask, chemical peels, BB glow, and mesotherapy for skin and scalp optimization.",
+          "Microneedling and subcision for structural acne scar improvement.",
+          "Laser hair removal and assessed mole or wart removal for cosmetic and comfort goals.",
+        ],
+      },
+      {
+        heading: "Combination strategies for better outcomes",
+        points: [
+          "For aging and laxity: HIFU with non-surgical facelift sequencing to stimulate collagen and tighten skin.",
+          "For acne scars and texture: subcision plus microneedling, often combined with PRP for improved remodeling response.",
+          "For glow and pores: HydraFacial and peel cycles to reduce congestion, dullness, and tone irregularities.",
+          "For hair concerns: PRP or PRGF with mesotherapy and a maintenance routine for sustained follicle support.",
+        ],
+      },
+      {
+        heading: "What to expect in your treatment journey",
+        points: [
+          "A structured pathway includes consultation, concern mapping, protocol selection, and staged sessions.",
+          "Most aesthetic interventions are progressive and require follow-up for consistent, lasting improvement.",
+          "Aftercare, sun protection, and maintenance sessions are essential to preserve and extend results.",
+        ],
+      },
+      {
+        heading: "Practical patient guidance",
+        points: [
+          "Session counts vary by concern, with scar correction and hair restoration usually requiring multiple visits.",
+          "Downtime differs by procedure: HydraFacial is generally minimal, while microneedling or subcision may cause brief redness or swelling.",
+          "Results are not universally permanent and depend on genetics, lifestyle, hormonal profile, and long-term adherence.",
+        ],
+      },
+      {
+        heading: "Location and contact",
+        points: [
+          "Eman Hospital, Street #10, Zakariya Town, Bosan Road, Multan.",
+          "Call: 0308 8705699, 0305 7105960 | Landline: 061-6218623 | Social: @emanhospital.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "dengue-fever-warning-signs-prevention",
     title: "Dengue Fever in Multan: Warning Signs, Prevention, and When to Seek Urgent Care",
     excerpt:
