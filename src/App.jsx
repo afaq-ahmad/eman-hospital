@@ -18,7 +18,6 @@ import { Toaster } from "react-hot-toast";
 import {
   Menu,
   X,
-  Stethoscope,
   FileText,
   FileDown,
 } from "lucide-react";
@@ -626,22 +625,22 @@ const topConsultants = [
   {
     name: "Prof. Dr. Ehsan Ul Haq",
     specialty: "Otolaryngology",
-    profilePath: "/doctors#ehsan",
+    profilePath: "/doctors/ehsan",
   },
   {
     name: "Asst. Prof. Dr. Sarfaraz Hassan Sial",
     specialty: "Urology",
-    profilePath: "/doctors#sarfaraz",
+    profilePath: "/doctors/sarfaraz",
   },
   {
     name: "Dr. Saeeda Ehsan",
     specialty: "Gynecology",
-    profilePath: "/doctors#saeeda",
+    profilePath: "/doctors/saeeda",
   },
   {
     name: "Dr. Tariq Anwar",
     specialty: "Cardiology",
-    profilePath: "/doctors#tariq",
+    profilePath: "/doctors/tariq",
   },
 ];
 
@@ -785,13 +784,24 @@ const seoConfig = {
 /* -------------------------------------------------------------------
   Helper Components
 --------------------------------------------------------------------*/
+function getDoctorProfileIntro(doctor) {
+  return `${doctor.name} is a ${doctor.department.toLowerCase()} consultant at Eman Hospital Multan. With qualifications including ${doctor.qualification}, the doctor focuses on practical diagnosis, personalized treatment, and safe follow-up care for each patient.`;
+}
+
+function getDoctorCoveredAreas(doctor) {
+  const departmentIssues = departmentDetails[doctor.department]?.issues || [];
+  return Array.from(new Set([...doctor.expertise, ...departmentIssues])).slice(0, 8);
+}
+
 function DoctorsGrid({ list }) {
   return (
     <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {list.map((d) => (
-        <div
+        <Link
           key={d.key}
-          className="flex flex-col rounded-2xl bg-gray-50 p-6 shadow-sm"
+          id={d.key}
+          to={`/doctors/${d.key}`}
+          className="flex h-full flex-col rounded-2xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
         >
           <img
             src={d.image}
@@ -800,7 +810,7 @@ function DoctorsGrid({ list }) {
             decoding="async"
             className="mx-auto h-24 w-24 rounded-full object-cover shadow"
           />
-          <h3 className="mt-4 text-center text-lg font-semibold text-primary">
+          <h3 className="mt-4 text-center text-lg font-semibold text-primary underline-offset-2 hover:underline">
             {d.name}
           </h3>
           <p className="mt-1 text-center text-xs uppercase tracking-wide text-gray-500">
@@ -809,12 +819,12 @@ function DoctorsGrid({ list }) {
           <p className="mt-1 text-center text-sm text-gray-600">
             {d.qualification}
           </p>
-          <ul className="mt-3 list-disc list-inside space-y-1 overflow-y-auto text-xs text-gray-600">
+          <ul className="mt-3 list-disc list-inside space-y-1 text-xs text-gray-600">
             {d.expertise.map((e) => (
               <li key={e}>{e}</li>
             ))}
           </ul>
-        </div>
+        </Link>
       ))}
     </div>
   );
@@ -1010,9 +1020,14 @@ function SeoManager() {
     ? "/departments"
     : routePath.startsWith("/health-library/")
       ? "/health-library"
-      : routePath;
+      : routePath.startsWith("/doctors/")
+        ? "/doctors"
+        : routePath;
   const articleMeta = routePath.startsWith("/health-library/")
     ? healthArticles.find((entry) => routePath === `/health-library/${entry.slug}`)
+    : null;
+  const doctorMeta = routePath.startsWith("/doctors/")
+    ? doctors.find((entry) => routePath === `/doctors/${entry.key}`)
     : null;
   const meta = articleMeta
     ? {
@@ -1020,7 +1035,13 @@ function SeoManager() {
       description: articleMeta.excerpt,
       keywords: articleMeta.tags.join(", "),
     }
-    : (seoConfig[pathKey] || seoConfig["/"]);
+    : doctorMeta
+      ? {
+        title: `${doctorMeta.name} | ${doctorMeta.department} Consultant in Multan | Eman Hospital`,
+        description: `${doctorMeta.name} offers ${doctorMeta.department.toLowerCase()} consultation at Eman Hospital Multan with care focus on ${doctorMeta.expertise.slice(0, 3).join(", ")}.`,
+        keywords: `${doctorMeta.name}, ${doctorMeta.department} doctor in Multan, Eman Hospital consultant, ${doctorMeta.expertise.slice(0, 4).join(", ")}`,
+      }
+      : (seoConfig[pathKey] || seoConfig["/"]);
   const canonicalUrl = `${SITE_URL}${routePath}`;
 
   React.useEffect(() => {
@@ -1494,6 +1515,92 @@ function DoctorsPage() {
   );
 }
 
+function DoctorProfilePage() {
+  const { doctorKey = "" } = useParams();
+  const doctor = doctors.find((entry) => entry.key === doctorKey);
+
+  if (!doctor) {
+    return <Navigate to="/doctors" replace />;
+  }
+
+  const coveredAreas = getDoctorCoveredAreas(doctor);
+
+  return (
+    <section className="bg-gray-50 py-14 md:py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="rounded-3xl bg-white p-6 shadow-sm md:p-10">
+          <div className="grid gap-10 md:grid-cols-[1.3fr_0.7fr] md:items-start">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-primary">Consultant Profile</p>
+              <h1 className="mt-2 text-3xl font-bold text-gray-900 md:text-4xl">{doctor.name}</h1>
+
+              <div className="mt-4 overflow-hidden rounded-2xl border bg-gray-100 shadow-sm md:hidden">
+                <img
+                  src={doctor.image}
+                  alt={`${doctor.name} profile`}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-[320px] w-full object-cover"
+                />
+              </div>
+
+              <p className="mt-4 text-sm uppercase tracking-wide text-gray-500">{doctor.department}</p>
+              <p className="mt-4 text-base text-gray-700">{doctor.qualification}</p>
+              <p className="mt-4 text-gray-700">{getDoctorProfileIntro(doctor)}</p>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">Consultation type</p>
+                  <p className="mt-2 text-sm text-gray-700">{doctor.online ? "In-person and online consultation available" : "In-person consultation available"}</p>
+                </div>
+                <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">Estimated consultation fee</p>
+                  <p className="mt-2 text-sm text-gray-700">{doctor.fee ? `PKR ${doctor.fee.toLocaleString()} (may vary by service)` : "Shared by reception at time of booking"}</p>
+                </div>
+              </div>
+
+              <h2 className="mt-8 text-xl font-semibold text-gray-900">Expertise & covered areas</h2>
+              <ul className="mt-4 grid gap-2 text-gray-700 sm:grid-cols-2">
+                {coveredAreas.map((item) => (
+                  <li key={item} className="flex items-start gap-2 rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+                    <span className="mt-1.5 h-2 w-2 rounded-full bg-primary" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button asChild>
+                  <Link to="/online-consultation">Book online consultation</Link>
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link to="/contact">Contact hospital reception</Link>
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link to="/doctors">Back to all doctors</Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="hidden md:sticky md:top-24 md:block">
+              <div className="overflow-hidden rounded-2xl border bg-gray-100 shadow-sm">
+                <img
+                  src={doctor.image}
+                  alt={`${doctor.name} profile`}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-[320px] w-full object-cover"
+                />
+              </div>
+              <p className="mt-3 text-center text-sm text-gray-500">Consultations at Eman Hospital, Multan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ReportsPage() {
   const [form, setForm] = useState({ name: "", id: "" });
   const [res, setRes] = useState(null);
@@ -1906,6 +2013,7 @@ export default function App() {
           <Route path="departments" element={<Departments />} />
           <Route path="departments/:deptName" element={<DepartmentDetailPage />} />
           <Route path="doctors" element={<DoctorsPage />} />
+          <Route path="doctors/:doctorKey" element={<DoctorProfilePage />} />
           <Route path="online-consultation" element={<OnlineConsultation doctors={doctors} onBookStart={trackEvent} />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="health-library" element={<HealthLibraryPage />} />
