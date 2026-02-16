@@ -764,9 +764,9 @@ const healthArticles = [
 const seoConfig = {
   "/": {
     title:
-      "Eman Hospital Multan | Best Hospital in Multan for Specialists, Surgery & Emergency Care",
+      "Eman Hospital Multan | Specialist & Emergency Care",
     description:
-      "Eman Hospital Multan provides specialist consultants, emergency support, surgery, diagnostics, lab tests, ultrasound, X-ray and online consultations for families across Multan and South Punjab.",
+      "Eman Hospital in Multan provides specialist consultants, emergency care, surgery, diagnostics, lab tests, ultrasound, X-ray and online consultations for families across South Punjab.",
     keywords:
       "Eman Hospital Multan, best hospital in Multan, private hospital in Multan, specialist doctors in Multan, emergency care Multan, surgery Multan, lab test Multan, ultrasound Multan, X-ray Multan",
     type: "website",
@@ -912,6 +912,8 @@ function DoctorsGrid({ list }) {
           <img
             src={d.image}
             alt={d.name}
+            loading="lazy"
+            decoding="async"
             className="mx-auto h-24 w-24 rounded-full object-cover shadow"
           />
           <h3 className="mt-4 text-center text-lg font-semibold text-primary">
@@ -953,6 +955,7 @@ function Layout() {
             <img
               src="/images/logo.png"
               alt="Eman Hospital logo"
+              decoding="async"
               className="h-8 w-8 object-contain"
             />
             EMAN HOSPITAL
@@ -1162,6 +1165,14 @@ function SeoManager() {
     setMeta("twitter:description", meta.description);
     setLink("canonical", canonicalUrl);
 
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "page_view", {
+        page_title: meta.title,
+        page_location: canonicalUrl,
+        page_path: routePath,
+      });
+    }
+
     const schema = {
       "@context": "https://schema.org",
       "@graph": [
@@ -1362,6 +1373,8 @@ function Home() {
             <img
               src={promoImages[promoIndex]}
               alt="Eman Hospital promotional offer"
+              loading="lazy"
+              decoding="async"
               className="h-auto max-h-[75vh] w-full object-contain sm:max-h-[80vh]"
             />
 
@@ -1392,10 +1405,10 @@ function Home() {
 
         <div className="relative z-10 mb-20 max-w-2xl px-4 text-center text-white">
           <h1 className="mb-4 text-4xl font-extrabold md:text-6xl">
-            Your Journey to Wellness Starts Here
+            Specialist Hospital Care in Multan
           </h1>
         <p className="text-lg md:text-xl">
-          Comprehensive healthcare services available&nbsp;24/7 in Multan.
+          Eman Hospital provides emergency care and specialist treatment 24/7.
         </p>
         </div>
       </section>
@@ -1437,6 +1450,8 @@ function Home() {
                 <img
                   src={s.image}
                   alt={s.name}
+                  loading="lazy"
+                  decoding="async"
                   className="h-24 w-24 object-contain"
                 />
 
@@ -1540,7 +1555,7 @@ function DepartmentDetailPage() {
         </div>
 
         <div className="overflow-hidden rounded-2xl shadow-lg">
-          <img src={details.departmentImage || details.image} alt={`${normalizedDept} department`} className="h-full min-h-[320px] w-full object-cover" />
+          <img src={details.departmentImage || details.image} alt={`${normalizedDept} department`} loading="lazy" decoding="async" className="h-full min-h-[320px] w-full object-cover" />
         </div>
       </div>
     </section>

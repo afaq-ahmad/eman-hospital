@@ -51,3 +51,13 @@ The frontend sends:
 - `fileBase64`
 
 These match the `doPost(e)` script contract used for writing to Google Sheet, uploading file to Drive, and sending admin email notifications.
+
+### Optional analytics (Google Analytics 4)
+
+To enable GA4 page tracking, set this in Cloudflare Pages environment variables:
+
+```bash
+VITE_GA_MEASUREMENT_ID="G-XXXXXXXXXX"
+```
+
+> The app auto-loads `gtag.js` only when the value is provided.
