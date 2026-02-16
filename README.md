@@ -61,3 +61,12 @@ VITE_GA_MEASUREMENT_ID="G-XXXXXXXXXX"
 ```
 
 > The app auto-loads `gtag.js` only when the value is provided.
+
+Tracked GA4 events:
+
+- `click_call` (contact phone click)
+- `click_whatsapp` (floating WhatsApp CTA)
+- `book_start` (doctor "Book Now" click)
+- `book_step_complete` (step 1 and step 2 progression)
+- `book_submit_success` (booking form submitted successfully)
+- `map_direction_click` ("Open directions in Google Maps")

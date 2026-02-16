@@ -10,6 +10,7 @@ import { CheckCircle2 } from 'lucide-react';
 import useConsultStore from '@/store/consultationStore';
 import { fileToBase64 } from '@/utils/fileToBase64';
 import { formatPakistanDateTime, toPakistanIsoString } from '@/utils/pakistanTime';
+import { trackEvent } from '@/utils/analytics';
 
 import PaymentStep   from './booking/PaymentStep';
 import DetailsStep   from './booking/DetailsStep';
@@ -132,6 +133,11 @@ export default function BookingDialog({ doctor, open, onClose }) {
         </div>
       ), { id: toastId, duration: 7000 });
 
+      trackEvent('book_submit_success', {
+        doctor_id: payload.doctorId,
+        doctor_name: payload.doctorName,
+      });
+
       /* ④ close the dialog AFTER toast swap so it’s visible --- */
       resetStep();
       methods.reset();
@@ -185,13 +191,25 @@ export default function BookingDialog({ doctor, open, onClose }) {
             <Dialog.Panel className="w-full max-w-lg sm:max-h-[90vh] overflow-hidden rounded-2xl bg-white p-6 shadow-xl">
               <FormProvider {...methods}>
                 {step === 1 && <DetailsStep doctor={doctor} />}
-                {step === 2 && <PaymentStep doctor={doctor} />}
+                {step === 2 && (
+                  <PaymentStep
+                    doctor={doctor}
+                    onStepComplete={() =>
+                      trackEvent('book_step_complete', {
+                        step_number: 2,
+                        step_name: 'payment_upload',
+                        doctor_id: doctor?.id || doctor?.key || doctor?.name,
+                        doctor_name: doctor?.name,
+                      })
+                    }
+                  />
+                )}
                 {step === 3 && (
-            <ReviewStep
-              doctor={doctor}
-              onSubmit={handleSubmit(submit)}
-              />
-          )}
+                  <ReviewStep
+                    doctor={doctor}
+                    onSubmit={handleSubmit(submit)}
+                  />
+                )}
               </FormProvider>
               </Dialog.Panel>
             </Transition.Child>

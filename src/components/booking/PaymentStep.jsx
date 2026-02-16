@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 const MAX_SIZE = 5 * 1024 * 1024;                 // 5 MB
 const ACCEPTED = '.jpg,.jpeg,.png,.pdf';
 
-export default function PaymentStep({ doctor }) {
+export default function PaymentStep({ doctor, onStepComplete }) {
   /* grab RHF helpers from context */
   const { control, watch, formState: { errors }, setError, clearErrors } = useFormContext();
   const { next, prev } = useConsultStore(s => ({ next: s.next, prev: s.prev }));
@@ -25,8 +25,11 @@ export default function PaymentStep({ doctor }) {
 
   /* ── auto‑advance when a valid slip exists ───────────────────────────*/
   useEffect(() => {
-    if (slip && !errors.slip) next();
-  }, [slip, errors.slip, next]);
+    if (slip && !errors.slip) {
+      onStepComplete?.();
+      next();
+    }
+  }, [slip, errors.slip, next, onStepComplete]);
 
   /* helper to copy a field and show a toast */
   const copy = txt => navigator.clipboard.writeText(txt)
@@ -108,8 +111,15 @@ Upload a clear screenshot/photo of your transfer receipt.`}
         <Button type="button" variant="outline" onClick={prev}>
           Back
         </Button>
-        <Button type="button" onClick={next} disabled={!slip || !!errors.slip}
-          className="disabled:opacity-40">
+        <Button
+          type="button"
+          onClick={() => {
+            onStepComplete?.();
+            next();
+          }}
+          disabled={!slip || !!errors.slip}
+          className="disabled:opacity-40"
+        >
           Next
         </Button>
       </div>
