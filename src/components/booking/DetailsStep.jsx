@@ -17,6 +17,7 @@ import {
   pakistanDateTimeToUtcDate,
   PAKISTAN_TIMEZONE,
 } from '@/utils/pakistanTime';
+import { trackEvent } from '@/utils/analytics';
 
 export default function DetailsStep({ control: ctlProp, doctor }) {
   // Support both “passed-in control” and context-based access
@@ -84,7 +85,16 @@ export default function DetailsStep({ control: ctlProp, doctor }) {
 
   const onContinue = async () => {
     const valid = await trigger(['name', 'phone', 'email', 'slot']);
-    if (valid) next();
+
+    if (valid) {
+      trackEvent('book_step_complete', {
+        step_number: 1,
+        step_name: 'patient_details',
+        doctor_id: doctor?.id || doctor?.key || doctor?.name,
+        doctor_name: doctor?.name,
+      });
+      next();
+    }
   };
 
   /* ─────── render ──────────────────────────────────────────── */

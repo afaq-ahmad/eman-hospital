@@ -25,6 +25,7 @@ import {
 import { Button } from "@/components/ui/button";
 import OnlineConsultation from '@/pages/OnlineConsultation';
 import OnlineConsultButton from '@/components/OnlineConsultButton';
+import { trackEvent } from '@/utils/analytics';
 
 /* -------------------------------------------------------------------
   Static Data
@@ -946,6 +947,13 @@ function Layout() {
   const whatsappUrl =
     "https://wa.me/923257105960?text=Assalam-o-Alaikum%20Eman%20Hospital%2C%20I%20need%20assistance.";
 
+  const onWhatsAppClick = () => {
+    trackEvent('click_whatsapp', {
+      source: 'floating_button',
+      destination: whatsappUrl,
+    });
+  };
+
   return (
     <>
       <header className="fixed top-0 z-30 w-full bg-white/80 backdrop-blur-md shadow-sm">
@@ -1098,6 +1106,7 @@ function Layout() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Eman Hospital on WhatsApp"
+        onClick={onWhatsAppClick}
         className="fixed bottom-4 right-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-[#1ebe5d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366] sm:bottom-5 sm:right-5 sm:h-14 sm:w-14 md:h-16 md:w-16"
       >
         <svg
@@ -1687,6 +1696,19 @@ function ReportsPage() {
 }
 
 function Contact() {
+  const onCallClick = (phone) => {
+    trackEvent('click_call', {
+      phone,
+      source: 'contact_page',
+    });
+  };
+
+  const onMapDirectionClick = () => {
+    trackEvent('map_direction_click', {
+      source: 'contact_page',
+    });
+  };
+
   return (
     <>
       {/* Contact info */}
@@ -1707,8 +1729,8 @@ function Contact() {
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="font-semibold text-primary">Phone</h3>
             <p className="mt-2 text-sm text-gray-700">
-              <a href="tel:+92616218623" className="hover:text-primary">061-6218623</a> /{" "}
-              <a href="tel:+923257105960" className="hover:text-primary">0325-7105960</a>
+              <a href="tel:+92616218623" className="hover:text-primary" onClick={() => onCallClick('+92616218623')}>061-6218623</a> /{" "}
+              <a href="tel:+923257105960" className="hover:text-primary" onClick={() => onCallClick('+923257105960')}>0325-7105960</a>
             </p>
           </div>
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
@@ -1748,6 +1770,7 @@ function Contact() {
                 target="_blank"
                 rel="noreferrer"
                 className="text-sm font-medium text-primary hover:underline"
+                onClick={onMapDirectionClick}
               >
                 Open directions in Google Maps
               </a>
@@ -2002,7 +2025,7 @@ export default function App() {
           <Route path="departments" element={<Departments />} />
           <Route path="departments/:deptName" element={<DepartmentDetailPage />} />
           <Route path="doctors" element={<DoctorsPage />} />
-          <Route path="online-consultation" element={<OnlineConsultation  doctors={doctors} />} />
+          <Route path="online-consultation" element={<OnlineConsultation doctors={doctors} onBookStart={trackEvent} />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="health-library" element={<HealthLibraryPage />} />
           <Route path="health-library/:slug" element={<HealthArticlePage />} />

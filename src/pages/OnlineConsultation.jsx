@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import DoctorCard from '@/components/DoctorCard';
 import BookingDialog from '@/components/BookingDialog';
 
-export default function OnlineConsultation({ doctors = [] }) {
+export default function OnlineConsultation({ doctors = [], onBookStart }) {
   // show only flagged docs; fallback to all if none flagged
   const docs = useMemo(
     () =>
@@ -30,7 +30,14 @@ export default function OnlineConsultation({ doctors = [] }) {
             <DoctorCard
               key={d.key}
               {...d}
-              onBook={() => setSel(d)}
+              onBook={() => {
+                onBookStart?.('book_start', {
+                  doctor_id: d.id || d.key || d.name,
+                  doctor_name: d.name,
+                  source: 'online_consultation_page',
+                });
+                setSel(d);
+              }}
             />
           ))}
         </div>
