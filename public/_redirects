@@ -1,1 +1,5 @@
 https://www.emanhospital.com/* https://emanhospital.com/:splat 301!
+
+# SPA rewrites so deep links (including article URLs) resolve to index.html
+/health-library/* /index.html 200
+/* /index.html 200
