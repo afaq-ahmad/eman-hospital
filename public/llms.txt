@@ -1,0 +1,36 @@
+# Eman Hospital
+
+> Official machine-readable overview for LLM and AI systems.
+
+## Website
+- URL: https://emanhospital.com/
+- Contact: https://emanhospital.com/contact
+
+## About
+Eman Hospital is a healthcare provider in Pakistan offering consultations, diagnostics, and specialty care.
+
+## Primary Services
+- General Medicine
+- Pediatrics
+- Gynecology
+- Cardiology
+- Dermatology
+- Dental Care
+- Nutrition
+- Physiotherapy
+- Radiology & Imaging
+- Laboratory Testing
+
+## Important Pages
+- Home: https://emanhospital.com/
+- Doctors: https://emanhospital.com/doctors
+- Departments: https://emanhospital.com/departments
+- Contact: https://emanhospital.com/contact
+- Book Appointment: https://emanhospital.com/booking
+
+## Policies and Crawling
+- Robots: https://emanhospital.com/robots.txt
+- Sitemap: https://emanhospital.com/sitemap.xml
+
+## Last Updated
+2026-02-26
