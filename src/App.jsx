@@ -645,6 +645,16 @@ const topConsultants = [
   },
 ];
 
+const MAX_META_DESCRIPTION_LENGTH = 160;
+
+function normalizeMetaDescription(text = "") {
+  const compactText = text.replace(/\s+/g, " ").trim();
+  if (compactText.length <= MAX_META_DESCRIPTION_LENGTH) {
+    return compactText;
+  }
+  return `${compactText.slice(0, MAX_META_DESCRIPTION_LENGTH - 1).trimEnd()}…`;
+}
+
 const seoConfig = {
   "/": {
     title:
@@ -1052,6 +1062,7 @@ function SeoManager() {
 
   React.useEffect(() => {
     document.title = meta.title;
+    const safeDescription = normalizeMetaDescription(meta.description);
 
     const setMeta = (name, content, attr = "name") => {
       let tag = document.querySelector(`meta[${attr}='${name}']`);
@@ -1073,15 +1084,15 @@ function SeoManager() {
       link.setAttribute("href", href);
     };
 
-    setMeta("description", meta.description);
+    setMeta("description", safeDescription);
     setMeta("keywords", meta.keywords || seoConfig["/"].keywords);
     setMeta("og:title", meta.title, "property");
-    setMeta("og:description", meta.description, "property");
+    setMeta("og:description", safeDescription, "property");
     setMeta("og:type", meta.type || "website", "property");
     setMeta("og:url", canonicalUrl, "property");
     setMeta("og:site_name", "Eman Hospital", "property");
     setMeta("twitter:title", meta.title);
-    setMeta("twitter:description", meta.description);
+    setMeta("twitter:description", safeDescription);
     setLink("canonical", canonicalUrl);
 
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
@@ -1142,7 +1153,7 @@ function SeoManager() {
         {
           "@type": "WebPage",
           name: meta.title,
-          description: meta.description,
+          description: safeDescription,
           url: canonicalUrl,
           inLanguage: "en-PK",
           isPartOf: {
@@ -1406,7 +1417,7 @@ function Departments() {
   return (
     <section className="bg-gray-50 py-20">
       <div className="mx-auto max-w-6xl px-6 text-center">
-        <h2 className="text-3xl font-bold md:text-4xl">Our Departments</h2>
+        <h1 className="text-3xl font-bold md:text-4xl">Our Departments</h1>
         <p className="mx-auto mt-4 max-w-2xl text-gray-600">
           Click a department to view its consultants.
         </p>
@@ -1492,7 +1503,12 @@ function DoctorsPage() {
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-20">
-      <h2 className="text-center text-3xl font-bold md:text-4xl">Our Doctors</h2>
+      <h1 className="text-center text-3xl font-bold md:text-4xl">Our Doctors</h1>
+      <p className="mx-auto mt-4 max-w-3xl text-center text-gray-700">
+        Explore Eman Hospital consultant profiles by specialty to find the right doctor for your
+        concern. Each profile includes department focus, covered areas, and consultation options so
+        you can quickly book in-person or online care.
+      </p>
 
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Button
@@ -1622,9 +1638,14 @@ function ReportsPage() {
 
   return (
     <section className="mx-auto max-w-3xl px-6 py-20">
-      <h2 className="mb-6 text-center text-3xl font-bold">
+      <h1 className="mb-4 text-center text-3xl font-bold">
         Find Your Medical Report
-      </h2>
+      </h1>
+      <p className="mb-6 text-center text-gray-700">
+        Enter your patient name and report ID to locate your latest hospital report. If you need
+        booking help, online consultation support, or directions to reception, use the quick links
+        below to continue your care journey without any dead ends.
+      </p>
 
       <form onSubmit={sub} className="flex flex-col gap-4 md:flex-row">
         <input
@@ -1685,6 +1706,18 @@ function ReportsPage() {
           )}
         </div>
       )}
+
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <Button variant="outline" asChild>
+          <Link to="/contact">Contact reception</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link to="/online-consultation">Book online consultation</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link to="/">Back to homepage</Link>
+        </Button>
+      </div>
     </section>
   );
 }
@@ -1707,7 +1740,7 @@ function Contact() {
     <>
       {/* Contact info */}
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-3xl font-bold md:text-4xl">Contact Us</h2>
+        <h1 className="text-3xl font-bold md:text-4xl">Contact Us</h1>
         <p className="mt-4 max-w-3xl text-gray-600">
           Eman Hospital is a trusted private healthcare center in Multan, offering specialist
           consultations, diagnostics, emergency support, surgical care, and patient-first service for
