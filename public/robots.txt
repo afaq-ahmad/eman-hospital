@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Host: emanhospital.com
 Sitemap: https://emanhospital.com/sitemap.xml
