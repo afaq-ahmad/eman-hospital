@@ -300,11 +300,15 @@ const doctors = [
     qualification: "MBBS, FCPS – Head of ENT (MMDC)",
     expertise: [
       "Hearing Loss",
+      "Tinnitus Evaluation",
+      "Vertigo & Balance Disorders",
       "Tonsillitis And Sore Throat",
-      "Sinus Infections",
+      "Sinus Infections & Allergic Rhinitis",
+      "Snoring & Sleep Apnea Assessment",
+      "Voice and Swallowing Disorders",
       "Cochlear Implants And Ear Surgeries",
-      "Sleep Apnea And Snoring Treatment",
       "Head & Neck Cancers",
+      "Neck Lump Assessment",
       "Tonsil & Adenoid Problems",
     ],
     image: "/images/ehsan.jpg",
@@ -2003,16 +2007,26 @@ function HealthArticlePage() {
   }
 
   return (
-    <article className="mx-auto max-w-4xl px-6 py-20">
+    <article className="mx-auto max-w-5xl px-6 py-20">
       <p className="text-xs font-semibold uppercase tracking-wide text-primary/80">
         {article.department} • Reviewed by {article.author} • {article.reviewedDate}
       </p>
       <h1 className="mt-3 text-3xl font-bold text-primary md:text-4xl">{article.title}</h1>
-      <p className="mt-4 text-gray-700">{article.excerpt}</p>
+      <p className="mt-4 max-w-3xl text-gray-700">{article.excerpt}</p>
 
-      <div className="mt-8 space-y-8">
+      {article.tags?.length ? (
+        <div className="mt-5 flex flex-wrap gap-2">
+          {article.tags.map((tag) => (
+            <span key={tag} className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="mt-8 space-y-5">
         {article.sections.map((section) => (
-          <section key={section.heading}>
+          <section key={section.heading} className="rounded-2xl border bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-gray-900">{section.heading}</h2>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-gray-700">
               {section.points.map((point) => (
@@ -2022,6 +2036,21 @@ function HealthArticlePage() {
           </section>
         ))}
       </div>
+
+      {article.references?.length ? (
+        <section className="mt-8 rounded-2xl border border-primary/20 bg-primary/5 p-6">
+          <h2 className="text-lg font-semibold text-gray-900">Sources</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-700">
+            {article.references.map((source) => (
+              <li key={source.url}>
+                <a className="text-primary underline-offset-2 hover:underline" href={source.url} target="_blank" rel="noreferrer">
+                  {source.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <div className="mt-10 rounded-xl border bg-gray-50 p-5 text-sm text-gray-700">
         <strong>Medical disclaimer:</strong> This article is educational and is not a substitute for
