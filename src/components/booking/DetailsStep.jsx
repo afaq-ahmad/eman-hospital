@@ -232,7 +232,7 @@ export default function DetailsStep({ doctor }) {
           <div className="flex items-start gap-3">
             <img
               className="h-14 w-14 rounded-full border-2 border-primary/20 object-cover"
-              src={doctor?.img}
+              src={doctor?.avatar || doctor?.image}
               alt={doctor?.name}
             />
             <div>
