@@ -20,6 +20,12 @@ import {
   X,
   FileText,
   FileDown,
+  Search,
+  Badge,
+  User,
+  CircleHelp,
+  ArrowUpRight,
+  Headset,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import OnlineConsultation from '@/pages/OnlineConsultation';
@@ -1660,86 +1666,138 @@ function ReportsPage() {
   };
 
   return (
-    <section className="mx-auto max-w-3xl px-6 py-20">
-      <h1 className="mb-4 text-center text-3xl font-bold">
-        Find Your Medical Report
-      </h1>
-      <p className="mb-6 text-center text-gray-700">
-        Enter your patient name and report ID to locate your latest hospital report. If you need
-        booking help, online consultation support, or directions to reception, use the quick links
-        below to continue your care journey without any dead ends.
-      </p>
-
-      <form onSubmit={sub} className="flex flex-col gap-4 md:flex-row">
-        <input
-          required
-          placeholder="Patient Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="flex-1 rounded border p-3 text-sm"
-        />
-        <input
-          required
-          placeholder="Report ID (e.g., EH-2025-001)"
-          value={form.id}
-          onChange={(e) => setForm({ ...form, id: e.target.value })}
-          className="flex-1 rounded border p-3 text-sm"
-        />
-        <Button type="submit" className="flex items-center gap-2">
-          <FileText size={18} />
-          Search
-        </Button>
-      </form>
-
-      {res && (
-        <div className="mt-10 rounded-xl bg-gray-50 p-6 shadow-sm">
-          {res.nf ? (
-            <p className="text-center text-red-600">No matching report.</p>
-          ) : (
-            <>
-              <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-primary">
-                <FileText />
-                Report Details
-              </h3>
-              <ul className="space-y-1 text-sm text-gray-700">
-                <li>
-                  <strong>ID:</strong> {res.id}
-                </li>
-                <li>
-                  <strong>Patient:</strong> {res.patient}
-                </li>
-                <li>
-                  <strong>Department:</strong> {res.department}
-                </li>
-                <li>
-                  <strong>Date:</strong> {res.date}
-                </li>
-              </ul>
-              <Button
-                asChild
-                size="sm"
-                className="mt-6 flex items-center gap-2"
-              >
-                <a href={res.file} download>
-                  <FileDown size={18} />
-                  Download PDF
-                </a>
-              </Button>
-            </>
-          )}
+    <section className="bg-gradient-to-b from-slate-50 to-white px-4 py-14 sm:px-6 lg:py-20">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
+        <div className="space-y-4 text-center">
+          <h1 className="text-4xl font-black tracking-tight text-slate-900 sm:text-5xl">Access Medical Reports</h1>
+          <p className="mx-auto max-w-3xl text-base text-slate-600 sm:text-lg">
+            Securely view and download your lab results, prescriptions, and medical history. Please
+            keep your patient receipt ready before searching.
+          </p>
         </div>
-      )}
 
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <Button variant="outline" asChild>
-          <Link to="/contact">Contact reception</Link>
-        </Button>
-        <Button variant="outline" asChild>
-          <Link to="/online-consultation">Book online consultation</Link>
-        </Button>
-        <Button variant="outline" asChild>
-          <Link to="/">Back to homepage</Link>
-        </Button>
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/70">
+          <div className="relative h-32 bg-gradient-to-r from-primary to-blue-500 px-8">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.25),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.22),transparent_38%)]" />
+            <div className="relative flex h-full items-center gap-3 text-white">
+              <FileText className="h-9 w-9" />
+              <p className="text-xl font-bold">Find Your Report</p>
+            </div>
+          </div>
+
+          <div className="grid gap-8 p-6 md:grid-cols-2 md:p-8 lg:p-10">
+            <form onSubmit={sub} className="space-y-5">
+              <label className="block space-y-2">
+                <span className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                  <Badge className="h-4 w-4 text-primary" />
+                  Report ID
+                </span>
+                <input
+                  required
+                  placeholder="e.g., EH-2025-001"
+                  value={form.id}
+                  onChange={(e) => setForm({ ...form, id: e.target.value })}
+                  className="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+              </label>
+              <label className="block space-y-2">
+                <span className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                  <User className="h-4 w-4 text-primary" />
+                  Patient Name
+                </span>
+                <input
+                  required
+                  placeholder="e.g., John Doe"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="h-12 w-full rounded-lg border border-slate-300 px-4 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+              </label>
+              <button
+                type="submit"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary text-sm font-semibold text-white shadow-md shadow-primary/25 transition-all hover:bg-blue-600 active:scale-[0.98]"
+              >
+                <Search className="h-4 w-4" />
+                Search Report
+              </button>
+            </form>
+
+            <div className="flex h-full flex-col rounded-xl border border-blue-100 bg-blue-50 p-6">
+              <div className="mb-4 flex items-center gap-2 text-primary">
+                <CircleHelp className="h-4 w-4" />
+                <p className="text-xs font-bold uppercase tracking-wide">Where to find details?</p>
+              </div>
+              <p className="mb-6 text-sm leading-relaxed text-slate-600">
+                Your Report ID is printed on the top right corner of the payment receipt shared
+                during your visit.
+              </p>
+              <div className="relative mx-auto mt-auto w-full max-w-[280px] rotate-1 rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-transform duration-300 hover:rotate-0">
+                <div className="mb-4 flex items-start justify-between border-b border-dashed border-slate-200 pb-2">
+                  <div className="h-8 w-8 rounded-full bg-slate-100" />
+                  <div className="space-y-1">
+                    <div className="h-2 w-16 rounded bg-slate-200" />
+                    <div className="ml-auto h-2 w-10 rounded bg-slate-100" />
+                  </div>
+                </div>
+                <div className="mb-4 space-y-2">
+                  <div className="h-2 w-full rounded bg-slate-100" />
+                  <div className="h-2 w-3/4 rounded bg-slate-100" />
+                </div>
+                <div className="absolute right-3 top-3 rounded bg-red-50 px-1 ring-2 ring-red-400 ring-offset-2">
+                  <span className="text-[10px] font-bold text-red-500">ID: EH-2025-001</span>
+                  <ArrowUpRight className="absolute -bottom-5 right-0 h-4 w-4 rotate-45 text-red-500" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {res && (
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-md">
+            {res.nf ? (
+              <p className="text-center font-medium text-red-600">No matching report found. Please confirm receipt details.</p>
+            ) : (
+              <>
+                <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-primary">
+                  <FileText className="h-5 w-5" />
+                  Report Details
+                </h3>
+                <ul className="grid gap-2 text-sm text-slate-700 sm:grid-cols-2">
+                  <li><strong>ID:</strong> {res.id}</li>
+                  <li><strong>Patient:</strong> {res.patient}</li>
+                  <li><strong>Department:</strong> {res.department}</li>
+                  <li><strong>Date:</strong> {res.date}</li>
+                </ul>
+                <Button asChild size="sm" className="mt-6 flex items-center gap-2">
+                  <a href={res.file} download>
+                    <FileDown size={18} />
+                    Download PDF
+                  </a>
+                </Button>
+              </>
+            )}
+          </div>
+        )}
+
+        <div className="text-center">
+          <p className="mb-2 text-slate-600">Can't find your report or lost your receipt?</p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 transition hover:underline"
+          >
+            <Headset className="h-4 w-4" />
+            Contact Support
+          </Link>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button variant="outline" asChild>
+            <Link to="/online-consultation">Book online consultation</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/">Back to homepage</Link>
+          </Button>
+        </div>
       </div>
     </section>
   );
