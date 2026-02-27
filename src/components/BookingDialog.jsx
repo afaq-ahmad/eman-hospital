@@ -188,7 +188,7 @@ export default function BookingDialog({ doctor, open, onClose }) {
             leaveTo="translate-y-8 opacity-0"
           >
             {/* keep Dialog.Panel first (so it receives the ref)! */}
-            <Dialog.Panel className="w-full max-w-lg sm:max-h-[90vh] overflow-hidden rounded-2xl bg-white p-6 shadow-xl">
+            <Dialog.Panel className="w-full max-w-5xl sm:max-h-[90vh] overflow-hidden rounded-2xl bg-white p-4 shadow-xl sm:p-6">
               <FormProvider {...methods}>
                 {step === 1 && <DetailsStep doctor={doctor} />}
                 {step === 2 && (
