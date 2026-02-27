@@ -650,6 +650,7 @@ const topConsultants = [
 ];
 
 const MAX_META_DESCRIPTION_LENGTH = 160;
+const DEFAULT_SOCIAL_IMAGE = `${SITE_URL}/images/logo.png`;
 
 function normalizeMetaDescription(text = "") {
   const compactText = text.replace(/\s+/g, " ").trim();
@@ -1063,6 +1064,7 @@ function SeoManager() {
       }
       : (seoConfig[pathKey] || seoConfig["/"]);
   const canonicalUrl = `${SITE_URL}${routePath}`;
+  const socialImage = DEFAULT_SOCIAL_IMAGE;
 
   React.useEffect(() => {
     document.title = meta.title;
@@ -1090,13 +1092,20 @@ function SeoManager() {
 
     setMeta("description", safeDescription);
     setMeta("keywords", meta.keywords || seoConfig["/"].keywords);
+    setMeta("robots", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
     setMeta("og:title", meta.title, "property");
     setMeta("og:description", safeDescription, "property");
     setMeta("og:type", meta.type || "website", "property");
     setMeta("og:url", canonicalUrl, "property");
     setMeta("og:site_name", "Eman Hospital", "property");
+    setMeta("og:locale", "en_PK", "property");
+    setMeta("og:image", socialImage, "property");
+    setMeta("og:image:alt", "Eman Hospital logo and branding", "property");
     setMeta("twitter:title", meta.title);
     setMeta("twitter:description", safeDescription);
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:image", socialImage);
+    setMeta("twitter:image:alt", "Eman Hospital logo and branding");
     setLink("canonical", canonicalUrl);
 
     if (typeof window !== "undefined" && typeof window.gtag === "function") {
@@ -1112,6 +1121,7 @@ function SeoManager() {
       "@graph": [
         {
           "@type": "MedicalClinic",
+          "@id": `${SITE_URL}/#medicalclinic`,
           name: "Eman Hospital",
           url: SITE_URL,
           telephone: "+92-61-6218623",
@@ -1155,15 +1165,24 @@ function SeoManager() {
           sameAs: SOCIAL_PROFILES,
         },
         {
+          "@type": "WebSite",
+          "@id": `${SITE_URL}/#website`,
+          name: "Eman Hospital",
+          url: SITE_URL,
+          inLanguage: "en-PK",
+          publisher: {
+            "@id": `${SITE_URL}/#medicalclinic`,
+          },
+        },
+        {
           "@type": "WebPage",
+          "@id": `${canonicalUrl}#webpage`,
           name: meta.title,
           description: safeDescription,
           url: canonicalUrl,
           inLanguage: "en-PK",
           isPartOf: {
-            "@type": "WebSite",
-            name: "Eman Hospital",
-            url: SITE_URL,
+            "@id": `${SITE_URL}/#website`,
           },
         },
       ],
