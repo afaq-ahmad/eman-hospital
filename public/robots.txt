@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /doctors?*
+
+Sitemap: https://emanhospital.com/sitemap.xml

@@ -2,7 +2,7 @@
 //  EMAN HOSPITAL – Full React SPA  (React 18 · react-router-dom v6 · Tailwind)
 // -----------------------------------------------------------------------------
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,6 +11,8 @@ import {
   Outlet,
   Navigate,
   useSearchParams,
+  useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import {
@@ -441,6 +443,9 @@ function BookingForm() {
 --------------------------------------------------------------------*/
 function Layout() {
   const [open, setOpen] = useState(false);
+
+  useSeoMeta();
+
   return (
     <>
       <header className="fixed top-0 z-30 w-full bg-white/80 backdrop-blur-md shadow-sm">
@@ -584,6 +589,68 @@ function Layout() {
   );
 }
 
+function useSeoMeta() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const siteOrigin = "https://emanhospital.com";
+    const routeMeta = {
+      "/": {
+        title: "Eman Hospital | Multan",
+        description:
+          "Eman Hospital in Multan offers expert doctors, diagnostics, and patient care services 24/7.",
+      },
+      "/departments": {
+        title: "Departments | Eman Hospital",
+        description: "Explore medical departments available at Eman Hospital.",
+      },
+      "/doctors": {
+        title: "Our Doctors | Eman Hospital",
+        description: "Browse consultants and specialists at Eman Hospital.",
+      },
+      "/online-consultation": {
+        title: "Online Consultation | Eman Hospital",
+        description: "Book online consultation with Eman Hospital doctors.",
+      },
+      "/reports": {
+        title: "Medical Reports | Eman Hospital",
+        description: "Find and download your medical reports from Eman Hospital.",
+      },
+      "/contact": {
+        title: "Contact Us | Eman Hospital",
+        description: "Contact Eman Hospital for appointments and support.",
+      },
+    };
+
+    const activeMeta = routeMeta[location.pathname] || routeMeta["/"];
+    const canonicalHref = `${siteOrigin}${location.pathname}`;
+    const shouldNoindex = location.pathname === "/doctors" && Boolean(location.search);
+
+    document.title = activeMeta.title;
+
+    const upsertMeta = (name, content) => {
+      let meta = document.querySelector(`meta[name=\"${name}\"]`);
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.setAttribute("name", name);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute("content", content);
+    };
+
+    upsertMeta("description", activeMeta.description);
+    upsertMeta("robots", shouldNoindex ? "noindex, follow" : "index, follow");
+
+    let canonical = document.querySelector("link[rel='canonical']");
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", canonicalHref);
+  }, [location.pathname, location.search]);
+}
+
 /* -------------------------------------------------------------------
   Pages
 --------------------------------------------------------------------*/
@@ -713,7 +780,8 @@ function Departments() {
           {departments.map((d) => (
             <Link
               key={d}
-              to={`/doctors?dept=${encodeURIComponent(d)}`}
+              to="/doctors"
+              state={{ dept: d }}
               className="rounded-xl bg-white p-6 text-sm font-medium shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
             >
               {d}
@@ -726,9 +794,30 @@ function Departments() {
 }
 
 function DoctorsPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [sp] = useSearchParams();
-  const initial = sp.get("dept") || "All";
-  const [selected, setSelected] = useState(initial);
+  const queryDept = sp.get("dept");
+  const stateDept = location.state?.dept;
+  const defaultDept =
+    (departments.includes(queryDept) && queryDept) ||
+    (departments.includes(stateDept) && stateDept) ||
+    "All";
+  const [selected, setSelected] = useState(defaultDept);
+
+  useEffect(() => {
+    setSelected(defaultDept);
+  }, [defaultDept]);
+
+  useEffect(() => {
+    if (!queryDept) return;
+
+    navigate("/doctors", {
+      replace: true,
+      state: departments.includes(queryDept) ? { dept: queryDept } : undefined,
+    });
+  }, [queryDept, navigate]);
+
   const filtered = useMemo(
     () => (selected === "All" ? doctors : doctors.filter((d) => d.department === selected)),
     [selected]
