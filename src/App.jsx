@@ -11,6 +11,7 @@ import {
   Outlet,
   Navigate,
   useSearchParams,
+  useLocation,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import {
@@ -62,7 +63,7 @@ const doctors = [
       "Head & Neck Cancers", 
       "Tonsil & Adenoid Problems",
     ],
-    image: "eman-hospital/images/ehsan.jpg",
+    image: "/eman-hospital/images/ehsan.jpg",
     online: true,
     fee: 2000,
   },
@@ -80,7 +81,7 @@ const doctors = [
       "Bladder Dysfunction",
       "Urinary Incontinence in Adults Infants & Newborns",
     ],
-    image: "eman-hospital/images/sarfaraz.jpg",
+    image: "/eman-hospital/images/sarfaraz.jpg",
     online: true,
     fee: 2000,
   },
@@ -327,6 +328,82 @@ const navLinks = [
   { name: "Contact", href: "/contact#booking" },
   { name: 'Online Consultation', href: '/online-consultation' },
 ];
+
+const SITE_URL = "https://emanhospital.com";
+
+function SeoManager() {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const basePath = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+    const normalizedPath =
+      basePath && basePath !== "/" && location.pathname.startsWith(basePath)
+        ? location.pathname.slice(basePath.length) || "/"
+        : location.pathname;
+
+    const hasDeptFilter = normalizedPath === "/doctors" && params.has("dept");
+    const canonicalPath = normalizedPath === "/doctors" ? "/doctors" : normalizedPath;
+    const canonicalHref = `${SITE_URL}${canonicalPath}`;
+
+    const pageMeta = {
+      "/": {
+        title: "Eman Hospital | Multan",
+        description:
+          "Eman Hospital in Multan offers specialist doctors, diagnostics, surgery, and online consultation services.",
+      },
+      "/departments": {
+        title: "Departments | Eman Hospital",
+        description:
+          "Explore Eman Hospital departments including cardiology, gynecology, ENT, nephrology, and more.",
+      },
+      "/doctors": {
+        title: "Doctors | Eman Hospital",
+        description:
+          "Meet Eman Hospital's specialist doctors and consultants across key medical departments in Multan.",
+      },
+      "/contact": {
+        title: "Contact & Appointments | Eman Hospital",
+        description:
+          "Contact Eman Hospital to book appointments, get support, and visit our facility in Multan.",
+      },
+      "/reports": {
+        title: "Medical Reports | Eman Hospital",
+        description: "Find and download your Eman Hospital medical reports.",
+      },
+      "/online-consultation": {
+        title: "Online Consultation | Eman Hospital",
+        description: "Book online doctor consultations with Eman Hospital specialists.",
+      },
+    };
+
+    const currentMeta = pageMeta[normalizedPath] || pageMeta["/"];
+    document.title = currentMeta.title;
+
+    const ensureMeta = (name) => {
+      let tag = document.head.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("name", name);
+        document.head.appendChild(tag);
+      }
+      return tag;
+    };
+
+    ensureMeta("description").setAttribute("content", currentMeta.description);
+    ensureMeta("robots").setAttribute("content", hasDeptFilter ? "noindex,follow" : "index,follow");
+
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", canonicalHref);
+  }, [location.pathname, location.search]);
+
+  return null;
+}
 
 /* -------------------------------------------------------------------
   Helper Components
@@ -590,9 +667,9 @@ function Layout() {
 function Home() {
   // ① list of background images
   const heroImages = [
-    "eman-hospital/images/hero/1.jpg",
-    "eman-hospital/images/hero/2.jpg",
-    "eman-hospital/images/hero/3.jpg",
+    "/eman-hospital/images/hero/1.jpg",
+    "/eman-hospital/images/hero/2.jpg",
+    "/eman-hospital/images/hero/3.jpg",
   ];
 
   // ② rotate every 5 s
@@ -914,7 +991,8 @@ function Contact() {
 --------------------------------------------------------------------*/
 export default function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
+      <SeoManager />
       <Toaster 
         position="top-center"  
         toastOptions={{
