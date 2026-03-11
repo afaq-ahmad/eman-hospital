@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Avoid crawling duplicate parameterized pages
+Disallow: /*?*
+
+Sitemap: https://emanhospital.com/sitemap.xml

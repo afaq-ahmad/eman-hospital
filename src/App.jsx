@@ -2,7 +2,7 @@
 //  EMAN HOSPITAL – Full React SPA  (React 18 · react-router-dom v6 · Tailwind)
 // -----------------------------------------------------------------------------
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,6 +11,9 @@ import {
   Outlet,
   Navigate,
   useSearchParams,
+  useParams,
+  useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import {
@@ -46,6 +49,17 @@ const departments = [
   "Ultrasound",
   "Lab Test",
 ];
+
+const BASE_URL = "https://emanhospital.com";
+const departmentSlugMap = Object.fromEntries(
+  departments.map((department) => [
+    department.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+    department,
+  ])
+);
+
+const getDepartmentSlug = (department) =>
+  department.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const doctors = [
   {
@@ -584,6 +598,43 @@ function Layout() {
   );
 }
 
+function SeoMeta() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname === "/" ? "/" : location.pathname.replace(/\/$/, "");
+    const canonicalUrl = `${BASE_URL}${path}`;
+
+    document.title =
+      path === "/"
+        ? "Eman Hospital | Multan"
+        : `Eman Hospital | ${path
+            .split("/")
+            .filter(Boolean)
+            .map((segment) => segment.replace(/-/g, " "))
+            .join(" · ")
+            .replace(/\b\w/g, (char) => char.toUpperCase())}`;
+
+    let canonicalTag = document.querySelector('link[rel="canonical"]');
+    if (!canonicalTag) {
+      canonicalTag = document.createElement("link");
+      canonicalTag.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalTag);
+    }
+    canonicalTag.setAttribute("href", canonicalUrl);
+
+    let robotsTag = document.querySelector('meta[name="robots"]');
+    if (!robotsTag) {
+      robotsTag = document.createElement("meta");
+      robotsTag.setAttribute("name", "robots");
+      document.head.appendChild(robotsTag);
+    }
+    robotsTag.setAttribute("content", "index,follow");
+  }, [location.pathname]);
+
+  return null;
+}
+
 /* -------------------------------------------------------------------
   Pages
 --------------------------------------------------------------------*/
@@ -713,7 +764,7 @@ function Departments() {
           {departments.map((d) => (
             <Link
               key={d}
-              to={`/doctors?dept=${encodeURIComponent(d)}`}
+              to={`/doctors/${getDepartmentSlug(d)}`}
               className="rounded-xl bg-white p-6 text-sm font-medium shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
             >
               {d}
@@ -726,13 +777,47 @@ function Departments() {
 }
 
 function DoctorsPage() {
-  const [sp] = useSearchParams();
-  const initial = sp.get("dept") || "All";
-  const [selected, setSelected] = useState(initial);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { deptSlug } = useParams();
+  const selected = deptSlug ? departmentSlugMap[deptSlug] : "All";
+
+  useEffect(() => {
+    const deptParam = searchParams.get("dept");
+    if (deptSlug || !deptParam) {
+      return;
+    }
+
+    const matchedDepartment = departments.find(
+      (department) => department.toLowerCase() === deptParam.toLowerCase()
+    );
+
+    if (!matchedDepartment) {
+      navigate("/doctors", { replace: true });
+      return;
+    }
+
+    navigate(`/doctors/${getDepartmentSlug(matchedDepartment)}`, { replace: true });
+  }, [deptSlug, navigate, searchParams]);
+
+  useEffect(() => {
+    if (deptSlug && !selected) {
+      navigate("/doctors", { replace: true });
+    }
+  }, [deptSlug, selected, navigate]);
+
   const filtered = useMemo(
     () => (selected === "All" ? doctors : doctors.filter((d) => d.department === selected)),
     [selected]
   );
+
+  const selectDepartment = (department) => {
+    if (department === "All") {
+      navigate("/doctors");
+      return;
+    }
+    navigate(`/doctors/${getDepartmentSlug(department)}`);
+  };
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-20">
@@ -742,7 +827,7 @@ function DoctorsPage() {
         <Button
           size="sm"
           variant={selected === "All" ? "default" : "outline"}
-          onClick={() => setSelected("All")}
+          onClick={() => selectDepartment("All")}
         >
           All
         </Button>
@@ -751,7 +836,7 @@ function DoctorsPage() {
             key={d}
             size="sm"
             variant={selected === d ? "default" : "outline"}
-            onClick={() => setSelected(d)}
+            onClick={() => selectDepartment(d)}
           >
             {d}
           </Button>
@@ -915,6 +1000,7 @@ function Contact() {
 export default function App() {
   return (
     <Router>
+      <SeoMeta />
       <Toaster 
         position="top-center"  
         toastOptions={{
@@ -927,6 +1013,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="departments" element={<Departments />} />
           <Route path="doctors" element={<DoctorsPage />} />
+          <Route path="doctors/:deptSlug" element={<DoctorsPage />} />
           <Route path="online-consultation" element={<OnlineConsultation  doctors={doctors} />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="contact" element={<Contact />} />
