@@ -2,7 +2,7 @@
 //  EMAN HOSPITAL – Full React SPA  (React 18 · react-router-dom v6 · Tailwind)
 // -----------------------------------------------------------------------------
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,6 +10,7 @@ import {
   Link,
   Outlet,
   Navigate,
+  useLocation,
   useSearchParams,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -327,6 +328,75 @@ const navLinks = [
   { name: "Contact", href: "/contact#booking" },
   { name: 'Online Consultation', href: '/online-consultation' },
 ];
+
+const SITE_URL = "https://emanhospital.com";
+
+function upsertMeta(name, content) {
+  let meta = document.querySelector(`meta[name="${name}"]`);
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute("name", name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", content);
+}
+
+function setCanonical(path) {
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.setAttribute("rel", "canonical");
+    document.head.appendChild(canonical);
+  }
+  canonical.setAttribute("href", `${SITE_URL}${path}`);
+}
+
+function SeoManager() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const pageMeta = {
+      "/": {
+        title: "Eman Hospital | Consultants, Diagnostics & Patient Care",
+        description:
+          "Eman Hospital offers specialist consultants, diagnostics, online consultations, and trusted patient care in Pakistan.",
+      },
+      "/departments": {
+        title: "Departments | Eman Hospital",
+        description:
+          "Explore all medical departments at Eman Hospital including cardiology, gynecology, pediatrics, ENT, and more.",
+      },
+      "/doctors": {
+        title: "Our Doctors | Eman Hospital",
+        description:
+          "Browse Eman Hospital's qualified consultants across all specialties and book your appointment.",
+      },
+      "/online-consultation": {
+        title: "Online Consultation | Eman Hospital",
+        description:
+          "Book secure online consultations with Eman Hospital consultants from home.",
+      },
+      "/reports": {
+        title: "Medical Reports | Eman Hospital",
+        description:
+          "Find and view your medical report details from Eman Hospital.",
+      },
+      "/contact": {
+        title: "Contact Us | Eman Hospital",
+        description:
+          "Contact Eman Hospital for appointments, support, and general inquiries.",
+      },
+    };
+
+    const current = pageMeta[location.pathname] || pageMeta["/"];
+    document.title = current.title;
+    upsertMeta("description", current.description);
+    upsertMeta("robots", "index,follow");
+    setCanonical(location.pathname);
+  }, [location.pathname]);
+
+  return null;
+}
 
 /* -------------------------------------------------------------------
   Helper Components
@@ -726,9 +796,32 @@ function Departments() {
 }
 
 function DoctorsPage() {
-  const [sp] = useSearchParams();
+  const [sp, setSp] = useSearchParams();
   const initial = sp.get("dept") || "All";
   const [selected, setSelected] = useState(initial);
+  const isValidDepartment = selected === "All" || departments.includes(selected);
+
+  useEffect(() => {
+    if (!isValidDepartment) {
+      setSelected("All");
+      setSp({}, { replace: true });
+      return;
+    }
+
+    if (selected === "All") {
+      setSp({}, { replace: true });
+      upsertMeta("robots", "index,follow");
+      setCanonical("/doctors");
+      document.title = "Our Doctors | Eman Hospital";
+      return;
+    }
+
+    setSp({ dept: selected }, { replace: true });
+    upsertMeta("robots", "noindex,follow");
+    setCanonical("/doctors");
+    document.title = `${selected} Doctors | Eman Hospital`;
+  }, [isValidDepartment, selected, setSp]);
+
   const filtered = useMemo(
     () => (selected === "All" ? doctors : doctors.filter((d) => d.department === selected)),
     [selected]
@@ -915,6 +1008,7 @@ function Contact() {
 export default function App() {
   return (
     <Router>
+      <SeoManager />
       <Toaster 
         position="top-center"  
         toastOptions={{
