@@ -861,7 +861,7 @@ function DoctorsGrid({ list }) {
 function Layout() {
   const [open, setOpen] = useState(false);
   const whatsappUrl =
-    "https://wa.me/923257105960?text=Assalam-o-Alaikum%20Eman%20Hospital%2C%20I%20need%20assistance.";
+    "https://wa.me/923088705699?text=Assalam-o-Alaikum%20Eman%20Hospital%2C%20I%20need%20assistance.";
 
   const onWhatsAppClick = () => {
     trackEvent('click_whatsapp', {
@@ -1837,8 +1837,8 @@ function Contact() {
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="font-semibold text-primary">Phone</h3>
             <p className="mt-2 text-sm text-gray-700">
-              <a href="tel:+923088705699" className="hover:text-primary" onClick={() => onCallClick('+92616218623')}>0308-8705699</a> /{" "}
-              <a href="tel:+923088705699" className="hover:text-primary" onClick={() => onCallClick('+923257105960')}>0308-8705699</a>
+              <a href="tel:+923088705699" className="hover:text-primary" onClick={() => onCallClick('+923088705699')}>0308-8705699</a> /{" "}
+              <a href="tel:+923088705699" className="hover:text-primary" onClick={() => onCallClick('+923088705699')}>0308-8705699</a>
             </p>
           </div>
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
