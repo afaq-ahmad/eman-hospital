@@ -91,7 +91,7 @@ export const healthArticles = [
         heading: "Book your consultation in Multan",
         points: [
           "Eman Hospital, Street #10, Zakriya Town, Bosan Road, Multan.",
-          "For bookings and guidance, call 061-6218623 or 0325-7105960.",
+          "For bookings and guidance, call 0308-8705699.",
           "A consultation-first approach helps align treatment choice with your skin biology, goals, and medical history.",
         ],
       },
