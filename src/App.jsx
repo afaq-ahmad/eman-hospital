@@ -956,7 +956,7 @@ function Layout() {
           <div>
             <h3 className="text-lg font-semibold text-white">EMAN HOSPITAL</h3>
             <p className="mt-4 text-sm">Near Street No. 10, Zakriya Town, Multan 60000, Pakistan</p>
-            <p className="mt-2 text-sm">061-6218623 | 0325-7105960</p>
+            <p className="mt-2 text-sm">0308-8705699</p>
           </div>
 
           <div>
@@ -1837,8 +1837,8 @@ function Contact() {
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
             <h3 className="font-semibold text-primary">Phone</h3>
             <p className="mt-2 text-sm text-gray-700">
-              <a href="tel:+92616218623" className="hover:text-primary" onClick={() => onCallClick('+92616218623')}>061-6218623</a> /{" "}
-              <a href="tel:+923257105960" className="hover:text-primary" onClick={() => onCallClick('+923257105960')}>0325-7105960</a>
+              <a href="tel:+923088705699" className="hover:text-primary" onClick={() => onCallClick('+92616218623')}>0308-8705699</a> /{" "}
+              <a href="tel:+923088705699" className="hover:text-primary" onClick={() => onCallClick('+923257105960')}>0308-8705699</a>
             </p>
           </div>
           <div className="rounded-2xl bg-gray-50 p-6 shadow-sm">
